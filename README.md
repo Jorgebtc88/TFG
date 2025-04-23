@@ -30,4 +30,3 @@ Este proyecto es una tienda de comercio electrónico que permite gestionar produ
 - Gestión de pedidos con seguimiento en tiempo real.  
 
 Este proyecto permite la gestión de productos y categorías, proporcionando una experiencia rápida y fluida para los usuarios.
-
