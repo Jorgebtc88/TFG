@@ -1,8 +1,14 @@
 #root {
-  max-width: 1280px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+.container {
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  padding: 1rem;
 }
 
 .logo {
@@ -34,9 +40,30 @@
 }
 
 .card {
-  padding: 2em;
+  height: 100%;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
+
+.form-control {
+  margin-bottom: 1rem;
 }
 
 .read-the-docs {
   color: #888;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0.5rem;
+  }
 }
