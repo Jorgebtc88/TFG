@@ -1,0 +1,99 @@
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 550px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-bottom: rem;
+}
+
+.hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  z-index: 1;
+  filter: brightness(0.7);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+  text-align: left;
+  max-width: 600px;
+  margin-left: 5vw;
+}
+
+.hero-content h1 {
+  font-size: 2.8rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  line-height: 1.1;
+}
+
+.hero-btn {
+  background: #e26d4a;
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  padding: 0.9rem 2.2rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.hero-btn:hover {
+  background: #c95a36;
+}
+
+.hero-link {
+  position: absolute;
+  top: 44%;
+  padding: 0.25rem 0.8rem;
+  background: rgba(34, 34, 34, 0.45);
+  color: #f5efe6;
+  border-radius: 16px;
+  font-size: 0.95rem;
+  font-weight: 400;
+  text-decoration: none;
+  z-index: 3;
+  transition: background 0.2s, color 0.2s, opacity 0.2s;
+  box-shadow: none;
+  opacity: 0.85;
+}
+
+
+.hero-link-hombres {
+  left: 40%;
+  top: 65%;
+}
+
+.hero-link-mujeres {
+  right: 33%;
+  top: 65%;
+}
+
+@media (max-width: 700px) {
+  .hero-section {
+    height: 220px;
+  }
+  .hero-content h1 {
+    font-size: 1.5rem;
+  }
+  .hero-content {
+    margin-left: 2vw;
+    max-width: 90vw;
+  }
+  .hero-btn {
+    font-size: 1rem;
+    padding: 0.7rem 1.5rem;
+  }
+} 

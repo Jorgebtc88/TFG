@@ -1,28 +1,18 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-import ProductList from './ProductList';
+import Header from './Header';
+import Hero from './Hero';
+import Footer from './Footer';
+import Newsletter from './Newsletter';
 
 function App() {
-const [Producto, setProducto] = useState([]);
-
-useEffect(() => {
-  fetch ('http://localhost:8080/api/products')
-  .then((response) => response.json())
-  .then(data => setProducto(data));
-  },[]);  
-return (
-<div className="container">
-<div>
-{Producto.length ? (
- //Display the products
- <ProductList Producto={Producto} />
-
- 
-): (
-  <p>No Products Found</p>
-)}
-</div>
-</div>  
-)
+  return (
+    <>
+      <Header />
+      <Hero />
+      <Newsletter />
+      <Footer />
+    </>
+  )
 }
 export default App

@@ -1,0 +1,124 @@
+.main-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  height: 70px;
+}
+
+.nav-left {
+  flex: 1;
+}
+
+.nav-left ul {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  height: 100%;
+}
+
+.nav-left li {
+  font-size: 1.1rem;
+  color: #444;
+  cursor: pointer;
+  font-weight: 500;
+  transition: color 0.2s;
+  padding: 0.5rem 0;
+}
+
+.nav-left li:hover {
+  color: #e26d4a;
+}
+
+.nav-left li.active {
+  color: #e26d4a;
+  font-weight: 700;
+  border-bottom: 2px solid #e26d4a;
+
+}
+
+.logo-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-text {
+  font-size: 1.7rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #222;
+}
+
+.nav-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  padding: 0.4rem;
+  cursor: pointer;
+  color: #444;
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+.icon-btn:hover {
+  color: #e26d4a;
+}
+
+.login-btn {
+  background: #e26d4a;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 0.5rem 1.2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-left: 0.5rem;
+}
+
+.login-btn:hover {
+  background: #c95a36;
+}
+
+@media (max-width: 900px) {
+  .main-header {
+    flex-direction: column;
+    height: auto;
+    padding: 1rem;
+  }
+  .nav-left ul {
+    gap: 1rem;
+  }
+  .logo-center {
+    margin: 0.5rem 0;
+  }
+  .nav-right {
+    gap: 0.5rem;
+  }
+}
+
+/* Ajusta el padding superior del contenido principal para que no quede oculto bajo el header fijo */
+.app-container {
+  padding-top: 90px;
+} 
