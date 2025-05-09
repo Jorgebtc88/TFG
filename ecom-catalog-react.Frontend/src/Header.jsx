@@ -16,10 +16,18 @@ const Header = () => {
       {/* Menú de navegación izquierdo */}
       <nav className="nav-left">
         <ul>
-          <li><Link to="/" className="nav-link">Inicio</Link></li>
-          <li><Link to="/hombres" className="nav-link">Hombres</Link></li>
-          <li><Link to="/mujeres" className="nav-link">Mujeres</Link></li>
-          <li><Link to="/coleccion" className="nav-link">Colección</Link></li>
+          <li>
+            <Link to="/" className="nav-link home-link">Inicio</Link>
+          </li>
+          <li>
+            <Link to="/mujeres" className="nav-link">Mujeres</Link>
+          </li>
+          <li>
+            <Link to="/hombres" className="nav-link">Hombres</Link>
+          </li>
+          <li>
+            <Link to="/coleccion" className="nav-link">Colección</Link>
+          </li>
         </ul>
       </nav>
 
