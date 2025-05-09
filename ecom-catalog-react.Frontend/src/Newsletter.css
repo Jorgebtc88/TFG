@@ -42,7 +42,7 @@
 
 .newsletter-form button {
   padding: 12px 24px;
-  background: #807878;
+  background: #8e99a8;
   color: #fff;
   border: none;
   border-radius: 6px;
@@ -52,7 +52,7 @@
 }
 
 .newsletter-form button:hover {
-  background: #8b929b;
+  background: #4278c9;
 }
 
 .newsletter-success {

@@ -1,0 +1,137 @@
+/* Contenedor principal del formulario de login */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 70px);
+  padding: 2rem;
+  padding-top: 90px;
+  background-color: #f8f9fa;
+}
+
+/* Caja que contiene el formulario de login */
+.login-box {
+  background: rgb(245, 242, 242);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(88, 84, 84, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Título del formulario */
+.login-box h2 {
+  text-align: center;
+  color: #272424;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+}
+
+/* Contenedor del formulario */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+/* Grupo de campos del formulario */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Etiquetas de los campos */
+.form-group label {
+  color: #494646;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+/* Campos de entrada */
+.form-group input {
+  padding: 0.8rem;
+  border: 1.5px solid #d6aa95;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background-color: #f5ebeb !important;
+  color: #272424;
+}
+
+/* Estilo del placeholder */
+.form-group input::placeholder {
+  color: #8b8888;
+}
+
+/* Estilo cuando el campo está enfocado */
+.form-group input:focus {
+  border-color: #f3edeb;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(167, 157, 154, 0.1);
+  background-color: #ebe1e1 !important;
+}
+
+/* Botón de inicio de sesión */
+.login-submit-btn {
+  background: #da8366;
+  color: rgb(247, 232, 232);
+  border: none;
+  border-radius: 8px;
+  padding: 0.8rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 0.5rem;
+}
+
+/* Contenedor del enlace de recuperación de contraseña */
+.forgot-password {
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+/* Estilo del enlace de recuperación de contraseña */
+.forgot-password a {
+  color: #5c5757;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Efecto hover en el enlace de recuperación de contraseña */
+.forgot-password a:hover {
+  text-decoration: underline;
+  color: #c74525;
+}
+
+/* Contenedor del footer del login */
+.login-footer {
+  text-align: center;
+  margin-top: 0.8rem;
+  color: #242020;
+}
+
+/* Estilo del enlace de registro */
+.login-footer a {
+  color: #c74525;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* Efecto hover en el enlace de registro */
+.login-footer a:hover {
+  text-decoration: underline;
+}
+
+/* Estilos responsivos para dispositivos móviles */
+@media (max-width: 480px) {
+  .login-box {
+    padding: 1.5rem;
+  }
+  
+  .login-box h2 {
+    font-size: 1.5rem;
+  }
+} 

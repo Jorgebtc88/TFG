@@ -43,8 +43,20 @@
 .nav-left li.active {
   color: #e26d4a;
   font-weight: 700;
-  border-bottom: 2px solid #e26d4a;
+}
 
+/* Estilos específicos para el enlace de inicio */
+.nav-left li .nav-link {
+  color: hsl(17, 7%, 21%);
+  font-weight: 500;
+  text-decoration: none;
+  padding: 0.5rem 0;
+  display: block;
+  border: none;
+}
+
+.nav-left li .nav-link:hover {
+  color: #e26d4a;
 }
 
 .logo-center {
@@ -54,11 +66,38 @@
   align-items: center;
 }
 
+.logo-link {
+  text-decoration: none;
+  border: none;
+  display: inline-block;
+  cursor: pointer;
+}
+
 .logo-text {
   font-size: 1.7rem;
   font-weight: 800;
   letter-spacing: 2px;
   color: #222;
+  text-decoration: none;
+  border: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.logo-link:hover .logo-text {
+  animation: scale 0.5s ease;
+}
+
+@keyframes scale {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .nav-right {
