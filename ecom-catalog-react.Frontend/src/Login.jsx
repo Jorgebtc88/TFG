@@ -53,7 +53,7 @@ const Login = () => {
               value={formData.email}
               onChange={handleChange}
               required
-              placeholder="Tu email"
+              placeholder="ejemplo@correo.com"
             />
           </div>
           {/* Campo de contraseña */}
@@ -66,10 +66,15 @@ const Login = () => {
               value={formData.password}
               onChange={handleChange}
               required
-              placeholder="Tu contraseña"
+              placeholder="Ingresa tu contraseña"
             />
           </div>
+          {/* Botón de inicio de sesión */}
           <button type="submit" className="login-submit-btn">Iniciar Sesión</button>
+          {/* Enlace para recuperar contraseña */}
+          <div className="forgot-password">
+            <a href="/recuperar-contrasena">¿Olvidaste tu contraseña?</a>
+          </div>
         </form>
         {/* Enlace para registro de nuevos usuarios */}
         <div className="login-footer">
@@ -80,4 +85,4 @@ const Login = () => {
   );
 };
 
-export default Login; 
+export default Login;
