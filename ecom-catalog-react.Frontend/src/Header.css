@@ -59,6 +59,15 @@
   color: #e26d4a;
 }
 
+/* Estilo específico para el botón de inicio */
+.nav-left li .nav-link.home-link {
+  color: #e26d4a;
+}
+
+.nav-left li .nav-link.home-link:hover {
+  color: #e26d4a;
+}
+
 .logo-center {
   flex: 1;
   display: flex;
