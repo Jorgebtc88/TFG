@@ -1,0 +1,143 @@
+.devoluciones-bg {
+  min-height: 100vh;
+  width: 100vw;
+  background: url('./assets/devoluciones.png') center center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.devoluciones-form-container {
+  background: #fff;
+  border-radius: 2rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  max-width: 400px;
+  width: 100%;
+  padding: 2.5rem 2rem 2rem 2rem;
+  margin: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.devoluciones-logo {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #2d2d2d;
+  margin-bottom: 0.2rem;
+  letter-spacing: 1px;
+}
+
+.brand-dot {
+  color: #e26d4a;
+}
+
+.devoluciones-title {
+  font-size: 1.1rem;
+  color: #888;
+  font-weight: 600;
+  margin-bottom: 1.2rem;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+.devoluciones-desc {
+  color: #222;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.devoluciones-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  background: #f5f5f5;
+  border-radius: 8px;
+  padding: 0.7rem 1rem;
+  margin-bottom: 0.2rem;
+}
+
+.input-icon {
+  font-size: 1.2rem;
+  color: #bbb;
+  margin-right: 0.7rem;
+}
+
+.devoluciones-input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 1rem;
+  color: #222;
+  width: 100%;
+  padding: 0.3rem 0;
+}
+
+.devoluciones-input::placeholder {
+  color: #bbb;
+  opacity: 1;
+}
+
+.devoluciones-error {
+  color: #e26d4a;
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.devoluciones-legal {
+  font-size: 0.85rem;
+  color: #888;
+  margin-bottom: 0.7rem;
+  text-align: center;
+}
+
+.devoluciones-legal a {
+  color: #e26d4a;
+  text-decoration: underline;
+}
+
+.devoluciones-btn {
+  width: 100%;
+  background: #888;
+  color: #fff;
+  border: none;
+  border-radius: 2rem;
+  padding: 0.9rem 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.devoluciones-btn:hover {
+  background: #e26d4a;
+}
+
+.devoluciones-powered {
+  margin-top: 1.7rem;
+  font-size: 0.95rem;
+  color: #aaa;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+@media (max-width: 600px) {
+  .devoluciones-form-container {
+    max-width: 95vw;
+    padding: 1.2rem 0.5rem 1.5rem 0.5rem;
+  }
+  .devoluciones-bg {
+    padding: 1rem 0;
+  }
+} 

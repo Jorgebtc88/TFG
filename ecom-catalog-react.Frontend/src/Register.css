@@ -1,5 +1,5 @@
-/* Contenedor principal del formulario de login */
-.login-container {
+/* Contenedor principal del formulario de registro */
+.register-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,25 +9,26 @@
   background-color: #f8f9fa;
 }
 
-/* Caja que contiene el formulario de login */
-.login-box {
-  background: white;
-  padding: 40px;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+/* Caja que contiene el formulario de registro */
+.register-box {
+  background: rgb(245, 242, 242);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(88, 84, 84, 0.1);
   width: 100%;
   max-width: 400px;
 }
 
 /* Título del formulario */
-.login-box h2 {
+.register-box h2 {
   text-align: center;
-  margin-bottom: 30px;
-  color: #333;
+  color: #272424;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
 }
 
 /* Contenedor del formulario */
-.login-form {
+.register-form {
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
@@ -35,7 +36,9 @@
 
 /* Grupo de campos del formulario */
 .form-group {
-  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 /* Etiquetas de los campos */
@@ -47,12 +50,13 @@
 
 /* Campos de entrada */
 .form-group input {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 16px;
-  transition: border-color 0.3s ease;
+  padding: 0.8rem;
+  border: 1.5px solid #d6aa95;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background-color: #f5ebeb !important;
+  color: #272424;
 }
 
 /* Estilo del placeholder */
@@ -62,12 +66,26 @@
 
 /* Estilo cuando el campo está enfocado */
 .form-group input:focus {
-  border-color: #f15b2d;
+  border-color: #f3edeb;
   outline: none;
+  box-shadow: 0 0 0 3px rgba(167, 157, 154, 0.1);
+  background-color: #ebe1e1 !important;
 }
 
-/* Botón de inicio de sesión */
-.login-submit-btn {
+/* Estilo para campos con error */
+.form-group input.error {
+  border-color: #e26d4a;
+}
+
+/* Mensaje de error */
+.error-message {
+  color: #e26d4a;
+  font-size: 0.85rem;
+  margin-top: 0.2rem;
+}
+
+/* Botón de registro */
+.register-submit-btn {
   background: #da8366;
   color: rgb(247, 232, 232);
   border: none;
@@ -80,52 +98,32 @@
   margin-top: 0.5rem;
 }
 
-/* Contenedor del enlace de recuperación de contraseña */
-.forgot-password {
+/* Contenedor del footer del registro */
+.register-footer {
   text-align: center;
-  margin-top: 0.5rem;
-}
-
-/* Estilo del enlace de recuperación de contraseña */
-.forgot-password a {
-  color: #5c5757;
-  text-decoration: none;
-  font-size: 0.9rem;
-  font-weight: 500;
-}
-
-/* Efecto hover en el enlace de recuperación de contraseña */
-.forgot-password a:hover {
-  text-decoration: underline;
-  color: #c74525;
-}
-
-/* Contenedor del footer del login */
-.login-footer {
-  text-align: center;
-  margin-top: 0.8rem;
+  margin-top: 1.5rem;
   color: #242020;
 }
 
-/* Estilo del enlace de registro */
-.login-footer a {
+/* Estilo del enlace de inicio de sesión */
+.register-footer a {
   color: #c74525;
   text-decoration: none;
   font-weight: 500;
 }
 
-/* Efecto hover en el enlace de registro */
-.login-footer a:hover {
+/* Efecto hover en el enlace de inicio de sesión */
+.register-footer a:hover {
   text-decoration: underline;
 }
 
 /* Estilos responsivos para dispositivos móviles */
 @media (max-width: 480px) {
-  .login-box {
+  .register-box {
     padding: 1.5rem;
   }
   
-  .login-box h2 {
+  .register-box h2 {
     font-size: 1.5rem;
   }
 } 

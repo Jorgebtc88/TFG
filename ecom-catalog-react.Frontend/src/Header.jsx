@@ -8,9 +8,12 @@
  */
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useCart } from './context/CartContext';
 import './Header.css';
 
-const Header = () => {
+const Header = ({ onCartClick }) => {
+  const { totalItems } = useCart();
+
   return (
     <header className="main-header">
       {/* Menú de navegación izquierdo */}
@@ -47,9 +50,12 @@ const Header = () => {
         </button>
 
         {/* Botón del carrito */}
-        <button className="icon-btn" aria-label="Carrito">
+        <button onClick={onCartClick} className="icon-btn cart-link" aria-label="Carrito">
           {/* Carrito SVG */}
           <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          {totalItems > 0 && (
+            <span className="cart-count">{totalItems}</span>
+          )}
         </button>
 
         {/* Botón de inicio de sesión */}

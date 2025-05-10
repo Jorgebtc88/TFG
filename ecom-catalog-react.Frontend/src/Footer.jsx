@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Footer.css';
 
 const Footer = () => (
@@ -9,7 +10,7 @@ const Footer = () => (
           <li>Ayuda</li>
           <li>FAQ</li>
           <li>Envíos</li>
-          <li>Devoluciones</li>
+          <li><Link to="/devoluciones" style={{color: 'inherit', textDecoration: 'none'}}>Devoluciones</Link></li>
         </ul>
       </div>
       <div className="footer-section">

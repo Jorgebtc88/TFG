@@ -7,6 +7,7 @@
  * @component
  */
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './Login.css';
 
 const Login = () => {
@@ -78,7 +79,7 @@ const Login = () => {
         </form>
         {/* Enlace para registro de nuevos usuarios */}
         <div className="login-footer">
-          <p>¿No tienes una cuenta? <a href="/registro">Regístrate</a></p>
+          <p>¿No tienes una cuenta? <Link to="/registro">Regístrate</Link></p>
         </div>
       </div>
     </div>

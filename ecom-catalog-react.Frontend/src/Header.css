@@ -126,10 +126,29 @@
   transition: color 0.2s;
   display: flex;
   align-items: center;
+  text-decoration: none;
+  position: relative;
 }
 
 .icon-btn:hover {
   color: #e26d4a;
+}
+
+/* Estilos para el contador del carrito */
+.cart-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: #e26d4a;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: bold;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .login-btn {
@@ -143,6 +162,7 @@
   cursor: pointer;
   transition: background 0.2s;
   margin-left: 0.5rem;
+  text-decoration: none;
 }
 
 .login-btn:hover {
