@@ -22,28 +22,28 @@ import Cart from './Cart';
 import { CartProvider } from './context/CartContext';
 import Devoluciones from './Devoluciones';
 
-// Componente que envuelve el header y lo muestra condicionalmente
-const HeaderWrapper = () => {
-  const location = useLocation();
-  // No mostrar el header en la página de devoluciones
-  if (location.pathname === '/devoluciones') {
-    return null;
-  }
-  return <Header onCartClick={() => setIsCartOpen(true)} />;
-};
-
-// Componente que envuelve el footer y lo muestra condicionalmente
-const FooterWrapper = () => {
-  const location = useLocation();
-  // No mostrar el footer en la página de devoluciones
-  if (location.pathname === '/devoluciones') {
-    return null;
-  }
-  return <Footer />;
-};
-
 function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
+
+  // Componente que envuelve el header y lo muestra condicionalmente
+  const HeaderWrapper = () => {
+    const location = useLocation();
+    // No mostrar el header en la página de devoluciones
+    if (location.pathname === '/devoluciones') {
+      return null;
+    }
+    return <Header onCartClick={() => setIsCartOpen(true)} />;
+  };
+
+  // Componente que envuelve el footer y lo muestra condicionalmente
+  const FooterWrapper = () => {
+    const location = useLocation();
+    // No mostrar el footer en la página de devoluciones
+    if (location.pathname === '/devoluciones') {
+      return null;
+    }
+    return <Footer />;
+  };
 
   return (
     <CartProvider>
@@ -72,7 +72,7 @@ function App() {
             <Route path="/registro" element={<Register />} />
             
             {/* Ruta del carrito */}
-            <Route path="/carrito" element={<Cart />} />
+            <Route path="/carrito" element={<Cart isOpen={true} onClose={() => {}} />} />
 
             {/* Nueva ruta para Devoluciones */}
             <Route path="/devoluciones" element={<Devoluciones />} />
@@ -81,6 +81,7 @@ function App() {
           {/* Footer condicional */}
           <FooterWrapper />
 
+          {/* Carrito flotante */}
           <Cart isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
           {isCartOpen && (
             <div 

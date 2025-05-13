@@ -3,20 +3,20 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: calc(100vh - 70px);
+  min-height: 100vh;
   padding: 2rem;
-  padding-top: 90px;
-  background-color: #f8f9fa;
+  padding-top: 100px;
+  background-color: #fdfeff;
 }
 
 /* Caja que contiene el formulario de login */
 .login-box {
-  background: white;
-  padding: 40px;
-  border-radius: 8px;
+  background: #fdfeff;
+  padding:30px;
+  border-radius: 18px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 400px;
+  width: 150%;
+  max-width: 350px;
 }
 
 /* Título del formulario */
@@ -30,34 +30,33 @@
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 1rem;
 }
 
 /* Grupo de campos del formulario */
 .form-group {
-  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 /* Etiquetas de los campos */
 .form-group label {
-  color: #494646;
-  font-size: 0.95rem;
-  font-weight: 500;
+  font-size: 0.9rem;
+  color: #666;
 }
 
 /* Campos de entrada */
 .form-group input {
-  width: 100%;
-  padding: 12px;
+  padding: 0.8rem;
   border: 1px solid #ddd;
   border-radius: 4px;
-  font-size: 16px;
-  transition: border-color 0.3s ease;
+  font-size: 0.9rem;
 }
 
 /* Estilo del placeholder */
 .form-group input::placeholder {
-  color: #8b8888;
+  color: #e4dada;
 }
 
 /* Estilo cuando el campo está enfocado */
@@ -68,16 +67,21 @@
 
 /* Botón de inicio de sesión */
 .login-submit-btn {
-  background: #da8366;
-  color: rgb(247, 232, 232);
+  width: 100%;
+  padding: 0.8rem;
+  background: #e26d4a;
+  color: white;
   border: none;
   border-radius: 8px;
-  padding: 0.8rem;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   transition: background 0.2s;
   margin-top: 0.5rem;
+}
+
+.login-submit-btn:hover {
+  background: #c95a36;
 }
 
 /* Contenedor del enlace de recuperación de contraseña */
@@ -98,13 +102,16 @@
 .forgot-password a:hover {
   text-decoration: underline;
   color: #c74525;
-}
+ }
 
-/* Contenedor del footer del login */
+ /* Contenedor del footer del login */
 .login-footer {
   text-align: center;
-  margin-top: 0.8rem;
-  color: #242020;
+  margin-top: 0.5rem;
+  color: #302c2c;
+  font-weight: 400;
+  
+  
 }
 
 /* Estilo del enlace de registro */
@@ -120,7 +127,13 @@
 }
 
 /* Estilos responsivos para dispositivos móviles */
-@media (max-width: 480px) {
+@media (max-width: 600px) {
+  .login-container {
+    max-width: 90%;
+    margin: 1rem auto;
+    padding: 1rem;
+  }
+  
   .login-box {
     padding: 1.5rem;
   }

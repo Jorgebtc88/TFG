@@ -6,12 +6,12 @@
   min-height: calc(100vh - 70px);
   padding: 2rem;
   padding-top: 90px;
-  background-color: #f8f9fa;
+  background-color: #fdfeff;
 }
 
 /* Caja que contiene el formulario de registro */
 .register-box {
-  background: rgb(245, 242, 242);
+  background: #fdfeff;
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(88, 84, 84, 0.1);
@@ -86,7 +86,7 @@
 
 /* Botón de registro */
 .register-submit-btn {
-  background: #da8366;
+  background: #e26d4a;
   color: rgb(247, 232, 232);
   border: none;
   border-radius: 8px;
@@ -98,11 +98,16 @@
   margin-top: 0.5rem;
 }
 
+.register-submit-btn:hover {
+  background: #c95a36;
+}
+
 /* Contenedor del footer del registro */
 .register-footer {
   text-align: center;
   margin-top: 1.5rem;
-  color: #242020;
+  color: #353232;
+  font-weight: 400;
 }
 
 /* Estilo del enlace de inicio de sesión */

@@ -79,7 +79,7 @@ const Login = () => {
         </form>
         {/* Enlace para registro de nuevos usuarios */}
         <div className="login-footer">
-          <p>¿No tienes una cuenta? <Link to="/registro">Regístrate</Link></p>
+          <p>¿No tienes una cuenta? <a href="/registro">Regístrate</a></p>
         </div>
       </div>
     </div>
