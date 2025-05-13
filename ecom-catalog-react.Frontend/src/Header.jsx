@@ -6,30 +6,44 @@
  * 
  * @component
  */
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from './context/CartContext';
 import './Header.css';
 
 const Header = ({ onCartClick }) => {
   const { totalItems } = useCart();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <header className="main-header">
+      {/* Botón de menú hamburguesa para móviles */}
+      <button 
+        className="menu-toggle" 
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
+        aria-label="Toggle menu"
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+
       {/* Menú de navegación izquierdo */}
-      <nav className="nav-left">
+      <nav className={`nav-left ${isMenuOpen ? 'nav-open' : ''}`}>
         <ul>
           <li>
-            <Link to="/" className="nav-link home-link">Inicio</Link>
+            <Link to="/" className="nav-link home-link" onClick={() => setIsMenuOpen(false)}>Inicio</Link>
           </li>
           <li>
-            <Link to="/mujeres" className="nav-link">Mujeres</Link>
+            <Link to="/mujeres" className="nav-link" onClick={() => setIsMenuOpen(false)}>Mujeres</Link>
           </li>
           <li>
-            <Link to="/hombres" className="nav-link">Hombres</Link>
+            <Link to="/hombres" className="nav-link" onClick={() => setIsMenuOpen(false)}>Hombres</Link>
           </li>
           <li>
-            <Link to="/coleccion" className="nav-link">Colección</Link>
+            <Link to="/coleccion" className="nav-link" onClick={() => setIsMenuOpen(false)}>Colección</Link>
           </li>
         </ul>
       </nav>

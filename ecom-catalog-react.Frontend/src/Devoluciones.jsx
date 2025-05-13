@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './Devoluciones.css';
 
 const Devoluciones = () => {
@@ -20,7 +21,9 @@ const Devoluciones = () => {
   return (
     <div className="devoluciones-bg">
       <div className="devoluciones-form-container">
-        <h1 className="devoluciones-logo">Fashion<span className="brand-dot">.</span></h1>
+        <Link to="/" className="logo-link">
+          <span className="logo-text">FASHION</span>
+        </Link>
         <h2 className="devoluciones-title">CAMBIOS Y DEVOLUCIONES</h2>
         <p className="devoluciones-desc">
           Introduce los datos de tu pedido original para iniciar el proceso

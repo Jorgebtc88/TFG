@@ -7,7 +7,7 @@
  * @component
  */
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import './App.css'
 import Header from './Header';
 import Hero from './Hero';
@@ -22,6 +22,26 @@ import Cart from './Cart';
 import { CartProvider } from './context/CartContext';
 import Devoluciones from './Devoluciones';
 
+// Componente que envuelve el header y lo muestra condicionalmente
+const HeaderWrapper = () => {
+  const location = useLocation();
+  // No mostrar el header en la página de devoluciones
+  if (location.pathname === '/devoluciones') {
+    return null;
+  }
+  return <Header onCartClick={() => setIsCartOpen(true)} />;
+};
+
+// Componente que envuelve el footer y lo muestra condicionalmente
+const FooterWrapper = () => {
+  const location = useLocation();
+  // No mostrar el footer en la página de devoluciones
+  if (location.pathname === '/devoluciones') {
+    return null;
+  }
+  return <Footer />;
+};
+
 function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
 
@@ -29,8 +49,8 @@ function App() {
     <CartProvider>
       <Router>
         <div className="App">
-          {/* Header fijo en todas las páginas */}
-          <Header onCartClick={() => setIsCartOpen(true)} />
+          {/* Header condicional */}
+          <HeaderWrapper />
           
           {/* Sistema de rutas */}
           <Routes>
@@ -58,8 +78,8 @@ function App() {
             <Route path="/devoluciones" element={<Devoluciones />} />
           </Routes>
 
-          {/* Footer fijo en todas las páginas */}
-          <Footer />
+          {/* Footer condicional */}
+          <FooterWrapper />
 
           <Cart isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
           {isCartOpen && (

@@ -1,143 +1,178 @@
+/* Contenedor principal del fondo de la página de devoluciones */
 .devoluciones-bg {
-  min-height: 100vh;
-  width: 100vw;
+  height: 100vh;             /* Altura exacta de la ventana visible */
+  width: 100vw;              /* Ancho completo de la ventana */
   background: url('./assets/devoluciones.png') center center/cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
+  padding: 0;
+  overflow: hidden;
 }
 
+/* Contenedor del formulario de devoluciones */
 .devoluciones-form-container {
   background: #fff;
-  border-radius: 2rem;
+  border-radius: 25px;
   box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-  max-width: 400px;
-  width: 100%;
-  padding: 2.5rem 2rem 2rem 2rem;
-  margin: 2rem;
+  max-width: 500px;          /* Aumentado el ancho máximo */
+  min-width: 320px;          /* Aumentado el ancho mínimo */
+  width: 60%;                /* Aumentado el ancho relativo */
+  padding: 1.5rem;           /* Aumentado el padding */
+  margin: 0.8rem;            /* Aumentado el margen */
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: auto;             /* Altura automática */
+  overflow: visible;        /* Sin scroll */
 }
 
+/* Estilos del logo */
 .devoluciones-logo {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 2rem;
-  font-weight: 800;
-  color: #2d2d2d;
-  margin-bottom: 0.2rem;
-  letter-spacing: 1px;
+  font-size: 2rem;           /* Aumentado el tamaño */
+  margin-bottom: 0.3rem;     /* Aumentado el margen */
 }
 
+/* Punto decorativo del logo */
 .brand-dot {
-  color: #e26d4a;
+  color: #e26d4a;           /* Color naranja para el punto */
 }
 
+/* Título de la sección */
 .devoluciones-title {
-  font-size: 1.1rem;
-  color: #888;
-  font-weight: 600;
-  margin-bottom: 1.2rem;
-  letter-spacing: 1px;
-  text-align: center;
+  font-size: 1.1rem;         /* Aumentado el tamaño */
+  color: #888;              /* Color gris */
+  font-weight: 600;         /* Fuente semi-negrita */
+  margin-bottom: 1rem;       /* Aumentado el margen */
+  letter-spacing: 0.5px;    /* Espaciado entre letras */
+  text-align: center;       /* Texto centrado */
 }
 
+/* Descripción de la sección */
 .devoluciones-desc {
-  color: #222;
-  font-size: 1rem;
-  margin-bottom: 1.5rem;
-  text-align: center;
+  color: #222;              /* Color gris oscuro */
+  font-size: 1rem;           /* Aumentado el tamaño */
+  margin-bottom: 1.8rem;     /* Aumentado el margen */
+  text-align: center;       /* Texto centrado */
 }
 
+/* Contenedor del formulario */
 .devoluciones-form {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 1.1rem;
+  gap: 1.2rem;              /* Aumentado el espacio entre elementos */
 }
 
+/* Grupo de campos de entrada */
 .input-group {
-  display: flex;
-  align-items: center;
-  background: #f5f5f5;
-  border-radius: 8px;
-  padding: 0.7rem 1rem;
-  margin-bottom: 0.2rem;
+  display: flex;            /* Usa flexbox */
+  align-items: center;      /* Centra verticalmente */
+  background: #f5f5f5;      /* Fondo gris claro */
+  border-radius: 8px;       /* Bordes redondeados */
+  padding: 0.6rem;          /* Aumentado el padding */
+  margin-bottom: 0.2rem;    /* Aumentado el margen */
 }
 
+/* Iconos de los campos */
 .input-icon {
-  font-size: 1.2rem;
-  color: #bbb;
-  margin-right: 0.7rem;
+  font-size: 1.2rem;        /* Tamaño de icono */
+  color: #888181;           /* Color gris */
+  margin-right: 0.7rem;     /* Margen derecho */
 }
 
+/* Campos de entrada */
 .devoluciones-input {
-  border: none;
-  background: transparent;
-  outline: none;
-  font-size: 1rem;
-  color: #222;
-  width: 100%;
-  padding: 0.3rem 0;
+  border: none;             /* Sin borde */
+  background: transparent;  /* Fondo transparente */
+  outline: none;         /* Sin contorno al enfocar */
+  font-family: 'Montserrat', sans-serif;  /* Fuente Montserrat */
+  font-size: 1rem;          /* Aumentado el tamaño */
+  color: #423d3d;              /* Color gris oscuro */
+  width: 100%;              /* Ancho completo */
+  padding: 0.5rem;          /* Aumentado el padding */
 }
 
+/* Estilo del placeholder */
 .devoluciones-input::placeholder {
-  color: #bbb;
-  opacity: 1;
+  color: #beb7b7;          /* Color gris claro */
+  opacity: 1;               /* Opacidad completa */
 }
 
+/* Mensaje de error */
 .devoluciones-error {
-  color: #e26d4a;
-  font-size: 0.95rem;
-  margin-bottom: 0.5rem;
-  text-align: center;
+  color: #e26d4a;          /* Color naranja */
+  font-size: 0.85rem;      /* Reducido el tamaño */
+  margin-bottom: 0.3rem;   /* Reducido el margen */
+  text-align: center;      /* Texto centrado */
 }
 
+/* Texto legal */
 .devoluciones-legal {
-  font-size: 0.85rem;
-  color: #888;
-  margin-bottom: 0.7rem;
-  text-align: center;
+  font-size: 0.8rem;       /* Reducido el tamaño */
+  color: #888;             /* Color gris */
+  margin-bottom: 0.5rem;   /* Reducido el margen */
+  text-align: center;      /* Texto centrado */
 }
 
+/* Enlaces en el texto legal */
 .devoluciones-legal a {
-  color: #e26d4a;
-  text-decoration: underline;
+  color: #e26d4a;          /* Color naranja */
+  text-decoration: underline;  /* Subrayado */
 }
 
+/* Botón de envío */
 .devoluciones-btn {
-  width: 100%;
-  background: #888;
-  color: #fff;
-  border: none;
-  border-radius: 2rem;
-  padding: 0.9rem 0;
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin-top: 0.5rem;
-  cursor: pointer;
-  transition: background 0.2s;
+  width: 100%;             /* Ancho completo */
+  background: #888;        /* Fondo gris */
+  color: #fff;             /* Texto blanco */
+  border: none;            /* Sin borde */
+  border-radius: 2rem;     /* Bordes muy redondeados */
+  padding: 0.7rem 0;       /* Reducido el padding */
+  font-size: 1rem;         /* Reducido el tamaño */
+  font-weight: 600;        /* Fuente semi-negrita */
+  margin-top: 0.3rem;      /* Reducido el margen */
+  cursor: pointer;         /* Cursor tipo pointer */
+  transition: background 0.2s;  /* Transición suave del fondo */
 }
 
+/* Efecto hover del botón */
 .devoluciones-btn:hover {
-  background: #e26d4a;
+  background: #e26d4a;     /* Fondo naranja al pasar el mouse */
 }
 
+/* Texto de "powered by" */
 .devoluciones-powered {
-  margin-top: 1.7rem;
-  font-size: 0.95rem;
-  color: #aaa;
-  text-align: center;
-  letter-spacing: 0.5px;
+  margin-top: 0.5rem;      /* Reducido el margen */
+  font-size: 0.85rem;      /* Reducido el tamaño */
+  color: #aaa;             /* Color gris claro */
+  text-align: center;      /* Texto centrado */
+  letter-spacing: 0.5px;   /* Espaciado entre letras */
 }
 
+/* Media query para dispositivos móviles */
 @media (max-width: 600px) {
   .devoluciones-form-container {
-    max-width: 95vw;
-    padding: 1.2rem 0.5rem 1.5rem 0.5rem;
+    width: 95%;             /* Aumentado el ancho en móvil */
+    padding: 1.2rem;        /* Aumentado el padding */
+    margin: 0.5rem auto;    /* Ajustado el margen */
   }
-  .devoluciones-bg {
-    padding: 1rem 0;
+  
+  .devoluciones-logo {
+    font-size: 1.8rem;      /* Aumentado el tamaño en móvil */
+  }
+  
+  .devoluciones-title {
+    font-size: 1rem;        /* Aumentado el tamaño en móvil */
+  }
+  
+  .devoluciones-desc {
+    font-size: 0.95rem;     /* Aumentado el tamaño en móvil */
+    margin-bottom: 1.5rem;  /* Ajustado el margen */
+  }
+  
+  .devoluciones-form {
+    gap: 1rem;              /* Ajustado el espacio entre elementos */
   }
 } 
