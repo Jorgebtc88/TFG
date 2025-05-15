@@ -22,6 +22,7 @@ import Cart from './Cart';
 import { CartProvider } from './context/CartContext';
 import Devoluciones from './Devoluciones';
 import RecuperarContrasena from './RecuperarContrasena';
+import Contacto from './Contacto';
 
 function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -78,6 +79,9 @@ function App() {
 
             {/* Nueva ruta para Devoluciones */}
             <Route path="/devoluciones" element={<Devoluciones />} />
+
+            {/* Nueva ruta para Contacto */}
+            <Route path="/contacto" element={<Contacto />} />
           </Routes>
 
           {/* Footer condicional */}

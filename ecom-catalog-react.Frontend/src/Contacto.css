@@ -1,0 +1,128 @@
+/* Contenedor principal de la página de contacto */
+.contacto-container {
+  min-height: 100vh;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 80px 70px; /* Espaciado interno superior e inferior */
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 50px;
+}
+
+/* Contenido centralizado y ancho máximo para el formulario */
+.contacto-content-simple {
+  width: 100%;
+  max-width: 700px; /* Limita el ancho del formulario */
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Título principal del formulario de contacto */
+.contacto-content-simple h1 {
+  font-size: 1.5rem;
+  color: #1d1a19; /* Color original del título */
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  /* border-top: 2px solid #3d1e13; */
+  border-bottom: none;
+  padding-top: 0.5rem;
+}
+
+/* Descripción bajo el título */
+.contacto-descripcion {
+  color: #271e1b; /* Color original del texto */
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+/* Formulario de contacto: fondo, bordes y disposición */
+.contacto-form-simple {
+  background: #fff; /* Fondo blanco */
+  border-radius: 0; /* Sin bordes redondeados por defecto */
+  box-shadow: none; /* Sin sombra por defecto */
+  padding: 0;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+/* Fila de campos del formulario (inputs y textarea) */
+.form-row {
+  display: flex;
+  gap: 1.2rem;
+  width: 100%;
+}
+
+/* Estilos de los campos de entrada y área de texto */
+.form-row input,
+.form-row textarea {
+  border: 2px solid #d17e5f; /* Borde marrón original */
+  border-radius: 15px;        
+  padding: 16px 12px; 
+  font-size: 1rem;
+  color: #44403e;
+  background: #ece6e6;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+/* Área de texto con altura mínima y redimensionable */
+.form-row textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* Color del placeholder en los campos */
+.form-row input::placeholder,
+.form-row textarea::placeholder {
+  color: #3d1e13;
+  opacity: 0.7;
+}
+
+/* Botón de envío del formulario */
+.submit-button-simple {
+  background: #ce582d; /* Color marrón original */
+  color: #fff;
+  border: none;
+  border-radius: 15px;
+  padding: 16px 0;
+  font-size: 1rem;
+  font-weight: 500;
+  width: 100%;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+/* Efecto hover para el botón de envío */
+.submit-button-simple:hover {
+  background: #b8451c;
+}
+
+/* Responsividad para pantallas medianas */
+@media (max-width: 900px) {
+  .contacto-content-simple {
+    max-width: 98vw;
+  }
+}
+
+/* Responsividad para pantallas pequeñas (móvil) */
+@media (max-width: 600px) {
+  .form-row {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .contacto-content-simple {
+    padding: 0 0.5rem;
+  }
+  .contacto-form-simple {
+    gap: 0.8rem;
+    padding: 16px 4px;
+  }
+} 

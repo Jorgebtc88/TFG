@@ -7,7 +7,7 @@ const Footer = () => (
     <div className="footer-content">
       <div className="footer-section">
         <ul>
-          <li>Ayuda</li>
+          <li><Link to="/contacto" style={{color: 'inherit', textDecoration: 'none'}}>Contacto</Link></li>
           <li>FAQ</li>
           <li>Envíos</li>
           <li><Link to="/devoluciones" style={{color: 'inherit', textDecoration: 'none'}}>Devoluciones</Link></li>
