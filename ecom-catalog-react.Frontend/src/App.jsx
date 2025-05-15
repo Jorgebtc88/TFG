@@ -23,6 +23,8 @@ import { CartProvider } from './context/CartContext';
 import Devoluciones from './Devoluciones';
 import RecuperarContrasena from './RecuperarContrasena';
 import Contacto from './Contacto';
+import FaqAccordion from './FaqAccordion';
+import FaqCategoria from './FaqCategoria';
 
 function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -82,6 +84,12 @@ function App() {
 
             {/* Nueva ruta para Contacto */}
             <Route path="/contacto" element={<Contacto />} />
+
+            {/* Nueva ruta para FaqAccordion */}
+            <Route path="/faq" element={<FaqAccordion />} />
+
+            {/* Nueva ruta para FaqCategoria */}
+            <Route path="/faq/:slug" element={<FaqCategoria />} />
           </Routes>
 
           {/* Footer condicional */}
