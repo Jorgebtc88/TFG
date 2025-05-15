@@ -21,6 +21,7 @@ import Register from './Register';
 import Cart from './Cart';
 import { CartProvider } from './context/CartContext';
 import Devoluciones from './Devoluciones';
+import RecuperarContrasena from './RecuperarContrasena';
 
 function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -67,9 +68,10 @@ function App() {
             <Route path="/mujeres" element={<Mujeres />} />
             <Route path="/coleccion" element={<Coleccion />} />
             
-            {/* Ruta de autenticación */}
+            {/* Rutas de autenticación */}
             <Route path="/login" element={<Login />} />
             <Route path="/registro" element={<Register />} />
+            <Route path="/recuperar-contrasena" element={<RecuperarContrasena />} />
             
             {/* Ruta del carrito */}
             <Route path="/carrito" element={<Cart isOpen={true} onClose={() => {}} />} />

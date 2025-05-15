@@ -74,7 +74,7 @@ const Login = () => {
           <button type="submit" className="login-submit-btn">Iniciar Sesión</button>
           {/* Enlace para recuperar contraseña */}
           <div className="forgot-password">
-            <a href="/recuperar-contrasena">¿Olvidaste tu contraseña?</a>
+            <Link to="/recuperar-contrasena">¿Olvidaste tu contraseña?</Link>
           </div>
         </form>
         {/* Enlace para registro de nuevos usuarios */}
