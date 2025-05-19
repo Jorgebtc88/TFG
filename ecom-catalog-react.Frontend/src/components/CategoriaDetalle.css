@@ -1,0 +1,136 @@
+/* Contenedor principal */
+.categoria-detalle-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Encabezado de la categoría */
+.categoria-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+/* Título de la categoría */
+.categoria-titulo {
+  font-size: 2.5rem;
+  color: #333;
+  margin: 0;
+}
+
+/* Enlace para volver */
+.volver-link {
+  color: #666;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+
+.volver-link:hover {
+  color: #007bff;
+}
+
+/* Grid de subcategorías */
+.subcategorias-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 1rem 0;
+}
+
+/* Tarjeta de subcategoría */
+.subcategoria-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+  overflow: hidden;
+}
+
+.subcategoria-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Contenido de la subcategoría */
+.subcategoria-contenido {
+  padding: 1.5rem;
+}
+
+/* Nombre de la subcategoría */
+.subcategoria-nombre {
+  font-size: 1.5rem;
+  color: #333;
+  margin: 0 0 1rem 0;
+}
+
+/* Descripción de la subcategoría */
+.subcategoria-descripcion {
+  color: #666;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Mensaje de categoría no encontrada */
+.categoria-no-encontrada {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.categoria-no-encontrada h2 {
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .categoria-detalle-container {
+    padding: 1rem;
+  }
+
+  .categoria-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .categoria-titulo {
+    font-size: 2rem;
+  }
+
+  .subcategorias-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .subcategoria-contenido {
+    padding: 1rem;
+  }
+
+  .subcategoria-nombre {
+    font-size: 1.25rem;
+  }
+}
+
+/* Animaciones */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.subcategoria-card {
+  animation: slideIn 0.5s ease-out forwards;
+} 

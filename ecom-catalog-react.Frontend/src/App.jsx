@@ -15,7 +15,7 @@ import Footer from './Footer';
 import Newsletter from './Newsletter';
 import Hombres from './Hombres';
 import Mujeres from './Mujeres';
-import Coleccion from './Coleccion';
+import Colecciones from './pages/Colecciones';
 import Login from './Login';
 import Register from './Register';
 import Cart from './Cart';
@@ -25,6 +25,10 @@ import RecuperarContrasena from './RecuperarContrasena';
 import Contacto from './Contacto';
 import FaqAccordion from './FaqAccordion';
 import FaqCategoria from './FaqCategoria';
+import Envios from './Envios';
+import Categorias from './components/Categorias';
+import CategoriaDetalle from './components/CategoriaDetalle';
+import SubcategoriaDetalle from './components/SubcategoriaDetalle';
 
 function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -56,41 +60,50 @@ function App() {
           {/* Header condicional */}
           <HeaderWrapper />
           
-          {/* Sistema de rutas */}
-          <Routes>
-            {/* Ruta principal con Hero y Newsletter */}
-            <Route path="/" element={
-              <>
-                <Hero />
-                <Newsletter />
-              </>
-            } />
-            
-            {/* Rutas de categorías */}
-            <Route path="/hombres" element={<Hombres />} />
-            <Route path="/mujeres" element={<Mujeres />} />
-            <Route path="/coleccion" element={<Coleccion />} />
-            
-            {/* Rutas de autenticación */}
-            <Route path="/login" element={<Login />} />
-            <Route path="/registro" element={<Register />} />
-            <Route path="/recuperar-contrasena" element={<RecuperarContrasena />} />
-            
-            {/* Ruta del carrito */}
-            <Route path="/carrito" element={<Cart isOpen={true} onClose={() => {}} />} />
+          <main className="main-content">
+            <Routes>
+              {/* Ruta principal con Hero y Newsletter */}
+              <Route path="/" element={
+                <>
+                  <Hero />
+                  <Newsletter />
+                </>
+              } />
+              
+              {/* Rutas de categorías */}
+              <Route path="/hombres" element={<Hombres />} />
+              <Route path="/mujeres" element={<Mujeres />} />
+              <Route path="/colecciones" element={<Colecciones />} />
+              
+              {/* Rutas de autenticación */}
+              <Route path="/login" element={<Login />} />
+              <Route path="/registro" element={<Register />} />
+              <Route path="/recuperar-contrasena" element={<RecuperarContrasena />} />
+              
+              {/* Ruta del carrito */}
+              <Route path="/carrito" element={<Cart isOpen={true} onClose={() => {}} />} />
 
-            {/* Nueva ruta para Devoluciones */}
-            <Route path="/devoluciones" element={<Devoluciones />} />
+              {/* Nueva ruta para Devoluciones */}
+              <Route path="/devoluciones" element={<Devoluciones />} />
 
-            {/* Nueva ruta para Contacto */}
-            <Route path="/contacto" element={<Contacto />} />
+              {/* Nueva ruta para Contacto */}
+              <Route path="/contacto" element={<Contacto />} />
 
-            {/* Nueva ruta para FaqAccordion */}
-            <Route path="/faq" element={<FaqAccordion />} />
+              {/* Nueva ruta para FaqAccordion */}
+              <Route path="/faq" element={<FaqAccordion />} />
 
-            {/* Nueva ruta para FaqCategoria */}
-            <Route path="/faq/:slug" element={<FaqCategoria />} />
-          </Routes>
+              {/* Nueva ruta para FaqCategoria */}
+              <Route path="/faq/:slug" element={<FaqCategoria />} />
+
+              {/* Nueva ruta para Envios */}
+              <Route path="/envios" element={<Envios />} />
+
+              {/* Nueva ruta para categorías */}
+              <Route path="/categorias" element={<Categorias />} />
+              <Route path="/categoria/:slug" element={<CategoriaDetalle />} />
+              <Route path="/categoria/:categoriaSlug/:subcategoriaSlug" element={<SubcategoriaDetalle />} />
+            </Routes>
+          </main>
 
           {/* Footer condicional */}
           <FooterWrapper />

@@ -9,7 +9,7 @@ const Footer = () => (
         <ul>
           <li><Link to="/contacto" style={{color: 'inherit', textDecoration: 'none'}}>Contacto</Link></li>
           <li><Link to="/faq" style={{color: 'inherit', textDecoration: 'none'}}>Preguntas Frecuentes</Link></li>
-          <li>Envíos</li>
+          <li><Link to="/envios" style={{color: 'inherit', textDecoration: 'none'}}>Envíos</Link></li>
           <li><Link to="/devoluciones" style={{color: 'inherit', textDecoration: 'none'}}>Devoluciones</Link></li>
         </ul>
       </div>

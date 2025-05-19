@@ -1,3 +1,8 @@
+/**
+ * Vista principal de la sección de Preguntas Frecuentes (FAQ)
+ * Muestra las categorías como tarjetas con íconos temáticos, nombre y cantidad de artículos.
+ * Al hacer clic en una tarjeta, navega a la vista de preguntas de esa categoría.
+ */
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -5,11 +10,12 @@ import {
 } from 'react-icons/fa';
 import './FaqAccordion.css';
 
+// Definición de las categorías FAQ, cada una con slug, ícono y preguntas
 export const categorias = [
   {
     nombre: 'Pedidos y Pagos',
     slug: 'pedidos-pagos',
-    icono: <FaShoppingCart size={56} />,
+    icono: <FaShoppingCart size={56} />, // Ícono temático
     preguntas: [
       {
         pregunta: '¿Qué métodos de pago aceptan en Fashion?',
@@ -102,17 +108,28 @@ export const categorias = [
   }
 ];
 
+/**
+ * Componente principal de FAQ: muestra las tarjetas de categorías
+ */
 const FaqAccordion = () => {
   const navigate = useNavigate();
   return (
     <div className="faq-cards-container">
+      {/* Título principal de la sección FAQ */}
       <h2 className="faq-cards-title">Obtener información</h2>
+      {/* Grid de tarjetas de categorías */}
       <div className="faq-cards-grid">
         {categorias.map((cat, idx) => (
-          <div key={cat.slug} className="faq-card" onClick={() => navigate(`/faq/${cat.slug}`)}>
+          <div
+            key={cat.slug}
+            className="faq-card"
+            onClick={() => navigate(`/faq/${cat.slug}`)}
+            /* Al hacer clic, navega a la vista de la categoría */
+          >
             <div className="faq-card-icon">{cat.icono}</div>
             <div className="faq-card-info">
               <div className="faq-card-title">{cat.nombre}</div>
+              {/* Cantidad de artículos/preguntas */}
               <div className="faq-card-count">{cat.preguntas.length} artículo{cat.preguntas.length > 1 ? 's' : ''}</div>
             </div>
           </div>

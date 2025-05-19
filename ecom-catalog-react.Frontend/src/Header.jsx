@@ -6,14 +6,42 @@
  * 
  * @component
  */
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from './context/CartContext';
+import { categorias } from './data/categorias';
 import './Header.css';
 
 const Header = ({ onCartClick }) => {
   const { totalItems } = useCart();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isHombresMenuOpen, setIsHombresMenuOpen] = useState(false);
+  const [isMujeresMenuOpen, setIsMujeresMenuOpen] = useState(false);
+
+  // Referencias para los contenedores de los menús
+  const hombresMenuRef = useRef(null);
+  const mujeresMenuRef = useRef(null);
+
+  // Obtener las subcategorías
+  const subcategoriasHombres = categorias.hombres.subcategorias;
+  const subcategoriasMujeres = categorias.mujeres.subcategorias;
+
+  // Efecto para manejar el cierre del menú al hacer clic fuera
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (hombresMenuRef.current && !hombresMenuRef.current.contains(event.target)) {
+        setIsHombresMenuOpen(false);
+      }
+      if (mujeresMenuRef.current && !mujeresMenuRef.current.contains(event.target)) {
+        setIsMujeresMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   return (
     <header className="main-header">
@@ -36,14 +64,88 @@ const Header = ({ onCartClick }) => {
           <li>
             <Link to="/" className="nav-link home-link" onClick={() => setIsMenuOpen(false)}>Inicio</Link>
           </li>
-          <li>
-            <Link to="/mujeres" className="nav-link" onClick={() => setIsMenuOpen(false)}>Mujeres</Link>
+          <li 
+            className="dropdown-container" 
+            ref={mujeresMenuRef}
+            onMouseEnter={() => setIsMujeresMenuOpen(true)}
+            onMouseLeave={() => setIsMujeresMenuOpen(false)}
+          >
+            <Link 
+              to="/mujeres"
+              className="nav-link dropdown-trigger"
+              onClick={() => setIsMujeresMenuOpen(!isMujeresMenuOpen)}
+            >
+              Mujeres
+              <svg 
+                className={`dropdown-arrow ${isMujeresMenuOpen ? 'open' : ''}`}
+                width="12" 
+                height="12" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2"
+              >
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </Link>
+            <div className={`dropdown-menu ${isMujeresMenuOpen ? 'show' : ''}`}>
+              {subcategoriasMujeres.map((subcategoria) => (
+                <Link
+                  key={subcategoria.slug}
+                  to={`/categoria/mujeres/${subcategoria.slug}`}
+                  className="dropdown-item"
+                  onClick={() => {
+                    setIsMujeresMenuOpen(false);
+                    setIsMenuOpen(false);
+                  }}
+                >
+                  {subcategoria.nombre}
+                </Link>
+              ))}
+            </div>
+          </li>
+          <li 
+            className="dropdown-container" 
+            ref={hombresMenuRef}
+            onMouseEnter={() => setIsHombresMenuOpen(true)}
+            onMouseLeave={() => setIsHombresMenuOpen(false)}
+          >
+            <Link 
+              to="/hombres"
+              className="nav-link dropdown-trigger"
+              onClick={() => setIsHombresMenuOpen(!isHombresMenuOpen)}
+            >
+              Hombres
+              <svg 
+                className={`dropdown-arrow ${isHombresMenuOpen ? 'open' : ''}`}
+                width="12" 
+                height="12" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2"
+              >
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </Link>
+            <div className={`dropdown-menu ${isHombresMenuOpen ? 'show' : ''}`}>
+              {subcategoriasHombres.map((subcategoria) => (
+                <Link
+                  key={subcategoria.slug}
+                  to={`/categoria/hombres/${subcategoria.slug}`}
+                  className="dropdown-item"
+                  onClick={() => {
+                    setIsHombresMenuOpen(false);
+                    setIsMenuOpen(false);
+                  }}
+                >
+                  {subcategoria.nombre}
+                </Link>
+              ))}
+            </div>
           </li>
           <li>
-            <Link to="/hombres" className="nav-link" onClick={() => setIsMenuOpen(false)}>Hombres</Link>
-          </li>
-          <li>
-            <Link to="/coleccion" className="nav-link" onClick={() => setIsMenuOpen(false)}>Colección</Link>
+            <Link to="/colecciones" className="nav-link" onClick={() => setIsMenuOpen(false)}>Colecciones</Link>
           </li>
         </ul>
       </nav>
