@@ -1,0 +1,80 @@
+.camisetas-container {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.camisetas-hero {
+  background-image: url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f');
+  background-size: cover;
+  background-position: center 10%;
+  background-repeat: no-repeat;
+  height: 80vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.camisetas-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2));
+}
+
+.camisetas-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 2rem;
+}
+
+.camisetas-content h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.camisetas-content p {
+  font-size: 1.2rem;
+  font-weight: 300;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.camisetas-grid {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .camisetas-hero {
+    height: 50vh;
+  }
+
+  .camisetas-content h1 {
+    font-size: 2.5rem;
+  }
+
+  .camisetas-content p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .camisetas-hero {
+    height: 40vh;
+  }
+
+  .camisetas-content h1 {
+    font-size: 2rem;
+  }
+} 

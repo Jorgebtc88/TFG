@@ -1,0 +1,98 @@
+/**
+ * Estilos para el componente ZapatosHombre
+ * 
+ * Este archivo contiene todos los estilos necesarios para la página de zapatos
+ * de la sección de hombres, incluyendo el hero section y el grid de productos.
+ */
+
+/* Contenedor principal */
+.zapatos-hombre-container {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Sección Hero */
+.zapatos-hombre-hero {
+  /* Imagen de fondo con ajustes de visualización */
+  background-image: url('https://images.unsplash.com/photo-1549298916-b41d501d3772');
+  background-size: cover;
+  background-position: center 30%;
+  background-repeat: no-repeat;
+  height: 70vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+/* Overlay con gradiente para mejorar la legibilidad del texto */
+.zapatos-hombre-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2));
+}
+
+/* Contenedor del contenido del hero */
+.zapatos-hombre-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 2rem;
+}
+
+/* Estilos del título */
+.zapatos-hombre-content h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Estilos del párrafo descriptivo */
+.zapatos-hombre-content p {
+  font-size: 1.2rem;
+  font-weight: 300;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Grid de productos */
+.zapatos-hombre-grid {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Media Queries para diseño responsive */
+
+/* Tablets y dispositivos medianos */
+@media (max-width: 768px) {
+  .zapatos-hombre-hero {
+    height: 50vh;
+  }
+
+  .zapatos-hombre-content h1 {
+    font-size: 2.5rem;
+  }
+
+  .zapatos-hombre-content p {
+    font-size: 1rem;
+  }
+}
+
+/* Móviles y dispositivos pequeños */
+@media (max-width: 480px) {
+  .zapatos-hombre-hero {
+    height: 40vh;
+  }
+
+  .zapatos-hombre-content h1 {
+    font-size: 2rem;
+  }
+} 

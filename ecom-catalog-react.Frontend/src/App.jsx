@@ -9,44 +9,68 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import './App.css'
+
+// Componentes de Layout
 import Header from './Header';
-import Hero from './Hero';
 import Footer from './Footer';
+import Hero from './Hero';
 import Newsletter from './Newsletter';
+
+// Componentes de Categorías
 import Hombres from './Hombres';
 import Mujeres from './Mujeres';
 import Colecciones from './pages/Colecciones';
+
+// Componentes de Categorías de Hombres
+import CamisetasHombre from './components/CamisetasHombre';
+import PantalonesHombre from './components/PantalonesHombre';
+import ZapatosHombre from './components/ZapatosHombre';
+import ChaquetasHombre from './components/ChaquetasHombre';
+
+// Componentes de Categorías de Mujeres
+import Camisetas from './components/Camisetas';
+import Pantalones from './components/Pantalones';
+import Vestidos from './components/Vestidos';
+import Zapatos from './components/Zapatos';
+
+// Componentes de Autenticación
 import Login from './Login';
 import Register from './Register';
+import RecuperarContrasena from './RecuperarContrasena';
+
+// Componentes de Carrito
 import Cart from './Cart';
 import { CartProvider } from './context/CartContext';
+
+// Componentes de Información
 import Devoluciones from './Devoluciones';
-import RecuperarContrasena from './RecuperarContrasena';
 import Contacto from './Contacto';
 import FaqAccordion from './FaqAccordion';
 import FaqCategoria from './FaqCategoria';
 import Envios from './Envios';
-import Categorias from './components/Categorias';
-import CategoriaDetalle from './components/CategoriaDetalle';
-import SubcategoriaDetalle from './components/SubcategoriaDetalle';
 
 function App() {
+  // Estado para controlar la visibilidad del carrito
   const [isCartOpen, setIsCartOpen] = useState(false);
 
-  // Componente que envuelve el header y lo muestra condicionalmente
+  /**
+   * Componente que envuelve el header y lo muestra condicionalmente
+   * No se muestra en la página de devoluciones
+   */
   const HeaderWrapper = () => {
     const location = useLocation();
-    // No mostrar el header en la página de devoluciones
     if (location.pathname === '/devoluciones') {
       return null;
     }
     return <Header onCartClick={() => setIsCartOpen(true)} />;
   };
 
-  // Componente que envuelve el footer y lo muestra condicionalmente
+  /**
+   * Componente que envuelve el footer y lo muestra condicionalmente
+   * No se muestra en la página de devoluciones
+   */
   const FooterWrapper = () => {
     const location = useLocation();
-    // No mostrar el footer en la página de devoluciones
     if (location.pathname === '/devoluciones') {
       return null;
     }
@@ -70,9 +94,21 @@ function App() {
                 </>
               } />
               
-              {/* Rutas de categorías */}
+              {/* Rutas de categorías de Hombres */}
               <Route path="/hombres" element={<Hombres />} />
+              <Route path="/hombres/camisetas" element={<CamisetasHombre />} />
+              <Route path="/hombres/pantalones" element={<PantalonesHombre />} />
+              <Route path="/hombres/zapatos" element={<ZapatosHombre />} />
+              <Route path="/hombres/chaquetas" element={<ChaquetasHombre />} />
+
+              {/* Rutas de categorías de Mujeres */}
               <Route path="/mujeres" element={<Mujeres />} />
+              <Route path="/mujeres/camisetas" element={<Camisetas />} />
+              <Route path="/mujeres/pantalones" element={<Pantalones />} />
+              <Route path="/mujeres/vestidos" element={<Vestidos />} />
+              <Route path="/mujeres/zapatos" element={<Zapatos />} />
+
+              {/* Ruta de colecciones */}
               <Route path="/colecciones" element={<Colecciones />} />
               
               {/* Rutas de autenticación */}
@@ -83,32 +119,19 @@ function App() {
               {/* Ruta del carrito */}
               <Route path="/carrito" element={<Cart isOpen={true} onClose={() => {}} />} />
 
-              {/* Nueva ruta para Devoluciones */}
+              {/* Rutas de información */}
               <Route path="/devoluciones" element={<Devoluciones />} />
-
-              {/* Nueva ruta para Contacto */}
               <Route path="/contacto" element={<Contacto />} />
-
-              {/* Nueva ruta para FaqAccordion */}
               <Route path="/faq" element={<FaqAccordion />} />
-
-              {/* Nueva ruta para FaqCategoria */}
               <Route path="/faq/:slug" element={<FaqCategoria />} />
-
-              {/* Nueva ruta para Envios */}
               <Route path="/envios" element={<Envios />} />
-
-              {/* Nueva ruta para categorías */}
-              <Route path="/categorias" element={<Categorias />} />
-              <Route path="/categoria/:slug" element={<CategoriaDetalle />} />
-              <Route path="/categoria/:categoriaSlug/:subcategoriaSlug" element={<SubcategoriaDetalle />} />
             </Routes>
           </main>
 
           {/* Footer condicional */}
           <FooterWrapper />
 
-          {/* Carrito flotante */}
+          {/* Carrito flotante y overlay */}
           <Cart isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
           {isCartOpen && (
             <div 

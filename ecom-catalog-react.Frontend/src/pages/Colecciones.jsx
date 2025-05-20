@@ -6,7 +6,7 @@ const Colecciones = () => {
   const colecciones = [
     {
       id: 1,
-      nombre: "Verano 2024",
+      nombre: "Verano 2025",
       descripcion: "Descubre las últimas tendencias para el verano con nuestra colección de prendas ligeras y coloridas.",
       imagen: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3",
       slug: "verano-2024"

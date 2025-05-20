@@ -1,0 +1,98 @@
+/**
+ * Estilos para el componente ChaquetasHombre
+ * 
+ * Este archivo contiene todos los estilos necesarios para la página de chaquetas
+ * de la sección de hombres, incluyendo el hero section y el grid de productos.
+ */
+
+/* Contenedor principal */
+.chaquetas-hombre-container {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Sección Hero */
+.chaquetas-hombre-hero {
+  /* Imagen de fondo con ajustes de visualización */
+  background-image: url('https://images.unsplash.com/photo-1591047139829-d91aecb6caea');
+  background-size: cover;
+  background-position: center 10%;
+  background-repeat: no-repeat;
+  height: 80vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+/* Overlay con gradiente para mejorar la legibilidad del texto */
+.chaquetas-hombre-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2));
+}
+
+/* Contenedor del contenido del hero */
+.chaquetas-hombre-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 2rem;
+}
+
+/* Estilos del título */
+.chaquetas-hombre-content h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Estilos del párrafo descriptivo */
+.chaquetas-hombre-content p {
+  font-size: 1.2rem;
+  font-weight: 300;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Grid de productos */
+.chaquetas-hombre-grid {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Media Queries para diseño responsive */
+
+/* Tablets y dispositivos medianos */
+@media (max-width: 768px) {
+  .chaquetas-hombre-hero {
+    height: 50vh;
+  }
+
+  .chaquetas-hombre-content h1 {
+    font-size: 2.5rem;
+  }
+
+  .chaquetas-hombre-content p {
+    font-size: 1rem;
+  }
+}
+
+/* Móviles y dispositivos pequeños */
+@media (max-width: 480px) {
+  .chaquetas-hombre-hero {
+    height: 40vh;
+  }
+
+  .chaquetas-hombre-content h1 {
+    font-size: 2rem;
+  }
+} 
