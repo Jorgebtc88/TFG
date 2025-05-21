@@ -20,30 +20,30 @@
 .envios-search-section {
   background: #fff;
   border-radius: 12px;
-  padding: 50px;
-  margin-bottom: 60px;
+  padding: 30px;
+  margin-bottom: 40px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin-top: 60px;
-  width: 60%;
-  min-width: 300px;
+  margin-top: 40px;
+  width: 45%;
+  min-width: 280px;
 }
 
 /* Botones de selección de tipo de búsqueda */
 .search-type-buttons {
   display: flex;
   justify-content: center;
-  gap: 20px;
-  margin-bottom: 30px;
+  gap: 15px;
+  margin-bottom: 20px;
 }
 
 /* Estilo de los botones de tipo de búsqueda */
 .search-type-btn {
-  padding: 8px 14px;
+  padding: 6px 12px;
   border: 2px solid #4b2e23;
   background: transparent;
   color: #4b2e23;
-  border-radius: 8px;
-  font-size: 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -62,7 +62,7 @@
 
 /* Contenedor de los formularios */
 .search-forms {
-  max-width: 350px;
+  max-width: 300px;
   margin: 0 auto;
 }
 
@@ -70,29 +70,29 @@
 .search-form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 15px;
 }
 
 /* Grupo de campos del formulario */
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 /* Etiquetas de los campos */
 .form-group label {
   color: #4b2e23;
   font-weight: 500;
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 /* Campos de entrada */
 .form-group input {
-  padding: 8px;
+  padding: 6px;
   border: 1px solid #ddd;
   border-radius: 6px;
-  font-size: 1rem;
+  font-size: 0.9rem;
   transition: border-color 0.3s ease;
 }
 
@@ -107,9 +107,9 @@
   background: #ce582d;
   color: #fff;
   border: none;
-  padding: 12px 24px;
+  padding: 10px 20px;
   border-radius: 6px;
-  font-size: 1rem;
+  font-size: 0.9rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
@@ -129,24 +129,22 @@
 
   .search-type-btn {
     width: 100%;
-    max-width: 300px;
+    max-width: 250px;
   }
 
   .envios-search-section {
-    width: 90%;
+    width: 80%;
   }
 }
 
 @media (max-width: 600px) {
   /* Ajustes para móviles */
   .envios-container {
-    margin-top: 60px;
+    margin-top: 40px;
   }
 
-  
-
   .envios-search-section {
-    width: 95%;
-    padding: 20px;
+    width: 90%;
+    padding: 15px;
   }
 } 

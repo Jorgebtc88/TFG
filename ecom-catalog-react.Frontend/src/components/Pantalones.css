@@ -1,14 +1,20 @@
+/**
+ * Estilos para el componente Pantalones
+ */
+
+/* Contenedor principal */
 .pantalones-container {
   width: 100%;
   min-height: 100vh;
 }
 
+/* Sección Hero */
 .pantalones-hero {
   background-image: url('https://images.unsplash.com/photo-1541099649105-f69ad21f3246');
   background-size: cover;
-  background-position: center 10%;
+  background-position: center 30%;
   background-repeat: no-repeat;
-  height: 80vh;
+  height: 70vh;
   position: relative;
   display: flex;
   align-items: center;
@@ -16,6 +22,7 @@
   color: white;
 }
 
+/* Overlay con gradiente */
 .pantalones-hero::before {
   content: '';
   position: absolute;
@@ -26,6 +33,7 @@
   background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2));
 }
 
+/* Contenido del hero */
 .pantalones-content {
   position: relative;
   z-index: 1;
@@ -48,10 +56,30 @@
   margin: 0 auto;
 }
 
+/* Grid de productos */
 .pantalones-grid {
   padding: 2rem;
   max-width: 1200px;
   margin: 0 auto;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
+}
+
+/* Estados de carga y error */
+.loading, .error {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.error {
+  color: #e74c3c;
 }
 
 /* Responsive Design */
@@ -67,6 +95,11 @@
   .pantalones-content p {
     font-size: 1rem;
   }
+
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -76,5 +109,10 @@
 
   .pantalones-content h1 {
     font-size: 2rem;
+  }
+
+  .products-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
 } 
