@@ -14,8 +14,9 @@ public class CorsConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         
-        // Allow requests from your frontend origin
+        // Allow requests from your frontend origins
         config.addAllowedOrigin("http://localhost:5173");
+        config.addAllowedOrigin("http://192.168.1.39:5173");
         
         // Allow common HTTP methods
         config.addAllowedMethod("GET");

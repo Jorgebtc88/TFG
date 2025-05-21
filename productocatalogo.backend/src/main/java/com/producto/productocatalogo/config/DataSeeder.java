@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 
-
 @Component
 public class DataSeeder implements CommandLineRunner {
 
@@ -23,54 +22,72 @@ public class DataSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
         //Clear all existing data
         productoRepository.deleteAll();
         categoriaRepository.deleteAll();
 
         //Create categories
-        Categoria electronicos = new Categoria();
-        electronicos.setNombre("Electrónicos");
+        Categoria camisetas = new Categoria();
+        camisetas.setNombre("Camisetas");
 
-        Categoria ropa = new Categoria();
-        ropa.setNombre("Ropa");
+        Categoria pantalones = new Categoria();
+        pantalones.setNombre("Pantalones");
 
-        Categoria hogar = new Categoria();
-        hogar.setNombre("Hogar y Cocina");
+        Categoria vestidos = new Categoria();
+        vestidos.setNombre("Vestidos");
 
-        categoriaRepository.saveAll(Arrays.asList(electronicos, hogar, ropa));
+        categoriaRepository.saveAll(Arrays.asList(camisetas, pantalones, vestidos));
 
-        //Create products
-        Producto telefono = new Producto();
-        telefono.setNombre("SmartPhone");
-        telefono.setDescripcion("El último modelo de smartphone con características increíbles");
-        telefono.setImagenUrl("https://placehold.co/600x400");
-        telefono.setPrecio(699.99);
-        telefono.setCategoria(electronicos);
+        //Create products for Camisetas
+        Producto camiseta1 = new Producto();
+        camiseta1.setNombre("Camiseta Básica");
+        camiseta1.setDescripcion("Camiseta de algodón 100% con corte regular");
+        camiseta1.setImagenUrl("https://images.unsplash.com/photo-1521572163474-6864f9cf17ab");
+        camiseta1.setPrecio(19.99);
+        camiseta1.setCategoria(camisetas);
 
-        Producto laptop = new Producto();
-        laptop.setNombre("Laptop");
-        laptop.setDescripcion("Portátil de alto rendimiento para trabajar y jugar");
-        laptop.setImagenUrl("https://placehold.co/600x400");
-        laptop.setPrecio(999.99);
-        laptop.setCategoria(electronicos);
+        Producto camiseta2 = new Producto();
+        camiseta2.setNombre("Camiseta Oversize");
+        camiseta2.setDescripcion("Camiseta oversize con estampado moderno");
+        camiseta2.setImagenUrl("https://images.unsplash.com/photo-1576566588028-4147f3842f27");
+        camiseta2.setPrecio(24.99);
+        camiseta2.setCategoria(camisetas);
 
-        Producto chaqueta = new Producto();
-        chaqueta.setNombre("Chaqueta");
-        chaqueta.setDescripcion("chaqueta cálida y acogedora para el invierno");
-        chaqueta.setImagenUrl("https://placehold.co/600x400");
-        chaqueta.setPrecio(129.99);
-        chaqueta.setCategoria(ropa);
+        //Create products for Pantalones
+        Producto pantalon1 = new Producto();
+        pantalon1.setNombre("Pantalón Vaquero");
+        pantalon1.setDescripcion("Vaquero clásico de talle alto");
+        pantalon1.setImagenUrl("https://images.unsplash.com/photo-1541099649105-f69ad21f3246");
+        pantalon1.setPrecio(49.99);
+        pantalon1.setCategoria(pantalones);
 
+        Producto pantalon2 = new Producto();
+        pantalon2.setNombre("Pantalón Chino");
+        pantalon2.setDescripcion("Pantalón chino de corte recto");
+        pantalon2.setImagenUrl("https://images.unsplash.com/photo-1624378439575-d8705ad7ae80");
+        pantalon2.setPrecio(39.99);
+        pantalon2.setCategoria(pantalones);
 
-        Producto licuadora = new Producto();
-        licuadora.setNombre("Licuadora");
-        licuadora.setDescripcion("licuadora con alto contenido de semillas para batidos y más");
-        licuadora.setImagenUrl("https://placehold.co/600x400");
-        licuadora.setPrecio(59.99);
-        licuadora.setCategoria(hogar);
+        //Create products for Vestidos
+        Producto vestido1 = new Producto();
+        vestido1.setNombre("Vestido Floral");
+        vestido1.setDescripcion("Vestido floral con corte midi");
+        vestido1.setImagenUrl("https://images.unsplash.com/photo-1515372039744-b8f02a3ae446");
+        vestido1.setPrecio(59.99);
+        vestido1.setCategoria(vestidos);
 
-        productoRepository.saveAll(Arrays.asList(telefono, laptop, chaqueta, licuadora));
+        Producto vestido2 = new Producto();
+        vestido2.setNombre("Vestido Negro");
+        vestido2.setDescripcion("Vestido negro de fiesta");
+        vestido2.setImagenUrl("https://images.unsplash.com/photo-1595777457583-95e059d581b8");
+        vestido2.setPrecio(79.99);
+        vestido2.setCategoria(vestidos);
+
+        productoRepository.saveAll(Arrays.asList(
+            camiseta1, camiseta2,
+            pantalon1, pantalon2,
+            vestido1, vestido2
+        ));
     }
 }
 
