@@ -16,7 +16,7 @@ const Vestidos = () => {
     const fetchProducts = async () => {
       try {
         // Asumiendo que el ID 3 es para la categoría de vestidos
-        const response = await fetch('http://localhost:8080/api/products/categoria/3');
+        const response = await fetch('http://localhost:8080/api/productos/categoria/3');
         if (!response.ok) {
           throw new Error('Error al cargar los productos');
         }

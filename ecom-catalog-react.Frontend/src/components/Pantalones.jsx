@@ -15,8 +15,8 @@ const Pantalones = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        // Asumiendo que el ID 2 es para la categoría de pantalones
-        const response = await fetch('http://localhost:8080/api/products');
+        // Asumiendo que el ID 3 es para la categoría de pantalones de mujer
+        const response = await fetch('http://localhost:8080/api/productos/categoria/3');
         if (!response.ok) {
           throw new Error('Error al cargar los productos');
         }

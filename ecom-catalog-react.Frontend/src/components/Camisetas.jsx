@@ -20,8 +20,8 @@ const Camisetas = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        // Realiza la petición a la API para obtener los productos
-        const response = await fetch('http://localhost:8080/api/products');
+        // Realiza la petición a la API para obtener los productos de camisetas de mujer
+        const response = await fetch('http://localhost:8080/api/productos/categoria/2');
         if (!response.ok) {
           throw new Error('Error al cargar los productos');
         }

@@ -1,6 +1,5 @@
 package com.producto.productocatalogo.model;
 
-
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -13,6 +12,10 @@ public class Categoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre;
+
+    @ManyToOne
+    @JoinColumn(name = "genero_id", nullable = false)
+    private Genero genero;
 
     @OneToMany(mappedBy = "categoria",
     cascade = CascadeType.ALL,

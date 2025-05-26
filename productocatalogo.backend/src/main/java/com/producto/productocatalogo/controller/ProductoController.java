@@ -2,28 +2,106 @@ package com.producto.productocatalogo.controller;
 
 import com.producto.productocatalogo.Service.ProductoService;
 import com.producto.productocatalogo.model.Producto;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controlador REST para gestionar los productos del catálogo
+ * Todas las rutas comienzan con /api/productos
+ */
 @RestController
-@RequestMapping("/api/products")
-public class ProductoController{
-    private final ProductoService productoService;
+@RequestMapping("/api/productos")
+@CrossOrigin(origins = "*") // Permite peticiones desde cualquier origen (CORS)
+public class ProductoController {
 
+    @Autowired
+    private ProductoService productoService;
 
-    public ProductoController(ProductoService productoService) {
-        this.productoService = productoService;
-    }
+    /**
+     * Obtiene todos los productos del catálogo
+     * GET /api/productos
+     */
     @GetMapping
-    public List<Producto> getAllProducts() {
-        return productoService.getAllProducts();
+    public List<Producto> getAllProductos() {
+        return productoService.getAllProductos();
     }
+
+    /**
+     * Obtiene un producto específico por su ID
+     * GET /api/productos/{id}
+     */
+    @GetMapping("/{id}")
+    public ResponseEntity<Producto> getProductoById(@PathVariable Long id) {
+        return productoService.getProductoById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    /**
+     * Obtiene todos los productos de una categoría específica
+     * GET /api/productos/categoria/{categoriaId}
+     */
     @GetMapping("/categoria/{categoriaId}")
-    public List<Producto> getAllProductsByCategoria(@PathVariable Long categoriaId) {
-        return productoService.getProductoByCategoria(categoriaId);
+    public List<Producto> getProductosByCategoria(@PathVariable Long categoriaId) {
+        return productoService.getProductosByCategoria(categoriaId);
+    }
+
+    /**
+     * Obtiene todos los productos de un género específico por su ID
+     * GET /api/productos/genero/{generoId}
+     */
+    @GetMapping("/genero/{generoId}")
+    public List<Producto> getProductosByGenero(@PathVariable Long generoId) {
+        return productoService.getProductosByGenero(generoId);
+    }
+
+    /**
+     * Obtiene todos los productos de un género específico por su nombre
+     * GET /api/productos/genero/nombre/{nombreGenero}
+     * Ejemplo: /api/productos/genero/nombre/Mujeres
+     */
+    @GetMapping("/genero/nombre/{nombreGenero}")
+    public List<Producto> getProductosByNombreGenero(@PathVariable String nombreGenero) {
+        return productoService.getProductosByNombreGenero(nombreGenero);
+    }
+
+    /**
+     * Crea un nuevo producto
+     * POST /api/productos
+     */
+    @PostMapping
+    public Producto createProducto(@RequestBody Producto producto) {
+        return productoService.saveProducto(producto);
+    }
+
+    /**
+     * Actualiza un producto existente
+     * PUT /api/productos/{id}
+     */
+    @PutMapping("/{id}")
+    public ResponseEntity<Producto> updateProducto(@PathVariable Long id, @RequestBody Producto producto) {
+        return productoService.getProductoById(id)
+                .map(existingProducto -> {
+                    producto.setId(id);
+                    return ResponseEntity.ok(productoService.saveProducto(producto));
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    /**
+     * Elimina un producto
+     * DELETE /api/productos/{id}
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProducto(@PathVariable Long id) {
+        return productoService.getProductoById(id)
+                .map(producto -> {
+                    productoService.deleteProducto(id);
+                    return ResponseEntity.ok().<Void>build();
+                })
+                .orElse(ResponseEntity.notFound().build());
     }
 }

@@ -1,0 +1,15 @@
+/home/jorgebtc88/Público/TFG/productocatalogo.backend/src/main/java/com/producto/productocatalogo/ProductocatalogoApplication.java
+/home/jorgebtc88/Público/TFG/productocatalogo.backend/src/main/java/com/producto/productocatalogo/Service/CategoriaService.java
+/home/jorgebtc88/Público/TFG/productocatalogo.backend/src/main/java/com/producto/productocatalogo/Service/GeneroService.java
+/home/jorgebtc88/Público/TFG/productocatalogo.backend/src/main/java/com/producto/productocatalogo/Service/ProductoService.java
+/home/jorgebtc88/Público/TFG/productocatalogo.backend/src/main/java/com/producto/productocatalogo/config/CorsConfig.java
+/home/jorgebtc88/Público/TFG/productocatalogo.backend/src/main/java/com/producto/productocatalogo/config/DataSeeder.java
+/home/jorgebtc88/Público/TFG/productocatalogo.backend/src/main/java/com/producto/productocatalogo/controller/CategoriaController.java
+/home/jorgebtc88/Público/TFG/productocatalogo.backend/src/main/java/com/producto/productocatalogo/controller/GeneroController.java
+/home/jorgebtc88/Público/TFG/productocatalogo.backend/src/main/java/com/producto/productocatalogo/controller/ProductoController.java
+/home/jorgebtc88/Público/TFG/productocatalogo.backend/src/main/java/com/producto/productocatalogo/model/Categoria.java
+/home/jorgebtc88/Público/TFG/productocatalogo.backend/src/main/java/com/producto/productocatalogo/model/Genero.java
+/home/jorgebtc88/Público/TFG/productocatalogo.backend/src/main/java/com/producto/productocatalogo/model/Producto.java
+/home/jorgebtc88/Público/TFG/productocatalogo.backend/src/main/java/com/producto/productocatalogo/repository/CategoriaRepository.java
+/home/jorgebtc88/Público/TFG/productocatalogo.backend/src/main/java/com/producto/productocatalogo/repository/GeneroRepository.java
+/home/jorgebtc88/Público/TFG/productocatalogo.backend/src/main/java/com/producto/productocatalogo/repository/ProductoRepository.java
