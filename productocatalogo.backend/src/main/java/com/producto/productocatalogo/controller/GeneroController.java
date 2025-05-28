@@ -20,20 +20,20 @@ public class GeneroController {
     public List<Genero> getAllGeneros() {
         return generoService.getAllGeneros();
     }
-
+    //Metodo para obtener un genero por su id
     @GetMapping("/{id}")
     public ResponseEntity<Genero> getGeneroById(@PathVariable Long id) {
         return generoService.getGeneroById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-
+    //Metodo para obtener un genero por su nombre
     @GetMapping("/nombre/{nombre}")
     public ResponseEntity<Genero> getGeneroByNombre(@PathVariable String nombre) {
         Genero genero = generoService.getGeneroByNombre(nombre);
         return genero != null ? ResponseEntity.ok(genero) : ResponseEntity.notFound().build();
     }
-
+    //Metodo para crear un nuevo genero
     @PostMapping
     public Genero createGenero(@RequestBody Genero genero) {
         return generoService.saveGenero(genero);

@@ -13,7 +13,7 @@ const Mujeres = () => {
     const fetchProducts = async () => {
       try {
         // Realiza la petición a la API para obtener los productos de la categoría mujeres
-        const response = await fetch('http://localhost:8080/api/productos/genero/nombre/Mujeres');
+        const response = await fetch('http://localhost:8000/api/productos/genero/nombre/Mujeres');
         if (!response.ok) {
           throw new Error('Error al cargar los productos');
         }
