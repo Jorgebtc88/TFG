@@ -34,6 +34,15 @@ public class ProductoService {
         return productoRepository.findByCategoriaGeneroNombre(nombreGenero);
     }
 
+    /**
+     * Busca productos por nombre de categoría (búsqueda parcial)
+     * @param nombreCategoria Nombre o parte del nombre de la categoría
+     * @return Lista de productos que coinciden con la categoría
+     */
+    public List<Producto> buscarProductosPorNombreCategoria(String nombreCategoria) {
+        return productoRepository.findByCategoriaNombreContainingIgnoreCase(nombreCategoria);
+    }
+
     public Producto saveProducto(Producto producto) {
         return productoRepository.save(producto);
     }

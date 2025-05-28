@@ -48,6 +48,7 @@ import Contacto from './Contacto';
 import FaqAccordion from './FaqAccordion';
 import FaqCategoria from './FaqCategoria';
 import Envios from './Envios';
+import SearchResults from './components/SearchResults';
 
 function App() {
   // Estado para controlar la visibilidad del carrito
@@ -125,6 +126,9 @@ function App() {
               <Route path="/faq" element={<FaqAccordion />} />
               <Route path="/faq/:slug" element={<FaqCategoria />} />
               <Route path="/envios" element={<Envios />} />
+              
+              {/* Ruta de resultados de búsqueda */}
+              <Route path="/buscar/:searchTerm" element={<SearchResults />} />
             </Routes>
           </main>
 

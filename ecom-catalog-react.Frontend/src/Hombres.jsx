@@ -7,6 +7,8 @@ const Hombres = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showAll, setShowAll] = useState(false); // Controla si se muestran todos los productos
+
   // Efecto para cargar los productos cuando el componente se monta
   useEffect(() => {
     const fetchProducts = async () => {
@@ -27,6 +29,9 @@ const Hombres = () => {
     fetchProducts();
   }, []); // El array vacío significa que el efecto solo se ejecuta al montar el componente
 
+  // Determina los productos a mostrar
+  const productsToShow = showAll ? products : products.slice(0, 4);
+
   return (
     <>
     <div className="hombres-container">
@@ -42,21 +47,35 @@ const Hombres = () => {
       ) : error ? (
         <div className="error">{error}</div>
       ) : (
-        <div className="hombres-grid">
-          {products.map((product) => (
-            <ProductCard 
-            key={product.id} 
-            product={{
-              id: product.id,
-              name: product.nombre,
-              description: product.descripcion,
-              price: product.precio,
-              image: product.imagenUrl
-            }} 
-          />
-          ))}
-        </div>
-        )}
+        <>
+          <div className="hombres-grid">
+            {productsToShow.map((product) => (
+              <ProductCard 
+                key={product.id} 
+                product={{
+                  id: product.id,
+                  name: product.nombre,
+                  description: product.descripcion,
+                  price: product.precio,
+                  image: product.imagenUrl
+                }} 
+              />
+            ))}
+          </div>
+          {!showAll && products.length > 4 && (
+            <div style={{textAlign: 'center', marginTop: '2rem'}}>
+              <button 
+                className="ver-todo-btn" 
+                style={{
+                  background: '#1d1a1a', color: 'white', border: 'none', borderRadius: '20px', padding: '0.7rem 2.5rem', fontWeight: 600, fontSize: '1rem', cursor: 'pointer', letterSpacing: '0.5px', boxShadow: '0 2px 8px rgba(0,0,0,0.07)'}}
+                onClick={() => setShowAll(true)}
+              >
+                Ver todo
+              </button>
+            </div>
+          )}
+        </>
+      )}
      </div>
    </>
   );

@@ -69,6 +69,16 @@ public class ProductoController {
     }
 
     /**
+     * Busca productos por nombre de categoría (búsqueda parcial)
+     * GET /api/productos/buscar/categoria/{nombreCategoria}
+     * Ejemplo: /api/productos/buscar/categoria/Pantal
+     */
+    @GetMapping("/buscar/categoria/{nombreCategoria}")
+    public List<Producto> buscarProductosPorNombreCategoria(@PathVariable String nombreCategoria) {
+        return productoService.buscarProductosPorNombreCategoria(nombreCategoria);
+    }
+
+    /**
      * Crea un nuevo producto
      * POST /api/productos
      */

@@ -11,4 +11,11 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
     List<Producto> findByCategoriaId(Long categoriaId);
     List<Producto> findByCategoriaGeneroId(Long generoId);
     List<Producto> findByCategoriaGeneroNombre(String nombreGenero);
+    
+    /**
+     * Busca productos por nombre de categoría (búsqueda parcial, ignorando mayúsculas/minúsculas)
+     * @param nombreCategoria Nombre o parte del nombre de la categoría
+     * @return Lista de productos que coinciden con la categoría
+     */
+    List<Producto> findByCategoriaNombreContainingIgnoreCase(String nombreCategoria);
 }
