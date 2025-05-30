@@ -46,12 +46,39 @@
   color: #666;
 }
 
+/* Contenedor del input de contraseña */
+.password-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
 /* Campos de entrada */
 .form-group input {
   padding: 0.8rem;
   border: 1px solid #ddd;
   border-radius: 4px;
   font-size: 0.9rem;
+  width: 100%;
+}
+
+/* Botón de mostrar/ocultar contraseña */
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.toggle-password:hover {
+  color: #e26d4a;
 }
 
 /* Estilo del placeholder */
