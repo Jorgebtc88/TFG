@@ -65,6 +65,14 @@
   outline: none;
 }
 
+/* Mensaje de error */
+.error-message {
+  color: #e26d4a;
+  font-size: 0.9rem;
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
 /* Botón de inicio de sesión */
 .login-submit-btn {
   width: 100%;
@@ -80,8 +88,13 @@
   margin-top: 0.5rem;
 }
 
-.login-submit-btn:hover {
+.login-submit-btn:hover:not(:disabled) {
   background: #c95a36;
+}
+
+.login-submit-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
 }
 
 /* Contenedor del enlace de recuperación de contraseña */
@@ -110,8 +123,6 @@
   margin-top: 0.5rem;
   color: #302c2c;
   font-weight: 400;
-  
-  
 }
 
 /* Estilo del enlace de registro */

@@ -7,9 +7,12 @@
  * @component
  */
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import authService from './services/auth.service';
 import './Register.css';
 
 const Register = () => {
+  const navigate = useNavigate();
   // Estado para manejar los datos del formulario
   const [formData, setFormData] = useState({
     nombre: '',
@@ -20,13 +23,16 @@ const Register = () => {
 
   // Estado para manejar errores de validación
   const [errors, setErrors] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [serverError, setServerError] = useState('');
 
   /**
    * Maneja el envío del formulario
    * @param {Event} e - Evento del formulario
    */
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setServerError('');
     
     // Validar el formulario
     const validationErrors = validateForm();
@@ -35,8 +41,18 @@ const Register = () => {
       return;
     }
 
-    // TODO: Implementar lógica de registro
-    console.log('Datos del formulario:', formData);
+    try {
+      setIsLoading(true);
+      const { confirmPassword, ...userData } = formData;
+      const response = await authService.register(userData);
+      console.log('Usuario registrado:', response);
+      navigate('/login');
+    } catch (error) {
+      console.error('Error en el registro:', error);
+      setServerError(error.message || 'Error al registrar usuario');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   /**
@@ -164,7 +180,19 @@ const Register = () => {
           </div>
 
           {/* Botón de registro */}
-          <button type="submit" className="register-submit-btn">Registrarse</button>
+          <button 
+            type="submit" 
+            className="register-submit-btn"
+            disabled={isLoading}
+          >
+            {isLoading ? 'Registrando...' : 'Registrarse'}
+          </button>
+
+          {serverError && (
+            <div className="server-error">
+              {serverError}
+            </div>
+          )}
         </form>
 
         {/* Enlace para iniciar sesión */}
