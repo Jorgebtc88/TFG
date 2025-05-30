@@ -11,6 +11,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from './context/CartContext';
 import './Header.css';
 import SearchPreviewPortal from './components/SearchPreviewPortal';
+import config from './config';
 
 const Header = ({ onCartClick }) => {
   const { totalItems } = useCart();
@@ -52,16 +53,14 @@ const Header = ({ onCartClick }) => {
   // Efecto para la búsqueda en tiempo real
   useEffect(() => {
     if (searchTerm.trim()) {
-      // Limpiar el timeout anterior
       if (searchTimeoutRef.current) {
         clearTimeout(searchTimeoutRef.current);
       }
 
-      // Establecer un nuevo timeout para evitar demasiadas peticiones
       searchTimeoutRef.current = setTimeout(async () => {
         setIsLoading(true);
         try {
-          const response = await fetch(`http://localhost:8000/api/productos/buscar/categoria/${encodeURIComponent(searchTerm)}`);
+          const response = await fetch(`${config.PRODUCTS_URL}/buscar?query=${encodeURIComponent(searchTerm)}`);
           if (!response.ok) {
             throw new Error('Error en la búsqueda');
           }
@@ -73,7 +72,7 @@ const Header = ({ onCartClick }) => {
         } finally {
           setIsLoading(false);
         }
-      }, 300); // Esperar 300ms después de que el usuario deje de escribir
+      }, 300);
     } else {
       setSearchResults([]);
     }
@@ -275,7 +274,7 @@ const Header = ({ onCartClick }) => {
                       style={{background: 'none', border: 'none', color: '#1d1a1a', fontWeight: 500, cursor: 'pointer', fontSize: '0.95rem', padding: 0, marginLeft: '1rem'}}
                       onClick={() => {
                         setIsSearchOpen(false);
-                        navigate(`/buscar/${encodeURIComponent(searchTerm)}`, { state: { products: searchResults, searchTerm } });
+                        navigate(`/buscar?query=${encodeURIComponent(searchTerm)}`);
                       }}
                     >
                       Ver todo

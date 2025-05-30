@@ -79,6 +79,15 @@ public class ProductoController {
     }
 
     /**
+     * Busca productos por nombre de producto
+     * GET /api/productos/buscar
+     */
+    @GetMapping("/buscar")
+    public List<Producto> buscarProductos(@RequestParam String query) {
+        return productoService.buscarProductosPorNombre(query);
+    }
+
+    /**
      * Crea un nuevo producto
      * POST /api/productos
      */

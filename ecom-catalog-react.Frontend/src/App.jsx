@@ -9,6 +9,10 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import './App.css'
+import { AuthProvider } from './contexts/AuthContext';
+import ProtectedRoute from './components/auth/ProtectedRoute';
+import AdminPanel from './components/admin/AdminPanel';
+import AdminNav from './components/admin/AdminNav';
 
 // Componentes de Layout
 import Header from './Header';
@@ -48,7 +52,7 @@ import Contacto from './Contacto';
 import FaqAccordion from './FaqAccordion';
 import FaqCategoria from './FaqCategoria';
 import Envios from './Envios';
-import SearchResults from './components/SearchResults';
+import SearchResult from './components/SearchResult';
 
 function App() {
   // Estado para controlar la visibilidad del carrito
@@ -79,73 +83,88 @@ function App() {
   };
 
   return (
-    <CartProvider>
-      <Router>
-        <div className="App">
-          {/* Header condicional */}
-          <HeaderWrapper />
-          
-          <main className="main-content">
-            <Routes>
-              {/* Ruta principal con Hero y Newsletter */}
-              <Route path="/" element={
-                <>
-                  <Hero />
-                  <Newsletter />
-                </>
-              } />
+    <AuthProvider>
+      <CartProvider>
+        <Router>
+          <div className="min-h-screen bg-gray-100">
+            <AdminNav />
+            <div className="App">
+              {/* Header condicional */}
+              <HeaderWrapper />
               
-              {/* Rutas de categorías de Hombres */}
-              <Route path="/hombres" element={<Hombres />} />
-              <Route path="/hombres/camisetas" element={<CamisetasHombre />} />
-              <Route path="/hombres/pantalones" element={<PantalonesHombre />} />
-              <Route path="/hombres/zapatos" element={<ZapatosHombre />} />
-              <Route path="/hombres/chaquetas" element={<ChaquetasHombre />} />
+              <main className="main-content">
+                <Routes>
+                  {/* Ruta principal con Hero y Newsletter */}
+                  <Route path="/" element={
+                    <>
+                      <Hero />
+                      <Newsletter />
+                    </>
+                  } />
+                  
+                  {/* Rutas de categorías de Hombres */}
+                  <Route path="/hombres" element={<Hombres />} />
+                  <Route path="/hombres/camisetas" element={<CamisetasHombre />} />
+                  <Route path="/hombres/pantalones" element={<PantalonesHombre />} />
+                  <Route path="/hombres/zapatos" element={<ZapatosHombre />} />
+                  <Route path="/hombres/chaquetas" element={<ChaquetasHombre />} />
 
-              {/* Rutas de categorías de Mujeres */}
-              <Route path="/mujeres" element={<Mujeres />} />
-              <Route path="/mujeres/camisetas" element={<Camisetas />} />
-              <Route path="/mujeres/pantalones" element={<Pantalones />} />
-              <Route path="/mujeres/vestidos" element={<Vestidos />} />
-              <Route path="/mujeres/zapatos" element={<Zapatos />} />
+                  {/* Rutas de categorías de Mujeres */}
+                  <Route path="/mujeres" element={<Mujeres />} />
+                  <Route path="/mujeres/camisetas" element={<Camisetas />} />
+                  <Route path="/mujeres/pantalones" element={<Pantalones />} />
+                  <Route path="/mujeres/vestidos" element={<Vestidos />} />
+                  <Route path="/mujeres/zapatos" element={<Zapatos />} />
 
-              {/* Ruta de colecciones */}
-              <Route path="/colecciones" element={<Colecciones />} />
-              
-              {/* Rutas de autenticación */}
-              <Route path="/login" element={<Login />} />
-              <Route path="/registro" element={<Register />} />
-              <Route path="/recuperar-contrasena" element={<RecuperarContrasena />} />
-              
-              {/* Ruta del carrito */}
-              <Route path="/carrito" element={<Cart isOpen={true} onClose={() => {}} />} />
+                  {/* Ruta de colecciones */}
+                  <Route path="/colecciones" element={<Colecciones />} />
+                  
+                  {/* Rutas de autenticación */}
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/registro" element={<Register />} />
+                  <Route path="/recuperar-contrasena" element={<RecuperarContrasena />} />
+                  
+                  {/* Ruta del carrito */}
+                  <Route path="/carrito" element={<Cart isOpen={true} onClose={() => {}} />} />
 
-              {/* Rutas de información */}
-              <Route path="/devoluciones" element={<Devoluciones />} />
-              <Route path="/contacto" element={<Contacto />} />
-              <Route path="/faq" element={<FaqAccordion />} />
-              <Route path="/faq/:slug" element={<FaqCategoria />} />
-              <Route path="/envios" element={<Envios />} />
-              
-              {/* Ruta de resultados de búsqueda */}
-              <Route path="/buscar/:searchTerm" element={<SearchResults />} />
-            </Routes>
-          </main>
+                  {/* Rutas de información */}
+                  <Route path="/devoluciones" element={<Devoluciones />} />
+                  <Route path="/contacto" element={<Contacto />} />
+                  <Route path="/faq" element={<FaqAccordion />} />
+                  <Route path="/faq/:slug" element={<FaqCategoria />} />
+                  <Route path="/envios" element={<Envios />} />
+                  
+                  {/* Ruta de resultados de búsqueda */}
+                  <Route path="/buscar" element={<SearchResult />} />
 
-          {/* Footer condicional */}
-          <FooterWrapper />
+                  {/* Ruta del panel de administración */}
+                  <Route
+                    path="/admin"
+                    element={
+                      <ProtectedRoute requireAdmin={true}>
+                        <AdminPanel />
+                      </ProtectedRoute>
+                    }
+                  />
+                </Routes>
+              </main>
 
-          {/* Carrito flotante y overlay */}
-          <Cart isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
-          {isCartOpen && (
-            <div 
-              className="cart-overlay" 
-              onClick={() => setIsCartOpen(false)}
-            />
-          )}
-        </div>
-      </Router>
-    </CartProvider>
+              {/* Footer condicional */}
+              <FooterWrapper />
+
+              {/* Carrito flotante y overlay */}
+              <Cart isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+              {isCartOpen && (
+                <div 
+                  className="cart-overlay" 
+                  onClick={() => setIsCartOpen(false)}
+                />
+              )}
+            </div>
+          </div>
+        </Router>
+      </CartProvider>
+    </AuthProvider>
   )
 }
 

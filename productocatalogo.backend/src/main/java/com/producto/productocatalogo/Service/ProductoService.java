@@ -43,6 +43,10 @@ public class ProductoService {
         return productoRepository.findByCategoriaNombreContainingIgnoreCase(nombreCategoria);
     }
 
+    public List<Producto> buscarProductosPorNombre(String nombre) {
+        return productoRepository.findByNombreContainingIgnoreCase(nombre);
+    }
+
     public Producto saveProducto(Producto producto) {
         return productoRepository.save(producto);
     }
