@@ -11,6 +11,7 @@
  */
 import React, { useState, useEffect } from 'react';
 import ProductCard from './ProductCard';
+import FilterPanel from './FilterPanel';
 import './Camisetas.css';
 
 /**
@@ -71,45 +72,92 @@ const ProductGrid = ({ products }) => (
   </div>
 );
 
+const FilterButton = ({ onClick }) => (
+  <button className="filter-toggle-button" onClick={onClick}>
+    <div className="filter-icon">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <span className="filter-text">Filtro</span>
+  </button>
+);
+
 /**
  * Componente principal de la página de camisetas
  * @component
  * @returns {JSX.Element} Página completa de camisetas
  */
 const Camisetas = () => {
-  // Estados para manejar los productos, carga y errores
-  const [products, setProducts] = useState([]); // Lista de productos
-  const [loading, setLoading] = useState(true); // Estado de carga
-  const [error, setError] = useState(null); // Estado de error
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [showFilters, setShowFilters] = useState(false);
+  const [filters, setFilters] = useState({
+    priceRange: { min: 0, max: 250 },
+    sortBy: 'priceAsc',
+    size: '',
+    color: ''
+  });
 
-  /**
-   * Efecto para cargar los productos al montar el componente
-   * Realiza una petición a la API y actualiza el estado correspondiente
-   */
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        // Realiza la petición a la API
         const response = await fetch(API_URL);
         if (!response.ok) {
           throw new Error('Error al cargar los productos');
         }
         const data = await response.json();
-        setProducts(data);
+        
+        // Aplicar filtros
+        let filteredData = [...data];
+        
+        // Filtrar por rango de precio
+        filteredData = filteredData.filter(product => 
+          product.precio >= filters.priceRange.min && 
+          product.precio <= filters.priceRange.max
+        );
+
+        // Filtrar por talla si está seleccionada
+        if (filters.size) {
+          filteredData = filteredData.filter(product => 
+            product.tallas && product.tallas.includes(filters.size)
+          );
+        }
+
+        // Filtrar por color si está seleccionado
+        if (filters.color) {
+          filteredData = filteredData.filter(product => 
+            product.color && product.color.toLowerCase() === filters.color
+          );
+        }
+
+        // Ordenar por precio
+        if (filters.sortBy === 'priceAsc') {
+          filteredData.sort((a, b) => a.precio - b.precio);
+        } else if (filters.sortBy === 'priceDesc') {
+          filteredData.sort((a, b) => b.precio - a.precio);
+        }
+
+        setProducts(filteredData);
       } catch (err) {
         setError(err.message);
       } finally {
         setLoading(false);
       }
     };
-
     fetchProducts();
-  }, []); // Se ejecuta solo al montar el componente
+  }, [filters]);
 
-  /**
-   * Función que determina qué contenido mostrar basado en el estado
-   * @returns {JSX.Element} Componente correspondiente al estado actual
-   */
+  const handleFilterChange = (newFilters) => {
+    setFilters(newFilters);
+    setShowFilters(false);
+  };
+
+  const handleCloseFilters = () => {
+    setShowFilters(false);
+  };
+
   const renderContent = () => {
     if (loading) return <LoadingState />;
     if (error) return <ErrorState message={error} />;
@@ -119,8 +167,21 @@ const Camisetas = () => {
   return (
     <div className="camisetas-container">
       <HeroSection />
-      <div className="camisetas-grid">
-        {renderContent()}
+      <div className="products-container">
+        <div className="filter-button-container">
+          <FilterButton onClick={() => setShowFilters(!showFilters)} />
+        </div>
+        {showFilters && (
+          <div className="filter-sidebar">
+            <FilterPanel 
+              onFilterChange={handleFilterChange}
+              onClose={handleCloseFilters}
+            />
+          </div>
+        )}
+        <div className="camisetas-grid">
+          {renderContent()}
+        </div>
       </div>
     </div>
   );

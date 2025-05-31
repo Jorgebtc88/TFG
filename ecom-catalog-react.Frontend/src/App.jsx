@@ -87,7 +87,6 @@ function App() {
       <CartProvider>
         <Router>
           <div className="min-h-screen bg-gray-100">
-            <AdminNav />
             <div className="App">
               {/* Header condicional */}
               <HeaderWrapper />

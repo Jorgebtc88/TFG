@@ -12,6 +12,7 @@ import { useCart } from './context/CartContext';
 import './Header.css';
 import SearchPreviewPortal from './components/SearchPreviewPortal';
 import config from './config';
+import { useAuth } from './contexts/AuthContext';
 
 const Header = ({ onCartClick }) => {
   const { totalItems } = useCart();
@@ -25,6 +26,7 @@ const Header = ({ onCartClick }) => {
   const [isLoading, setIsLoading] = useState(false);
   const searchPanelRef = useRef(null);
   const searchTimeoutRef = useRef(null);
+  const { user, logout } = useAuth();
 
   // Referencias para los contenedores de los menús
   const hombresMenuRef = useRef(null);
@@ -226,8 +228,25 @@ const Header = ({ onCartClick }) => {
           )}
         </button>
 
-        {/* Botón de inicio de sesión */}
-        <Link to="/login" className="login-btn">Iniciar sesión</Link>
+        {/* Botón de inicio de sesión o nombre del usuario */}
+        {user ? (
+          <div className="user-menu">
+            <button className="user-btn" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+              {user.nombre}
+            </button>
+            {isMenuOpen && (
+              <div className="user-dropdown">
+                {user.rol === 'ADMIN' && (
+                  <Link to="/admin" className="dropdown-item">Panel de Administración</Link>
+                )}
+                <Link to="/perfil" className="dropdown-item">Perfil</Link>
+                <button className="dropdown-item" onClick={logout}>Cerrar sesión</button>
+              </div>
+            )}
+          </div>
+        ) : (
+          <Link to="/login" className="login-btn">Iniciar sesión</Link>
+        )}
       </div>
 
       {/* Panel de búsqueda */}

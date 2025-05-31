@@ -287,15 +287,16 @@
   top: 100%;
   left: 0;
   background-color: white;
-  min-width: 200px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  min-width: 220px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   opacity: 0;
   visibility: hidden;
   transform: translateY(10px);
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1000;
-  padding: 8px 0;
+  padding: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .dropdown-menu.show {
@@ -305,42 +306,83 @@
 }
 
 .dropdown-item {
-  display: block;
-  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
   color: #333;
   text-decoration: none;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   position: relative;
   font-size: 0.95rem;
+  border-radius: 8px;
+  margin: 2px 0;
+}
+
+/* Iconos para los items del menú */
+.dropdown-item::before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  margin-right: 12px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+/* Iconos específicos para cada categoría */
+.dropdown-item[href*="camisetas"]::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'%3E%3Cpath d='M20.38 3.46L16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z'/%3E%3C/svg%3E");
+}
+
+.dropdown-item[href*="pantalones"]::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'%3E%3Cpath d='M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z'/%3E%3Cpath d='M6 2v20'/%3E%3Cpath d='M18 2v20'/%3E%3C/svg%3E");
+}
+
+.dropdown-item[href*="vestidos"]::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'%3E%3Cpath d='M12 2v20M12 2c-2 0-4 2-4 4v4c0 2 2 4 4 4s4-2 4-4V6c0-2-2-4-4-4z'/%3E%3C/svg%3E");
+}
+
+.dropdown-item[href*="zapatos"]::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'%3E%3Cpath d='M4 14h16M4 14v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4M4 14l2-8h12l2 8'/%3E%3C/svg%3E");
+}
+
+.dropdown-item[href*="chaquetas"]::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'%3E%3Cpath d='M20 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v2M4 8v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8'/%3E%3C/svg%3E");
 }
 
 /* Efecto hover para los items del menú */
 .dropdown-item:hover {
   background-color: #f8f9fa;
-  color: #000;
-  padding-left: 25px;
+  color: #e26d4a;
+  transform: translateX(4px);
+}
+
+.dropdown-item:hover::before {
+  opacity: 1;
 }
 
 /* Línea indicadora que aparece al hacer hover */
-.dropdown-item::before {
+.dropdown-item::after {
   content: '';
   position: absolute;
   left: 0;
   top: 0;
   height: 100%;
   width: 3px;
-  background-color: #000;
+  background-color: #e26d4a;
   transform: scaleY(0);
-  transition: transform 0.2s ease;
+  transition: transform 0.3s ease;
+  border-radius: 0 2px 2px 0;
 }
 
-.dropdown-item:hover::before {
+.dropdown-item:hover::after {
   transform: scaleY(1);
 }
 
 /* Efecto de transición suave para el padding */
 .dropdown-item {
-  transition: padding-left 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Ajustes para móvil */
@@ -350,12 +392,14 @@
     box-shadow: none;
     background: #f8f9fa;
     border-radius: 0;
-    padding: 0.5rem 0;
+    padding: 0.5rem;
     margin-top: 0.5rem;
+    border: none;
   }
 
   .dropdown-item {
-    padding: 0.5rem 1rem;
+    padding: 0.8rem 1rem;
+    margin: 0;
   }
 
   .dropdown-trigger {
@@ -612,4 +656,60 @@
   .search-result-price {
     font-size: 1rem !important;
   }
+}
+
+/* Estilos para el menú de usuario */
+.user-menu {
+  position: relative;
+  display: inline-block;
+}
+
+.user-btn {
+  background: none;
+  border: none;
+  color: #333;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  transition: color 0.2s;
+}
+
+.user-btn:hover {
+  color: #e26d4a;
+}
+
+.user-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  display: none;
+  z-index: 1000;
+  min-width: 180px;
+  transition: all 0.3s ease;
+}
+
+.user-menu:hover .user-dropdown {
+  display: block;
+}
+
+.dropdown-item {
+  display: block;
+  padding: 0.7rem 1rem;
+  color: #333;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+  border-bottom: 1px solid #eee;
+}
+
+.dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.dropdown-item:hover {
+  background: #f5f5f5;
+  color: #e26d4a;
 } 
