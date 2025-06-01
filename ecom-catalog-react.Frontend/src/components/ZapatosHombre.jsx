@@ -17,7 +17,7 @@ import './ZapatosHombre.css';
  * URL base para la API de productos de zapatos de hombre
  * @constant {string}
  */
-const API_URL = 'http://localhost:8000/api/productos/categoria/8';
+const API_URL = 'http://localhost:8000/api/productos/categoria/16';
 
 /**
  * Componente que renderiza la sección hero de la página

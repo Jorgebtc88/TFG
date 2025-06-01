@@ -18,7 +18,7 @@ import './Camisetas.css';
  * URL base para la API de productos de camisetas de mujer
  * @constant {string}
  */
-const API_URL = 'http://localhost:8000/api/productos/categoria/2';
+const API_URL = 'http://localhost:8000/api/productos/categoria/10';
 
 /**
  * Componente que renderiza la sección hero de la página

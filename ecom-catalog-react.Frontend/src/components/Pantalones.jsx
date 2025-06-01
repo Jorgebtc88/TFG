@@ -12,7 +12,7 @@ import FilterPanel from './FilterPanel';
  * URL base para la API de productos de pantalones de mujer
  * @constant {string}
  */
-const API_URL = 'http://localhost:8000/api/productos/categoria/3';
+const API_URL = 'http://localhost:8000/api/productos/categoria/11';
 
 /**
  * Componente que muestra el estado de carga

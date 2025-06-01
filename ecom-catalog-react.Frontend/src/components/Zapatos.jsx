@@ -26,10 +26,12 @@ const Zapatos = () => {
     color: ''
   });
 
+  const API_URL = 'http://localhost:8000/api/productos/categoria/12';
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/productos/categoria/4');
+        const response = await fetch(API_URL);
         if (!response.ok) {
           throw new Error('Error al cargar los productos');
         }

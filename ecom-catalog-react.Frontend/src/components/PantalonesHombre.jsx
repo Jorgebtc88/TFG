@@ -15,7 +15,7 @@ import FilterPanel from './FilterPanel';
  * URL base para la API de productos de pantalones de hombre
  * @constant {string}
  */
-const API_URL = 'http://localhost:8000/api/productos/categoria/7';
+const API_URL = 'http://localhost:8000/api/productos/categoria/14';
 
 /**
  * Componente que muestra el estado de carga

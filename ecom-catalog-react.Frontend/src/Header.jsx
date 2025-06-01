@@ -236,10 +236,11 @@ const Header = ({ onCartClick }) => {
             </button>
             {isMenuOpen && (
               <div className="user-dropdown">
+                <Link to="/perfil" className="dropdown-item">Perfil</Link>
                 {user.rol === 'ADMIN' && (
                   <Link to="/admin" className="dropdown-item">Panel de Administración</Link>
                 )}
-                <Link to="/perfil" className="dropdown-item">Perfil</Link>
+               
                 <button className="dropdown-item" onClick={logout}>Cerrar sesión</button>
               </div>
             )}

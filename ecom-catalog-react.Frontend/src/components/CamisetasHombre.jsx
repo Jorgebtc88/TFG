@@ -17,7 +17,7 @@ import './CamisetasHombre.css';
  * URL base para la API de productos de camisetas de hombre
  * @constant {string}
  */
-const API_URL = 'http://localhost:8000/api/productos/categoria/3';
+const API_URL = 'http://localhost:8000/api/productos/categoria/13';
 
 /**
  * Componente que renderiza la sección hero de la página

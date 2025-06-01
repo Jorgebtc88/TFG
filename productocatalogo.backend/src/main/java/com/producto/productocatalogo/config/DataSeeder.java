@@ -141,8 +141,8 @@ public class DataSeeder implements CommandLineRunner {
         Producto pantalon3 = new Producto();
         pantalon3.setNombre("Pantalón de Chino");
         pantalon3.setDescripcion("Pantalón de chino de corte recto");
-        pantalon3.setImagenUrl("https://images.unsplash.com/photo-1624378439575-d8705ad7ae80");
-        pantalon3.setPrecio(39.99);
+        pantalon3.setImagenUrl("https://capitandenim.com/cdn/shop/files/pantalones-cargo-de-mujer-made-in-spain.jpg?v=1701099010&width=3000");
+        pantalon3.setPrecio(19.99);
         pantalon3.setCategoria(pantalonesMujer);
 
         Producto pantalon4 = new Producto();
@@ -306,36 +306,36 @@ public class DataSeeder implements CommandLineRunner {
 
         //Crear productos de Chaquetas
         Producto chaquetaHombre1 = new Producto();
-        chaquetaHombre1.setNombre("Chaqueta de Mujer");
-        chaquetaHombre1.setDescripcion("Chaqueta de mujer de color negro");
+        chaquetaHombre1.setNombre("Chaqueta de Hombre");
+        chaquetaHombre1.setDescripcion("Chaqueta de hombre de color negro");
         chaquetaHombre1.setPrecio(49.99);
         chaquetaHombre1.setImagenUrl("/images/chaqueta-hombre.jpg");
         chaquetaHombre1.setCategoria(chaquetasHombre);      
 
         Producto chaquetaHombre2 = new Producto();
-        chaquetaHombre2.setNombre("Chaqueta de Mujer");
-        chaquetaHombre2.setDescripcion("Chaqueta de mujer de color negro");
+        chaquetaHombre2.setNombre("Chaqueta de Hombre");
+        chaquetaHombre2.setDescripcion("Chaqueta de hombre de color negro");
         chaquetaHombre2.setPrecio(49.99);
         chaquetaHombre2.setImagenUrl("/images/chaqueta-hombre.jpg");
         chaquetaHombre2.setCategoria(chaquetasHombre);  
 
         Producto chaquetaHombre3 = new Producto();
-        chaquetaHombre3.setNombre("Chaqueta de Mujer");
-        chaquetaHombre3.setDescripcion("Chaqueta de mujer de color negro");
+        chaquetaHombre3.setNombre("Chaqueta de Hombre");
+        chaquetaHombre3.setDescripcion("Chaqueta de hombre de color negro");
         chaquetaHombre3.setPrecio(49.99);
         chaquetaHombre3.setImagenUrl("/images/chaqueta-hombre.jpg");
         chaquetaHombre3.setCategoria(chaquetasHombre);
 
         Producto chaquetaHombre4 = new Producto();
-        chaquetaHombre4.setNombre("Chaqueta de Mujer");
-        chaquetaHombre4.setDescripcion("Chaqueta de mujer de color negro");
+        chaquetaHombre4.setNombre("Chaqueta de Hombre");
+        chaquetaHombre4.setDescripcion("Chaqueta de hombre de color negro");
         chaquetaHombre4.setPrecio(49.99);
         chaquetaHombre4.setImagenUrl("/images/chaqueta-hombre.jpg");
         chaquetaHombre4.setCategoria(chaquetasHombre);  
 
         Producto chaquetaHombre5 = new Producto();
-        chaquetaHombre5.setNombre("Chaqueta de Mujer");
-        chaquetaHombre5.setDescripcion("Chaqueta de mujer de color negro");
+        chaquetaHombre5.setNombre("Chaqueta de Hombre");
+        chaquetaHombre5.setDescripcion("Chaqueta de hombre de color negro");
         chaquetaHombre5.setPrecio(49.99);
         chaquetaHombre5.setImagenUrl("/images/chaqueta-hombre.jpg");    
         chaquetaHombre5.setCategoria(chaquetasHombre);

@@ -17,7 +17,7 @@ import './ChaquetasHombre.css';
  * URL base para la API de productos de chaquetas de hombre
  * @constant {string}
  */
-const API_URL = 'http://localhost:8000/api/productos/categoria/7';
+const API_URL = 'http://localhost:8000/api/productos/categoria/15';
 
 /**
  * Componente que renderiza la sección hero de la página
