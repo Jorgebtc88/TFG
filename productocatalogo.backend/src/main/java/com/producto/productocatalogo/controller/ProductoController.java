@@ -123,4 +123,45 @@ public class ProductoController {
                 })
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    /**
+     * Obtiene todos los productos de una talla específica
+     * GET /api/productos/talla/{talla}
+     */
+    @GetMapping("/talla/{talla}")
+    public List<Producto> getProductosByTalla(@PathVariable String talla) {
+        return productoService.getProductosByTalla(talla);
+    }
+
+    /**
+     * Añade una talla a un producto
+     * POST /api/productos/{id}/tallas
+     */
+    @PostMapping("/{id}/tallas")
+    public ResponseEntity<Producto> addTallaToProducto(
+            @PathVariable Long id,
+            @RequestParam String talla) {
+        try {
+            Producto producto = productoService.addTallaToProducto(id, talla);
+            return ResponseEntity.ok(producto);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    /**
+     * Elimina una talla de un producto
+     * DELETE /api/productos/{id}/tallas
+     */
+    @DeleteMapping("/{id}/tallas")
+    public ResponseEntity<Producto> removeTallaFromProducto(
+            @PathVariable Long id,
+            @RequestParam String talla) {
+        try {
+            Producto producto = productoService.removeTallaFromProducto(id, talla);
+            return ResponseEntity.ok(producto);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

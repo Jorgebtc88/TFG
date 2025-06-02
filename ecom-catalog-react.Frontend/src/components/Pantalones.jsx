@@ -44,16 +44,21 @@ const ErrorState = ({ message }) => (
 const ProductGrid = ({ products }) => (
   <div className="products-grid">
     {products.map((product) => (
-      <ProductCard 
-        key={product.id} 
-        product={{
-          id: product.id,
-          name: product.nombre,
-          description: product.descripcion,
-          price: product.precio,
-          image: product.imagenUrl
-        }} 
-      />
+      <div className="card product-card" key={product.id}>
+        <div className="image-container">
+          <img src={product.imagenUrl} alt={product.nombre} className="card-img-top product-image" />
+        </div>
+        <div className="card-body product-info">
+          <h6 className="card-title product-title">{product.nombre}</h6>
+          <p className="card-text">{product.descripcion}</p>
+          <strong>{product.precio} €</strong>
+          <div className="tallas-lista">
+            {product.tallas && product.tallas.length > 0
+              ? product.tallas.map(t => t.nombre).join(' · ')
+              : 'Sin tallas'}
+          </div>
+        </div>
+      </div>
     ))}
   </div>
 );

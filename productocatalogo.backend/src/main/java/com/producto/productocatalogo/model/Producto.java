@@ -1,12 +1,11 @@
 package com.producto.productocatalogo.model;
 
-
 import jakarta.persistence.*;
 import lombok.Data;
+import java.util.Set;
 
 @Entity
 @Data
-
 public class Producto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,4 +19,11 @@ public class Producto {
     @JoinColumn(name = "categoria_id", nullable = false)
     private Categoria categoria;
 
+    @ManyToMany
+    @JoinTable(
+        name = "producto_talla",
+        joinColumns = @JoinColumn(name = "producto_id"),
+        inverseJoinColumns = @JoinColumn(name = "talla_id")
+    )
+    private Set<Talla> tallas;
 }

@@ -25,12 +25,12 @@ const API_URL = 'http://localhost:8000/api/productos/categoria/16';
  * @returns {JSX.Element} Sección hero con título y descripción
  */
 const HeroSection = () => (
-  <div className="zapatos-hombre-hero">
-    <div className="zapatos-hombre-content">
-      <h1>Zapatos</h1>
-      <p>Descubre nuestra colección de zapatos para hombre</p>
-    </div>
-  </div>
+      <div className="zapatos-hombre-hero">
+        <div className="zapatos-hombre-content">
+          <h1>Zapatos</h1>
+          <p>Descubre nuestra colección de zapatos para hombre</p>
+        </div>
+      </div>
 );
 
 /**
@@ -63,16 +63,21 @@ const ErrorState = ({ message }) => (
 const ProductGrid = ({ products }) => (
   <div className="products-grid">
     {products.map((product) => (
-      <ProductCard 
-        key={product.id} 
-        product={{
-          id: product.id,
-          name: product.nombre,
-          description: product.descripcion,
-          price: product.precio,
-          image: product.imagenUrl
-        }} 
-      />
+      <div className="card product-card" key={product.id}>
+        <div className="image-container">
+          <img src={product.imagenUrl} alt={product.nombre} className="card-img-top product-image" />
+        </div>
+        <div className="card-body product-info">
+          <h6 className="card-title product-title">{product.nombre}</h6>
+          <p className="card-text">{product.descripcion}</p>
+          <strong>{product.precio} €</strong>
+          <div className="tallas-lista">
+            {product.tallas && product.tallas.length > 0
+              ? product.tallas.map(t => t.nombre).join(' · ')
+              : 'Sin tallas'}
+          </div>
+        </div>
+      </div>
     ))}
   </div>
 );
@@ -188,7 +193,7 @@ const ZapatosHombre = () => {
             />
           </div>
         )}
-        <div className="zapatos-hombre-grid">
+      <div className="zapatos-hombre-grid">
           {renderContent()}
         </div>
       </div>

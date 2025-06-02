@@ -1,18 +1,23 @@
 package com.producto.productocatalogo.Service;
 
 import com.producto.productocatalogo.model.Producto;
+import com.producto.productocatalogo.model.Talla;
 import com.producto.productocatalogo.repository.ProductoRepository;
+import com.producto.productocatalogo.repository.TallaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
-public class ProductoService {
+    @Service
+    public class ProductoService {
 
     @Autowired
     private ProductoRepository productoRepository;
+
+    @Autowired
+    private TallaRepository tallaRepository;
 
     public List<Producto> getAllProductos() {
         return productoRepository.findAll();
@@ -47,11 +52,42 @@ public class ProductoService {
         return productoRepository.findByNombreContainingIgnoreCase(nombre);
     }
 
+    public List<Producto> getProductosByTalla(String talla) {
+        return productoRepository.findByTallasNombre(talla);
+    }
+
     public Producto saveProducto(Producto producto) {
         return productoRepository.save(producto);
     }
 
     public void deleteProducto(Long id) {
         productoRepository.deleteById(id);
+    }
+
+    public Producto addTallaToProducto(Long productoId, String tallaNombre) {
+        Producto producto = productoRepository.findById(productoId)
+            .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+        
+        Talla talla = tallaRepository.findByNombre(tallaNombre);
+        if (talla == null) {
+            talla = new Talla();
+            talla.setNombre(tallaNombre);
+            talla = tallaRepository.save(talla);
+        }
+        
+        producto.getTallas().add(talla);
+        return productoRepository.save(producto);
+    }
+
+    public Producto removeTallaFromProducto(Long productoId, String tallaNombre) {
+        Producto producto = productoRepository.findById(productoId)
+            .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+        
+        Talla talla = tallaRepository.findByNombre(tallaNombre);
+        if (talla != null) {
+            producto.getTallas().remove(talla);
+        }
+        
+        return productoRepository.save(producto);
     }
 }
