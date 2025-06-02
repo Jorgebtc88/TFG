@@ -56,7 +56,7 @@ const ErrorState = ({ message }) => (
 
 
 const ProductGrid = ({ products }) => (
-  <div className="mujeres-grid">
+  <div className="camisetas-grid">
     {products.map((product) => (
       <div className="card product-card" key={product.id}>
         <div className="image-container">

@@ -1,18 +1,37 @@
 /**
  * Componente Pantalones
- * Muestra la sección de pantalones para mujeres con una sección hero y grid de productos
+ * 
+ * Este componente representa la página de pantalones para la sección de mujeres.
+ * Incluye una sección hero y un grid de productos.
+ * 
+ * @component
+ * @requires React
+ * @requires ProductCard
+ * @requires Pantalones.css
  */
-
-import React, { useState, useEffect } from 'react';
-import './Pantalones.css';
+import React, { useState, useEffect } from 'react'; 
 import ProductCard from './ProductCard';
 import FilterPanel from './FilterPanel';
+import './Pantalones.css';
 
 /**
  * URL base para la API de productos de pantalones de mujer
  * @constant {string}
  */
 const API_URL = 'http://localhost:8000/api/productos/categoria/11';
+/**
+ * Componente que renderiza la sección hero de la página
+ * @component
+ * @returns {JSX.Element} Sección hero con título y descripción
+ */
+const HeroSection = () => (
+    <div className="pantalones-hero">
+    <div className="pantalones-content">
+      <h1>Pantalones</h1>
+      <p>Descubre nuestra colección de pantalones para mujer</p>
+    </div>
+  </div>
+);
 
 /**
  * Componente que muestra el estado de carga
@@ -34,15 +53,9 @@ const ErrorState = ({ message }) => (
   <div className="error">{message}</div>
 );
 
-/**
- * Componente que renderiza la cuadrícula de productos
- * @component
- * @param {Object} props - Propiedades del componente
- * @param {Array} props.products - Lista de productos a mostrar
- * @returns {JSX.Element} Cuadrícula de productos
- */
+
 const ProductGrid = ({ products }) => (
-  <div className="products-grid">
+  <div className="pantalones-grid">
     {products.map((product) => (
       <div className="card product-card" key={product.id}>
         <div className="image-container">
@@ -74,6 +87,11 @@ const FilterButton = ({ onClick }) => (
   </button>
 );
 
+/**
+ * Componente principal de la página de pantalones
+ * @component
+ * @returns {JSX.Element} Página completa de pantalones
+ */
 const Pantalones = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -152,12 +170,7 @@ const Pantalones = () => {
 
   return (
     <div className="pantalones-container">
-      <div className="pantalones-hero">
-        <div className="pantalones-content">
-          <h1>Pantalones</h1>
-          <p>Descubre nuestra colección de pantalones.</p>
-        </div>
-      </div>
+      <HeroSection />
       <div className="products-container">
         <div className="filter-button-container">
           <FilterButton onClick={() => setShowFilters(!showFilters)} />

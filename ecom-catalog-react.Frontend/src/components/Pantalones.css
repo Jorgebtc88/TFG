@@ -1,5 +1,5 @@
 /**
- * Estilos para el componente Pantalones
+ * Estilos para el componente Camisetas
  */
 
 /* Contenedor principal */
@@ -58,16 +58,16 @@
 
 /* Grid de productos */
 .pantalones-grid {
-  padding:1rem;
-  max-width: 1100px;
+  padding: 0rem;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
-.products-grid {
+.pantalones-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 5px;
-  margin-top: 0rem;
+  margin-top: 0.5rem;
 }
 
 /* Estados de carga y error */
@@ -97,8 +97,10 @@
   }
 
   .products-grid {
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 5px;
+    margin-top: 0rem;
   }
 }
 
@@ -109,6 +111,10 @@
 
   .pantalones-content h1 {
     font-size: 2rem;
+  }
+
+  .pantalones-content p {
+    font-size: 1rem;
   }
 
   .products-grid {
@@ -127,6 +133,10 @@
   transition: box-shadow 0.2s;
   display: flex;
   flex-direction: column;
+}
+
+.product-card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
 }
 
 .image-container {
@@ -170,12 +180,12 @@
 }
 
 .product-card:hover .tallas-lista {
-  max-height: 20px;
+  max-height: 40px;
   opacity: 1;
 }
 
 .product-title {
   font-size: 1rem;
   font-weight: 600;
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.5rem;
 } 
