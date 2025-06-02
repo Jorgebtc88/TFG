@@ -25,6 +25,12 @@ public class DataSeeder implements CommandLineRunner {
     @Override
     @Transactional
     public void run(String... args) throws Exception {
+        // Solo insertar datos si NO hay productos
+        if (productoRepository.count() > 0) {
+            System.out.println("La base de datos ya contiene productos. No se realizará la carga inicial.");
+            return;
+        }
+
         try {
             // Inicializar tallas si no existen
             if (tallaRepository.count() == 0) {
