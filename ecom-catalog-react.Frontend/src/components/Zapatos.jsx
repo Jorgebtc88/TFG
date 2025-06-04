@@ -1,7 +1,74 @@
+/**
+ * Componente Zapatos
+ * 
+ * Este componente representa la página de zapatos para la sección de mujeres.
+ * Incluye una sección hero y un grid de productos.
+ * 
+ * @component
+ * @requires React
+ * @requires ProductCard
+ * @requires Zapatos.css
+ */
 import React, { useState, useEffect } from 'react';
-import './Zapatos.css';
 import ProductCard from './ProductCard';
+import axios from 'axios';
 import FilterPanel from './FilterPanel';
+import CategoryMenu from './CategoryMenu';
+import { useAuth } from '../contexts/AuthContext';
+import './Zapatos.css';
+
+/**
+ * URL base para la API de productos de zapatos de mujer
+ * @constant {string}
+ */
+const API_URL = 'http://localhost:8000/api/productos/categoria/12';
+
+/**
+ * Componente que renderiza la sección hero de la página
+ * @component
+ * @returns {JSX.Element} Sección hero con título y descripción
+ */
+const HeroSection = () => (
+  <div className="zapatos-hero">
+    <div className="zapatos-content">
+      <h1>Zapatos</h1>
+      <p>Descubre nuestra colección de zapatos para mujer</p>
+    </div>
+  </div>
+);
+
+/**
+ * Componente que muestra el estado de carga
+ * @component
+ * @returns {JSX.Element} Mensaje de carga
+ */
+const LoadingState = () => (
+  <div className="loading">Cargando productos...</div>
+);
+
+/**
+ * Componente que muestra mensajes de error
+ * @component
+ * @param {Object} props - Propiedades del componente
+ * @param {string} props.message - Mensaje de error a mostrar
+ * @returns {JSX.Element} Mensaje de error
+ */
+const ErrorState = ({ message }) => (
+  <div className="error">{message}</div>
+);
+
+const ProductGrid = ({ products, favoritos, onFavoriteToggle }) => (
+  <div className="zapatos-grid">
+    {products.map((product) => (
+      <ProductCard
+        key={product.id}
+        product={product}
+        isFavorite={favoritos.includes(product.id)}
+        onFavoriteToggle={onFavoriteToggle}
+      />
+    ))}
+  </div>
+);
 
 const FilterButton = ({ onClick }) => (
   <button className="filter-toggle-button" onClick={onClick}>
@@ -14,8 +81,15 @@ const FilterButton = ({ onClick }) => (
   </button>
 );
 
+/**
+ * Componente principal de la página de zapatos
+ * @component
+ * @returns {JSX.Element} Página completa de zapatos
+ */
 const Zapatos = () => {
+  const { user, isLoggedIn } = useAuth();
   const [products, setProducts] = useState([]);
+  const [favoritos, setFavoritos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showFilters, setShowFilters] = useState(false);
@@ -25,8 +99,6 @@ const Zapatos = () => {
     size: '',
     color: ''
   });
-
-  const API_URL = 'http://localhost:8000/api/productos/categoria/12';
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -77,6 +149,36 @@ const Zapatos = () => {
     fetchProducts();
   }, [filters]);
 
+  useEffect(() => {
+    const fetchFavoritos = async () => {
+      if (!isLoggedIn || !user?.token) return;
+
+      try {
+        const response = await axios.get('http://localhost:8000/api/favoritos', {
+          headers: {
+            'Authorization': `Bearer ${user.token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+        setFavoritos(response.data.map(fav => fav.producto.id));
+      } catch (error) {
+        console.error('Error al cargar favoritos:', error);
+      }
+    };
+
+    fetchFavoritos();
+  }, [isLoggedIn, user]);
+
+  const handleFavoriteToggle = (productId) => {
+    setFavoritos(prevFavoritos => {
+      if (prevFavoritos.includes(productId)) {
+        return prevFavoritos.filter(id => id !== productId);
+      } else {
+        return [...prevFavoritos, productId];
+      }
+    });
+  };
+
   const handleFilterChange = (newFilters) => {
     setFilters(newFilters);
     setShowFilters(false);
@@ -87,40 +189,18 @@ const Zapatos = () => {
   };
 
   const renderContent = () => {
-    if (loading) return <div className="loading">Cargando productos...</div>;
-    if (error) return <div className="error">{error}</div>;
-    return (
-      <div className="products-grid">
-        {products.map((product) => (
-          <div className="card product-card" key={product.id}>
-            <div className="image-container">
-              <img src={product.imagenUrl} alt={product.nombre} className="card-img-top product-image" />
-            </div>
-            <div className="card-body product-info">
-              <h6 className="card-title product-title">{product.nombre}</h6>
-              <p className="card-text">{product.descripcion}</p>
-              <strong>{product.precio} €</strong>
-              <div className="tallas-lista">
-                {product.tallas && product.tallas.length > 0
-                  ? product.tallas.map(t => t.nombre).join(' · ')
-                  : 'Sin tallas'}
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    );
+    if (loading) return <LoadingState />;
+    if (error) return <ErrorState message={error} />;
+    return <ProductGrid products={products} favoritos={favoritos} onFavoriteToggle={handleFavoriteToggle} />;
   };
 
   return (
     <div className="zapatos-container">
-      <div className="zapatos-hero">
-        <div className="zapatos-content">
-          <h1>Zapatos</h1>
-          <p>Descubre nuestra colección de zapatos</p>
-        </div>
-      </div>
+      <HeroSection />
       <div className="products-container">
+        <div className="category-menu-container">
+          <CategoryMenu />
+        </div>
         <div className="filter-button-container">
           <FilterButton onClick={() => setShowFilters(!showFilters)} />
         </div>
@@ -132,12 +212,10 @@ const Zapatos = () => {
             />
           </div>
         )}
-        <div className="zapatos-grid">
-          {renderContent()}
-        </div>
+        {renderContent()}
       </div>
     </div>
   );
 };
 
-export default Zapatos; 
+export default Zapatos;

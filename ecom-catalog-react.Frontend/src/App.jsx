@@ -24,6 +24,8 @@ import Newsletter from './Newsletter';
 import Hombres from './Hombres';
 import Mujeres from './Mujeres';
 import Colecciones from './pages/Colecciones';
+import TodosProductos from './pages/TodosProductos';
+import Favoritos from './components/Favoritos';
 
 // Componentes de Categorías de Hombres
 import CamisetasHombre from './components/CamisetasHombre';
@@ -114,6 +116,10 @@ function App() {
                   <Route path="/mujeres/pantalones" element={<Pantalones />} />
                   <Route path="/mujeres/vestidos" element={<Vestidos />} />
                   <Route path="/mujeres/zapatos" element={<Zapatos />} />
+                  <Route path="/mujeres/todos" element={<TodosProductos />} />
+
+                  {/* Ruta de favoritos */}
+                  <Route path="/favoritos" element={<Favoritos />} />
 
                   {/* Ruta de colecciones */}
                   <Route path="/colecciones" element={<Colecciones />} />

@@ -2,7 +2,26 @@ const API_URL = 'http://localhost:8000/api/usuarios';
 
 class AuthService {
   constructor() {
-    this.user = JSON.parse(localStorage.getItem('user'));
+    this.user = this.loadUserFromStorage();
+  }
+
+  loadUserFromStorage() {
+    try {
+      const storedUser = localStorage.getItem('user');
+      if (!storedUser) return null;
+      
+      const userData = JSON.parse(storedUser);
+      if (!userData.token) {
+        this.logout();
+        return null;
+      }
+      
+      return userData;
+    } catch (error) {
+      console.error('Error al cargar usuario del almacenamiento:', error);
+      this.logout();
+      return null;
+    }
   }
 
   async login(email, password) {
@@ -12,8 +31,7 @@ class AuthService {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password }),
-        credentials: 'include'
+        body: JSON.stringify({ email, password })
       });
 
       const data = await response.json();
@@ -22,15 +40,21 @@ class AuthService {
         throw new Error(data.error || 'Error en el inicio de sesión');
       }
 
-      if (data.token) {
-        localStorage.setItem('user', JSON.stringify(data));
-        this.user = data;
-        return data;
-      } else {
+      if (!data.token) {
         throw new Error('No se recibió el token de autenticación');
       }
+
+      const userData = {
+        ...data,
+        token: data.token
+      };
+
+      localStorage.setItem('user', JSON.stringify(userData));
+      this.user = userData;
+      return userData;
     } catch (error) {
       console.error('Error en login:', error);
+      this.logout();
       throw error;
     }
   }
@@ -42,8 +66,7 @@ class AuthService {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(userData),
-        credentials: 'include'
+        body: JSON.stringify(userData)
       });
 
       if (!response.ok) {
@@ -64,7 +87,7 @@ class AuthService {
   }
 
   isLoggedIn() {
-    return !!this.user;
+    return !!this.user?.token;
   }
 
   isAdmin() {
@@ -77,6 +100,15 @@ class AuthService {
 
   getToken() {
     return this.user?.token;
+  }
+
+  // Método para validar el token
+  validateToken() {
+    if (!this.user?.token) {
+      this.logout();
+      return false;
+    }
+    return true;
   }
 }
 

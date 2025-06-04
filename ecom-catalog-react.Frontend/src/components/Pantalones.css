@@ -1,5 +1,5 @@
 /**
- * Estilos para el componente Camisetas
+ * Estilos para el componente Pantalones
  */
 
 /* Contenedor principal */
@@ -67,7 +67,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 5px;
-  margin-top: 0.5rem;
+  margin-top: 2rem;
 }
 
 /* Estados de carga y error */
@@ -117,12 +117,13 @@
     font-size: 1rem;
   }
 
-  .products-grid {
+  .pantalones-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
   }
 }
 
+/* Estilos de las tarjetas de producto */
 .product-card {
   position: relative;
   overflow: hidden;

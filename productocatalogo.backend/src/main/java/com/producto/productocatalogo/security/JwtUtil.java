@@ -7,13 +7,16 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 @Component
 public class JwtUtil {
-    private final SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    // Clave secreta fija para firmar los tokens
+    private static final String SECRET_KEY = "tu_clave_secreta_muy_segura_y_larga_para_firmar_los_tokens_jwt_123456789";
+    private final SecretKey key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
 
     public String generateToken(String email, String rol) {
         Map<String, Object> claims = new HashMap<>();

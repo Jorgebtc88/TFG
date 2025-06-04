@@ -9,17 +9,22 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const storedUser = authService.getCurrentUser();
-    if (storedUser) {
+    if (storedUser?.token) {
       setUser(storedUser);
+    } else {
+      authService.logout();
     }
     setLoading(false);
   }, []);
 
   const login = async (email, password) => {
     try {
-      const user = await authService.login(email, password);
-      setUser(user);
-      return user;
+      const userData = await authService.login(email, password);
+      if (userData?.token) {
+        setUser(userData);
+        return userData;
+      }
+      throw new Error('No se recibió el token de autenticación');
     } catch (error) {
       throw error;
     }
@@ -44,8 +49,8 @@ export const AuthProvider = ({ children }) => {
     login,
     register,
     logout,
-    isLoggedIn: authService.isLoggedIn(),
-    isAdmin: authService.isAdmin()
+    isLoggedIn: !!user?.token,
+    isAdmin: user?.rol === 'ADMIN'
   };
 
   return (

@@ -1,21 +1,24 @@
 /**
- * Componente Pantalones
+ * Componente Vestidos
  * 
- * Este componente representa la página de pantalones para la sección de mujeres.
+ * Este componente representa la página de vestidos para la sección de mujeres.
  * Incluye una sección hero y un grid de productos.
  * 
  * @component
  * @requires React
  * @requires ProductCard
- * @requires Pantalones.css
+ * @requires Vestidos.css
  */
-import React, { useState, useEffect } from 'react'; 
+import React, { useState, useEffect } from 'react';
 import ProductCard from './ProductCard';
+import axios from 'axios';
 import FilterPanel from './FilterPanel';
+import CategoryMenu from './CategoryMenu';
+import { useAuth } from '../contexts/AuthContext';
 import './Vestidos.css';
 
 /**
- * URL base para la API de productos de pantalones de mujer
+ * URL base para la API de productos de vestidos de mujer
  * @constant {string}
  */
 const API_URL = 'http://localhost:8000/api/productos/categoria/9';
@@ -25,7 +28,7 @@ const API_URL = 'http://localhost:8000/api/productos/categoria/9';
  * @returns {JSX.Element} Sección hero con título y descripción
  */
 const HeroSection = () => (
-    <div className="vestidos-hero">
+  <div className="vestidos-hero">
     <div className="vestidos-content">
       <h1>Vestidos</h1>
       <p>Descubre nuestra colección de vestidos para mujer</p>
@@ -53,25 +56,15 @@ const ErrorState = ({ message }) => (
   <div className="error">{message}</div>
 );
 
-
-const ProductGrid = ({ products }) => (
+const ProductGrid = ({ products, favoritos, onFavoriteToggle }) => (
   <div className="vestidos-grid">
     {products.map((product) => (
-      <div className="card product-card" key={product.id}>
-        <div className="image-container">
-          <img src={product.imagenUrl} alt={product.nombre} className="card-img-top product-image" />
-        </div>
-        <div className="card-body product-info">
-          <h6 className="card-title product-title">{product.nombre}</h6>
-          <p className="card-text">{product.descripcion}</p>
-          <strong>{product.precio} €</strong>
-          <div className="tallas-lista">
-            {product.tallas && product.tallas.length > 0
-              ? product.tallas.map(t => t.nombre).join(' · ')
-              : 'Sin tallas'}
-          </div>
-        </div>
-      </div>
+      <ProductCard
+        key={product.id}
+        product={product}
+        isFavorite={favoritos.includes(product.id)}
+        onFavoriteToggle={onFavoriteToggle}
+      />
     ))}
   </div>
 );
@@ -88,12 +81,14 @@ const FilterButton = ({ onClick }) => (
 );
 
 /**
- * Componente principal de la página de pantalones
+ * Componente principal de la página de vestidos
  * @component
- * @returns {JSX.Element} Página completa de pantalones
+ * @returns {JSX.Element} Página completa de vestidos
  */
-const Pantalones = () => {
+const Vestidos = () => {
+  const { user, isLoggedIn } = useAuth();
   const [products, setProducts] = useState([]);
+  const [favoritos, setFavoritos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showFilters, setShowFilters] = useState(false);
@@ -153,6 +148,36 @@ const Pantalones = () => {
     fetchProducts();
   }, [filters]);
 
+  useEffect(() => {
+    const fetchFavoritos = async () => {
+      if (!isLoggedIn || !user?.token) return;
+
+      try {
+        const response = await axios.get('http://localhost:8000/api/favoritos', {
+          headers: {
+            'Authorization': `Bearer ${user.token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+        setFavoritos(response.data.map(fav => fav.producto.id));
+      } catch (error) {
+        console.error('Error al cargar favoritos:', error);
+      }
+    };
+
+    fetchFavoritos();
+  }, [isLoggedIn, user]);
+
+  const handleFavoriteToggle = (productId) => {
+    setFavoritos(prevFavoritos => {
+      if (prevFavoritos.includes(productId)) {
+        return prevFavoritos.filter(id => id !== productId);
+      } else {
+        return [...prevFavoritos, productId];
+      }
+    });
+  };
+
   const handleFilterChange = (newFilters) => {
     setFilters(newFilters);
     setShowFilters(false);
@@ -165,13 +190,16 @@ const Pantalones = () => {
   const renderContent = () => {
     if (loading) return <LoadingState />;
     if (error) return <ErrorState message={error} />;
-    return <ProductGrid products={products} />;
+    return <ProductGrid products={products} favoritos={favoritos} onFavoriteToggle={handleFavoriteToggle} />;
   };
 
   return (
     <div className="vestidos-container">
       <HeroSection />
       <div className="products-container">
+        <div className="category-menu-container">
+          <CategoryMenu />
+        </div>
         <div className="filter-button-container">
           <FilterButton onClick={() => setShowFilters(!showFilters)} />
         </div>
@@ -183,12 +211,10 @@ const Pantalones = () => {
             />
           </div>
         )}
-        <div className="vestidos-grid">
-          {renderContent()}
-        </div>
+        {renderContent()}
       </div>
     </div>
   );
 };
 
-export default Pantalones;
+export default Vestidos;
