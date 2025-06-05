@@ -2,7 +2,8 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
-  min-height: calc(100vh - 200px);
+  min-height: calc(100vh - 120px);
+  padding-bottom: 3rem;
 }
 
 .cart-container h2 {

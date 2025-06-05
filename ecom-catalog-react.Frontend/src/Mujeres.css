@@ -43,6 +43,8 @@
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
+
+
 /* Estilos responsivos */
 @media (max-width: 768px) {
   .mujeres-content h1 {
@@ -64,12 +66,7 @@
   }
 }
 
-.mujeres-section {
-  padding: 90px 20px 40px 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-  text-align:start
-}
+
 
 .mujeres-section h1 {
   font-size: 2.5rem;
@@ -83,11 +80,21 @@
   margin-bottom: 2rem;
 }
 
+.mujeres-container {
+  width: 100vw;
+  max-width: 100vw;
+  margin: 0;
+  padding: 2rem;
+  box-sizing: border-box;
+ 
+}
+
+
 .mujeres-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px,  1fr));
   gap: 5px;
-  margin-top: 0rem;
+  margin-top: 5rem;
 }
 
 .loading {

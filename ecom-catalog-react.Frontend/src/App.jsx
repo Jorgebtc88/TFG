@@ -130,7 +130,7 @@ function App() {
                   <Route path="/recuperar-contrasena" element={<RecuperarContrasena />} />
                   
                   {/* Ruta del carrito */}
-                  <Route path="/carrito" element={<Cart isOpen={true} onClose={() => {}} />} />
+                  <Route path="/carrito" element={<Cart />} />
 
                   {/* Rutas de información */}
                   <Route path="/devoluciones" element={<Devoluciones />} />
@@ -156,15 +156,6 @@ function App() {
 
               {/* Footer condicional */}
               <FooterWrapper />
-
-              {/* Carrito flotante y overlay */}
-              <Cart isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
-              {isCartOpen && (
-                <div 
-                  className="cart-overlay" 
-                  onClick={() => setIsCartOpen(false)}
-                />
-              )}
             </div>
           </div>
         </Router>

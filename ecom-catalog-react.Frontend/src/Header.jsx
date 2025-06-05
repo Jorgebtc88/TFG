@@ -14,8 +14,40 @@ import SearchPreviewPortal from './components/SearchPreviewPortal';
 import config from './config';
 import { useAuth } from './contexts/AuthContext';
 
+const CartPreview = ({ cartItems, onViewCart }) => {
+  const total = cartItems.reduce((sum, item) => sum + item.precio * item.quantity, 0);
+  return (
+    <div className="cart-preview">
+      <h4>Carrito</h4>
+      {cartItems.length === 0 ? (
+        <div className="cart-preview-empty">Tu carrito está vacío</div>
+      ) : (
+        <>
+          <ul className="cart-preview-list">
+            {cartItems.slice(0, 2).map(item => (
+              <li key={item.id} className="cart-preview-item">
+                <img src={item.imagenUrl} alt={item.nombre} className="cart-preview-img" />
+                <div className="cart-preview-info">
+                  <span className="cart-preview-name">{item.nombre}</span>
+                  <span className="cart-preview-qty">x{item.quantity}</span>
+                  <span className="cart-preview-price">{item.precio}€</span>
+                </div>
+              </li>
+            ))}
+          </ul>
+          <div className="cart-preview-total">
+            <span>Total:</span>
+            <span>{total.toFixed(2)}€</span>
+          </div>
+          <button className="cart-preview-btn" onClick={onViewCart}>Ver carrito</button>
+        </>
+      )}
+    </div>
+  );
+};
+
 const Header = ({ onCartClick }) => {
-  const { totalItems } = useCart();
+  const { cartItems, totalItems } = useCart();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isHombresMenuOpen, setIsHombresMenuOpen] = useState(false);
@@ -27,6 +59,7 @@ const Header = ({ onCartClick }) => {
   const searchPanelRef = useRef(null);
   const searchTimeoutRef = useRef(null);
   const { user, logout } = useAuth();
+  const [showCartPreview, setShowCartPreview] = useState(false);
 
   // Referencias para los contenedores de los menús
   const hombresMenuRef = useRef(null);
@@ -223,17 +256,32 @@ const Header = ({ onCartClick }) => {
           </svg>
         </Link>
 
-        {/* Botón del carrito */}
-        <button onClick={onCartClick} className="icon-btn cart-link" aria-label="Carrito">
-          <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
-            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
-            <line x1="3" y1="6" x2="21" y2="6"/>
-            <path d="M16 10a4 4 0 0 1-8 0"/>
-          </svg>
-          {totalItems > 0 && (
-            <span className="cart-count">{totalItems}</span>
+        {/* Botón del carrito con preview al hover */}
+        <div
+          className="cart-preview-container"
+          onMouseEnter={() => setShowCartPreview(true)}
+          onMouseLeave={() => setShowCartPreview(false)}
+          style={{ position: 'relative', display: 'inline-block' }}
+        >
+          <button
+            className="icon-btn cart-link"
+            aria-label="Carrito"
+            onClick={() => navigate('/carrito')}
+          >
+            {/* Icono de carrito moderno */}
+            <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+              <circle cx="9" cy="21" r="1" />
+              <circle cx="20" cy="21" r="1" />
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+            </svg>
+            {totalItems > 0 && (
+              <span className="cart-count">{totalItems}</span>
+            )}
+          </button>
+          {showCartPreview && (
+            <CartPreview cartItems={cartItems} onViewCart={() => { setShowCartPreview(false); navigate('/carrito'); }} />
           )}
-        </button>
+        </div>
 
         {/* Botón de inicio de sesión o nombre del usuario */}
         {user ? (

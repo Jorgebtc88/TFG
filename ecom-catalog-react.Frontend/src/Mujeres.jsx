@@ -72,7 +72,7 @@ const Mujeres = () => {
                 <button 
                   className="ver-todo-btn" 
                   style={{
-                    background: '#1d1a1a', color: 'white', border: 'none', borderRadius: '20px', padding: '0.7rem 2.5rem', fontWeight: 600, fontSize: '1rem', cursor: 'pointer', letterSpacing: '0.5px', boxShadow: '0 2px 8px rgba(0,0,0,0.07)'}}
+                    background: '#1d1a1a', color: 'white', border: 'none', borderRadius: '20px', padding: '0.7rem 2.5rem', fontWeight: 600, fontSize: '1rem', cursor: 'pointer', letterSpacing: '0.5px', boxShadow: '0 2px 8px hsla(18, 27.90%, 54.30%, 0.07)'}}
                   onClick={() => setShowAll(true)}
                 >
                   Ver todo
