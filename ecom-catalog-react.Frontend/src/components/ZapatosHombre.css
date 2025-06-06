@@ -8,7 +8,7 @@
 /* Contenedor principal */
 .zapatos-hombre-container {
   width: 100%;
-  min-height: 100vh;
+  min-height: 100%;
 }
 
 /* Sección Hero */
@@ -42,13 +42,13 @@
   position: relative;
   z-index: 1;
   text-align: center;
-  padding: 2rem;
+  padding: rem;
 }
 
 /* Estilos del título */
 .zapatos-hombre-content h1 {
   font-size: 3.5rem;
-  font-weight: 700;
+  font-weight: 500;
   margin-bottom: 1rem;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -63,10 +63,31 @@
 }
 
 /* Grid de productos */
+.products-container {
+  width: 100vw;
+  max-width: 100vw;
+  margin: 0;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
 .zapatos-hombre-grid {
-  padding: 0rem;
-  max-width: 1100px;
-  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 10px;
+  margin-top: 1rem;
+}
+
+/* Estados de carga y error */
+.loading, .error {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.error {
+  color: #e74c3c;
 }
 
 /* Media Queries para diseño responsive */
@@ -84,6 +105,10 @@
   .zapatos-hombre-content p {
     font-size: 1rem;
   }
+
+  .zapatos-hombre-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
 }
 
 /* Móviles y dispositivos pequeños */
@@ -94,5 +119,125 @@
 
   .zapatos-hombre-content h1 {
     font-size: 2rem;
+  }
+
+  .zapatos-hombre-content p {
+    font-size: 1rem;
+  }
+
+  .zapatos-hombre-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+/* Sección de filtros y menú */
+.filter-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.5rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+  margin-bottom: 0.5rem;
+}
+
+.filter-button-container {
+  position: fixed;
+}
+
+/* Contenedor del menú de categorías */
+.category-menu-container {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: none;
+}
+
+/* Ajustes para el menú de categorías */
+.category-menu {
+  background-color: transparent;
+  padding: 0;
+  box-shadow: none;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.category-menu ul {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: flex-start;
+  gap: 2rem;
+  list-style: none;
+}
+
+.category-menu li {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+  transition: color 0.2s;
+  line-height: 1;
+}
+
+.category-menu li a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.2s;
+  display: inline-block;
+  padding: 0.5rem 0;
+}
+
+.category-menu li:hover a {
+  color: #e26d4a;
+}
+
+.category-menu li.active a {
+  color: #e26d4a;
+  font-weight: 600;
+}
+
+/* Botón de filtro */
+.filter-button-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+  height: 40px;
+  align-items: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .filter-section {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0.5rem;
+  }
+
+  .filter-button-container {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .category-menu-container {
+    padding: 0.5rem;
+  }
+
+  .category-menu ul {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .category-menu li {
+    font-size: 0.9rem;
+  }
+
+  .filter-button-container {
+    padding: 0.5rem;
   }
 } 

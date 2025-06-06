@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import config from '../config';
 import ProductCard from './ProductCard';
 import './SearchResult.css';
 
@@ -21,7 +20,7 @@ const SearchResult = () => {
 
       try {
         setLoading(true);
-        const response = await fetch(`${config.PRODUCTS_URL}/buscar?query=${encodeURIComponent(searchQuery)}`);
+        const response = await fetch(`http://localhost:8000/api/productos/buscar?query=${encodeURIComponent(searchQuery)}`);
         
         if (!response.ok) {
           throw new Error('Error al buscar productos');
@@ -63,13 +62,7 @@ const SearchResult = () => {
         {products.map((product) => (
           <ProductCard
             key={product.id}
-            product={{
-              id: product.id,
-              name: product.nombre,
-              description: product.descripcion,
-              price: product.precio,
-              image: product.imagenUrl
-            }}
+            product={product}
           />
         ))}
       </div>

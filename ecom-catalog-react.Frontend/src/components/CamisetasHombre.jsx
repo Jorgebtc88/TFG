@@ -2,15 +2,19 @@
  * Componente CamisetasHombre
  * 
  * Este componente representa la página de camisetas para la sección de hombres.
- * Incluye una sección hero con imagen de fondo y un grid para mostrar los productos.
+ * Incluye una sección hero y un grid de productos.
  * 
  * @component
  * @requires React
+ * @requires ProductCard
  * @requires CamisetasHombre.css
  */
 import React, { useState, useEffect } from 'react';
 import ProductCard from './ProductCard';
+import axios from 'axios';
 import FilterPanel from './FilterPanel';
+import CategoryMenu from './CategoryMenu';
+import { useAuth } from '../contexts/AuthContext';
 import './CamisetasHombre.css';
 
 /**
@@ -38,14 +42,14 @@ const HeroSection = () => (
  * @component
  * @returns {JSX.Element} Mensaje de carga
  */
-const LoadingState = () => (  
+const LoadingState = () => (
   <div className="loading">Cargando productos...</div>
 );
 
 /**
  * Componente que muestra mensajes de error
  * @component
- * @param {Object} props - Propiedades del componente 
+ * @param {Object} props - Propiedades del componente
  * @param {string} props.message - Mensaje de error a mostrar
  * @returns {JSX.Element} Mensaje de error
  */
@@ -53,25 +57,15 @@ const ErrorState = ({ message }) => (
   <div className="error">{message}</div>
 );
 
-
-const ProductGrid = ({ products }) => (
-  <div className="products-grid">
+const ProductGrid = ({ products, favoritos, onFavoriteToggle }) => (
+  <div className="camisetas-hombre-grid">
     {products.map((product) => (
-      <div className="card product-card" key={product.id}>
-        <div className="image-container">
-          <img src={product.imagenUrl} alt={product.nombre} className="card-img-top product-image" />
-        </div>
-        <div className="card-body product-info">
-          <h6 className="card-title product-title">{product.nombre}</h6>
-          <p className="card-text">{product.descripcion}</p>
-          <strong>{product.precio} €</strong>
-          <div className="tallas-lista">
-            {product.tallas && product.tallas.length > 0
-              ? product.tallas.map(t => t.nombre).join(' · ')
-              : 'Sin tallas'}
-          </div>
-        </div>
-      </div>
+      <ProductCard
+        key={product.id}
+        product={product}
+        isFavorite={favoritos.includes(product.id)}
+        onFavoriteToggle={onFavoriteToggle}
+      />
     ))}
   </div>
 );
@@ -93,7 +87,9 @@ const FilterButton = ({ onClick }) => (
  * @returns {JSX.Element} Página completa de camisetas de hombre
  */
 const CamisetasHombre = () => {
+  const { user, isLoggedIn } = useAuth();
   const [products, setProducts] = useState([]);
+  const [favoritos, setFavoritos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showFilters, setShowFilters] = useState(false);
@@ -107,7 +103,6 @@ const CamisetasHombre = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        setLoading(true);
         const response = await fetch(API_URL);
         if (!response.ok) {
           throw new Error('Error al cargar los productos');
@@ -154,6 +149,36 @@ const CamisetasHombre = () => {
     fetchProducts();
   }, [filters]);
 
+  useEffect(() => {
+    const fetchFavoritos = async () => {
+      if (!isLoggedIn || !user?.token) return;
+
+      try {
+        const response = await axios.get('http://localhost:8000/api/favoritos', {
+          headers: {
+            'Authorization': `Bearer ${user.token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+        setFavoritos(response.data.map(fav => fav.producto.id));
+      } catch (error) {
+        console.error('Error al cargar favoritos:', error);
+      }
+    };
+
+    fetchFavoritos();
+  }, [isLoggedIn, user]);
+
+  const handleFavoriteToggle = (productId) => {
+    setFavoritos(prevFavoritos => {
+      if (prevFavoritos.includes(productId)) {
+        return prevFavoritos.filter(id => id !== productId);
+      } else {
+        return [...prevFavoritos, productId];
+      }
+    });
+  };
+
   const handleFilterChange = (newFilters) => {
     setFilters(newFilters);
     setShowFilters(false);
@@ -166,13 +191,16 @@ const CamisetasHombre = () => {
   const renderContent = () => {
     if (loading) return <LoadingState />;
     if (error) return <ErrorState message={error} />;
-    return <ProductGrid products={products} />;
+    return <ProductGrid products={products} favoritos={favoritos} onFavoriteToggle={handleFavoriteToggle} />;
   };
 
   return (
     <div className="camisetas-hombre-container">
       <HeroSection />
       <div className="products-container">
+        <div className="category-menu-container">
+          <CategoryMenu />
+        </div>
         <div className="filter-button-container">
           <FilterButton onClick={() => setShowFilters(!showFilters)} />
         </div>
@@ -184,9 +212,7 @@ const CamisetasHombre = () => {
             />
           </div>
         )}
-        <div className="camisetas-hombre-grid">
-          {renderContent()}
-        </div>
+        {renderContent()}
       </div>
     </div>
   );

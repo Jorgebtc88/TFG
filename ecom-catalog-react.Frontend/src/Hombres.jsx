@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import ProductCard from './components/ProductCard';
 import './Hombres.css';
 
 const Hombres = () => {
@@ -7,9 +6,8 @@ const Hombres = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [showAll, setShowAll] = useState(false); // Controla si se muestran todos los productos
+  const [showAll, setShowAll] = useState(false);
 
-  // Efecto para cargar los productos cuando el componente se monta
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -18,71 +16,67 @@ const Hombres = () => {
           throw new Error('Error al cargar los productos');
         }
         const data = await response.json();
-        setProducts(data); // Actualiza el estado con los productos obtenidos
+        setProducts(data);
       } catch (err) {
-        setError(err.message); // Maneja cualquier error que ocurra
+        setError(err.message);
       } finally {
-        setLoading(false); // Indica que la carga ha terminado
+        setLoading(false);
       }
     };
 
     fetchProducts();
-  }, []); // El array vacío significa que el efecto solo se ejecuta al montar el componente
+  }, []);
 
-  // Determina los productos a mostrar
   const productsToShow = showAll ? products : products.slice(0, 4);
 
   return (
     <>
-    <div className="hombres-container">
-      <div className="hombres-content">
-        <h1>Colección Hombres</h1>
-        <p>Descubre nuestra nueva colección para hombres</p>
+      <div className="hombres-container">
+        <div className="hombres-content">
+          <h1>Colección Hombres</h1>
+          <p>Descubre nuestra nueva colección para hombres</p>
+        </div>
       </div>
-    </div>
 
-    <div className="hombres-section">
-      {loading ? (
-        <div className="loading">Cargando productos...</div>
-      ) : error ? (
-        <div className="error">{error}</div>
-      ) : (
-        <>
-          <div className="hombres-grid">
-            {productsToShow.map((product) => (
-              <div className="card product-card" key={product.id}>
-                <div className="image-container">
-                  <img src={product.imagenUrl} alt={product.nombre} className="card-img-top product-image" />
-                </div>
-                <div className="card-body product-info">
-                  <h6 className="card-title product-title">{product.nombre}</h6>
-                  <p className="card-text">{product.descripcion}</p>
-                  <strong>{product.precio} €</strong>
-                  <div className="tallas-lista">
-                    {product.tallas && product.tallas.length > 0
-                      ? product.tallas.map(t => t.nombre).join(' · ')
-                      : 'Sin tallas'}
+      <div className="hombres-section">
+        {loading ? (
+          <div className="loading">Cargando productos...</div>
+        ) : error ? (
+          <div className="error">{error}</div>
+        ) : (
+          <>
+            <div className="hombres-grid">
+              {productsToShow.map((product) => (
+                <div className="card product-card" key={product.id}>
+                  <div className="image-container">
+                    <img src={product.imagenUrl} alt={product.nombre} className="card-img-top product-image" />
+                  </div>
+                  <div className="card-body product-info">
+                    <h6 className="card-title product-title">{product.nombre}</h6>
+                    <p className="card-text">{product.descripcion}</p>
+                    <strong>{product.precio} €</strong>
+                    <div className="tallas-lista">
+                      {product.tallas && product.tallas.length > 0
+                        ? product.tallas.map(t => t.nombre).join(' · ')
+                        : 'Sin tallas'}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
-          {!showAll && products.length > 4 && (
-            <div style={{textAlign: 'center', marginTop: '2rem'}}>
+              ))}
+            </div>
+            
+            <div className="ver-todo-container">
               <button 
                 className="ver-todo-btn" 
-                style={{
-                  background: '#1d1a1a', color: 'white', border: 'none', borderRadius: '20px', padding: '0.7rem 2.5rem', fontWeight: 600, fontSize: '1rem', cursor: 'pointer', letterSpacing: '0.5px', boxShadow: '0 2px 8px rgba(0,0,0,0.07)'}}
                 onClick={() => setShowAll(true)}
               >
                 Ver todo
               </button>
             </div>
-          )}
-        </>
-      )}
-     </div>
-   </>
+          </>
+        )}
+      </div>
+    </>
   );
 };
 

@@ -67,18 +67,15 @@ const Mujeres = () => {
                 </div>
               ))}
             </div>
-            {!showAll && products.length > 4 && (
-              <div style={{textAlign: 'center', marginTop: '2rem'}}>
-                <button 
-                  className="ver-todo-btn" 
-                  style={{
-                    background: '#1d1a1a', color: 'white', border: 'none', borderRadius: '20px', padding: '0.7rem 2.5rem', fontWeight: 600, fontSize: '1rem', cursor: 'pointer', letterSpacing: '0.5px', boxShadow: '0 2px 8px hsla(18, 27.90%, 54.30%, 0.07)'}}
-                  onClick={() => setShowAll(true)}
-                >
-                  Ver todo
-                </button>
-              </div>
-            )}
+            
+            <div className="ver-todo-container">
+              <button 
+                className="ver-todo-btn" 
+                onClick={() => setShowAll(true)}
+              >
+                Ver todo
+              </button>
+            </div>
           </>
         )}
       </div>

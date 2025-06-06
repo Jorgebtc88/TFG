@@ -3,7 +3,7 @@
   width: 100%;
   background-image: url('./assets/pngtree-women-shopping-at-dress-store-vector-picture-image_2300545.jpg');
   background-size: cover;
-  background-position: center 10%;
+  background-position: center 30%;
   background-repeat: no-repeat;
   position: relative;
   display: flex;
@@ -83,18 +83,19 @@
 .mujeres-container {
   width: 100vw;
   max-width: 100vw;
-  margin: 0;
-  padding: 2rem;
+  margin: 0rem;
+  padding: 0rem;
   box-sizing: border-box;
- 
+  margin-top: 1rem;
 }
 
 
 .mujeres-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px,  1fr));
-  gap: 5px;
-  margin-top: 5rem;
+  gap: 10px;
+  padding: 1rem;
+  margin-top: 3rem;
 }
 
 .loading {
@@ -139,5 +140,49 @@
   }
   .mujeres-grid {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
+
+.ver-todo-container {
+  text-align: center;
+  margin: 2rem 0 3rem 0;
+  padding: 0rem;
+}
+
+.ver-todo-btn {
+  background: linear-gradient(135deg, #bfc1c2 0%, #e6e8ea 100%); /* degradado plata */
+  color: #222;
+  border: none;
+  border-radius: 22px;
+  padding: 0.6rem 1.6rem;
+  font-size: 0.85rem;
+  font-weight:600;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(191, 193, 194, 0.18);
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+}
+
+.ver-todo-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(191, 193, 194, 0.28);
+  background: linear-gradient(135deg, #e6e8ea 0%, #bfc1c2 100%);
+}
+
+.ver-todo-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(191, 193, 194, 0.15);
+}
+
+@media (max-width: 768px) {
+  .ver-todo-container {
+    margin: 3rem 0 4rem 0;
+    padding: 1.5rem;
+  }
+
+  .ver-todo-btn {
+    padding: 0.5rem 1.2rem;
+    font-size: 0.9rem;
   }
 } 

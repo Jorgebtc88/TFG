@@ -86,7 +86,7 @@ const ProductCard = ({
         <p className="card-text">{product.descripcion}</p>
         <strong>{product.precio} €</strong>
         <div className="tallas-lista">
-          {product.tallas && product.tallas.length > 0
+          {product.tallas && Array.isArray(product.tallas) && product.tallas.length > 0 && product.tallas.some(t => t && t.nombre)
             ? product.tallas.map(t => t.nombre).join(' · ')
             : 'Sin tallas'}
         </div>
