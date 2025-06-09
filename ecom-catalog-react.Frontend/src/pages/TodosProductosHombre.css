@@ -1,3 +1,7 @@
+body {
+  overflow-x: hidden;
+}
+
 .todos-container {
   width: 100%;
   min-height: 100vh;
@@ -5,6 +9,7 @@
   padding-top: 80px;
   margin-bottom: 60px;
   position: relative;
+  overflow-x: hidden;
 }
 
 .todos-hero {
@@ -90,10 +95,13 @@
 }
 
 .products-container {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
   position: relative;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 1rem;
   min-height: 60vh;
   background-color: #fff;
   border-radius: 8px;
@@ -103,11 +111,9 @@
 .category-menu-container {
   max-width: 600px;
   margin: 0;
-  background-color: transparent;
-  position: absolute;
-  left: 0.5rem;
-  top: 2.5rem;
-  z-index: 10;
+  padding: 0;
+  background-color: none;
+  margin-top: 0rem;
 }
 
 .category-menu {
@@ -115,7 +121,7 @@
   padding: 0;
   box-shadow: none;
   margin-bottom: 0;
-  margin-top: 0;
+  margin-top: 2rem;
 }
 
 .category-menu ul {
@@ -132,18 +138,63 @@
   font-weight: 500;
   color: #333;
   cursor: pointer;
+  transition: color 0.2s;
+  line-height: 1;
+}
+
+.category-menu li a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.2s;
+  display: inline-block;
+  padding: 0.5rem 0;
+}
+
+.category-menu li:hover a {
+  color: #e26d4a;
+}
+
+.category-menu li.active a {
+  color: #e26d4a;
+  font-weight: 600;
 }
 
 .filter-button-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0.5rem;
   display: flex;
-  justify-content: flex-end;
-  position: relative;
-  height: 40px;
   align-items: center;
-  margin-bottom: 1rem;
+  margin: 0;
+  padding: 0;
+}
+
+.filter-toggle-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: -2rem;
+}
+
+.filter-icon {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.filter-icon span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background-color: #333;
+  transition: all 0.3s ease;
+}
+
+.filter-text {
+  font-weight: 500;
 }
 
 .todos-grid {
@@ -290,4 +341,16 @@
     grid-template-columns: 1fr;
     gap: 1rem;
   }
-} 
+}
+
+.filter-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto 1rem auto;
+  padding: 0.5rem 1rem;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+}
+

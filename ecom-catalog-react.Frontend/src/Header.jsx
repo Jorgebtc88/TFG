@@ -13,6 +13,7 @@ import './Header.css';
 import SearchPreviewPortal from './components/SearchPreviewPortal';
 import config from './config';
 import { useAuth } from './contexts/AuthContext';
+import { useFavorites } from './contexts/FavoritesContext';
 
 const CartPreview = ({ cartItems, onViewCart }) => {
   const total = cartItems.reduce((sum, item) => sum + item.precio * item.quantity, 0);
@@ -60,6 +61,8 @@ const Header = ({ onCartClick }) => {
   const searchTimeoutRef = useRef(null);
   const { user, logout } = useAuth();
   const [showCartPreview, setShowCartPreview] = useState(false);
+  const { favoritesCount, animatingProduct, setAnimatingProduct } = useFavorites();
+  const [heartAnimation, setHeartAnimation] = useState(null);
 
   // Referencias para los contenedores de los menús
   const hombresMenuRef = useRef(null);
@@ -130,6 +133,53 @@ const Header = ({ onCartClick }) => {
       document.body.style.overflow = '';
     };
   }, [isSearchOpen]);
+
+  useEffect(() => {
+    if (animatingProduct) {
+      const productRect = animatingProduct.element.getBoundingClientRect();
+      const heartIcon = document.querySelector('.nav-right .icon-btn[aria-label="Favoritos"]');
+      const heartRect = heartIcon.getBoundingClientRect();
+
+      const animation = document.createElement('div');
+      animation.className = 'flying-heart';
+      animation.style.cssText = `
+        position: fixed;
+        z-index: 9999;
+        left: ${productRect.left + productRect.width/2}px;
+        top: ${productRect.top + productRect.height/2}px;
+        transform: translate(-50%, -50%);
+      `;
+
+      animation.innerHTML = `
+        <svg width="22" height="22" fill="currentColor" stroke="none" viewBox="0 0 24 24">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+      `;
+
+      document.body.appendChild(animation);
+
+      requestAnimationFrame(() => {
+        animation.style.transition = 'all 1.2s cubic-bezier(0.075, 0.82, 0.165, 1)';
+        animation.style.left = `${heartRect.left + heartRect.width/2}px`;
+        animation.style.top = `${heartRect.top + heartRect.height/2}px`;
+        animation.style.transform = 'translate(-50%, -50%) scale(0.5)';
+        animation.style.opacity = '0';
+      });
+
+      setTimeout(() => {
+        document.body.removeChild(animation);
+        setAnimatingProduct(null);
+      }, 6500);
+
+      setHeartAnimation(animation);
+    }
+
+    return () => {
+      if (heartAnimation) {
+        heartAnimation.remove();
+      }
+    };
+  }, [animatingProduct]);
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -254,6 +304,9 @@ const Header = ({ onCartClick }) => {
           <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
           </svg>
+          {favoritesCount > 0 && (
+            <span className="favorites-count">{favoritesCount}</span>
+          )}
         </Link>
 
         {/* Botón del carrito con preview al hover */}

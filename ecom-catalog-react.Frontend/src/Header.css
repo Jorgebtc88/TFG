@@ -798,4 +798,74 @@
   text-align: center;
   padding: 1.2rem 0 0.5rem 0;
   font-size: 1rem;
-} 
+}
+
+.search-form select {
+  width: 50%;
+  min-width: 120px;
+  max-width: 220px;
+  padding: 0.5rem 1rem;
+  margin-top: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: #fafbfc;
+  color: #333;
+  transition: border 0.2s;
+  outline: none;
+}
+.search-form select:focus {
+  border: 1.5px solid #e26d4a;
+  background: #fff;
+}
+
+/* Estilos para el contador de favoritos */
+.favorites-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: #e26d4a;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: bold;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Estilos para la animación del corazón */
+.flying-heart {
+  pointer-events: none;
+  color: #e26d4a;
+}
+
+.flying-heart svg {
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+@keyframes heartBeat {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.icon-btn[aria-label="Favoritos"] svg {
+  transition: transform 4s ease;
+}
+
+.icon-btn[aria-label="Favoritos"]:hover svg {
+  transform: scale(1.5);
+}
+
+.icon-btn[aria-label="Favoritos"].animate svg {
+  animation: heartBeat 0.8s ease;
+}

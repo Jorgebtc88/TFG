@@ -1,70 +1,30 @@
-/**
- * Componente ChaquetasHombre
- * 
- * Este componente representa la página de chaquetas para la sección de hombres.
- * Incluye una sección hero y un grid de productos.
- * 
- * @component
- * @requires React
- * @requires ProductCard
- * @requires ChaquetasHombre.css
- */
 import React, { useState, useEffect } from 'react';
-import ProductCard from './ProductCard';
-import axios from 'axios';
-import FilterPanel from './FilterPanel';
-import CategoryMenu from './CategoryMenu';
+import ProductCard from '../components/ProductCard';
 import { useAuth } from '../contexts/AuthContext';
-import './ChaquetasHombre.css';
+import axios from 'axios';
+import CategoryMenu from '../components/CategoryMenu';
+import FilterPanel from '../components/FilterPanel';
+import './TodosProductosMujer.css';
 
-/**
- * URL base para la API de productos de chaquetas de hombre
- * @constant {string}
- */
-const API_URL = 'http://localhost:8000/api/productos/categoria/15';
+const API_URL = 'http://localhost:8000/api/productos/genero/nombre/Mujeres';
 
-/**
- * Componente que renderiza la sección hero de la página
- * @component
- * @returns {JSX.Element} Sección hero con título y descripción
- */
-const HeroSection = () => (
-      <div className="chaquetas-hombre-hero">
-        <div className="chaquetas-hombre-content">
-          <h1>Chaquetas</h1>
-          <p>Descubre nuestra colección de chaquetas para hombre</p>
-        </div>
-      </div>
-);
-
-/**
- * Componente que muestra el estado de carga
- * @component
- * @returns {JSX.Element} Mensaje de carga
- */
 const LoadingState = () => (
   <div className="loading">Cargando productos...</div>
 );
 
-/**
- * Componente que muestra mensajes de error
- * @component
- * @param {Object} props - Propiedades del componente
- * @param {string} props.message - Mensaje de error a mostrar
- * @returns {JSX.Element} Mensaje de error
- */
 const ErrorState = ({ message }) => (
   <div className="error">{message}</div>
 );
 
 const ProductGrid = ({ products, favoritos, onFavoriteToggle }) => (
-      <div className="chaquetas-hombre-grid">
+  <div className="todos-productos-grid">
     {products.map((product) => (
       <ProductCard
         key={product.id}
         product={product}
         isFavorite={favoritos.includes(product.id)}
         onFavoriteToggle={onFavoriteToggle}
+        showFavoriteButton={true}
       />
     ))}
   </div>
@@ -77,16 +37,11 @@ const FilterButton = ({ onClick }) => (
       <span></span>
       <span></span>
     </div>
-    <span className="filter-text">Filtro</span>
+    <span className="filter-text">Filtrar</span>
   </button>
 );
 
-/**
- * Componente principal de la página de chaquetas
- * @component
- * @returns {JSX.Element} Página completa de chaquetas
- */
-const ChaquetasHombre = () => {
+const TodosProductosMujer = () => {
   const { user, isLoggedIn } = useAuth();
   const [products, setProducts] = useState([]);
   const [favoritos, setFavoritos] = useState([]);
@@ -94,10 +49,9 @@ const ChaquetasHombre = () => {
   const [error, setError] = useState(null);
   const [showFilters, setShowFilters] = useState(false);
   const [filters, setFilters] = useState({
-    priceRange: { min: 0, max: 250 },
-    sortBy: 'priceAsc',
-    size: '',
-    color: ''
+    priceRange: [0, 1000],
+    sizes: [],
+    colors: []
   });
 
   useEffect(() => {
@@ -108,38 +62,7 @@ const ChaquetasHombre = () => {
           throw new Error('Error al cargar los productos');
         }
         const data = await response.json();
-        
-        // Aplicar filtros
-        let filteredData = [...data];
-        
-        // Filtrar por rango de precio
-        filteredData = filteredData.filter(product => 
-          product.precio >= filters.priceRange.min && 
-          product.precio <= filters.priceRange.max
-        );
-
-        // Filtrar por talla si está seleccionada
-        if (filters.size) {
-          filteredData = filteredData.filter(product => 
-            product.tallas && product.tallas.includes(filters.size)
-          );
-        }
-
-        // Filtrar por color si está seleccionado
-        if (filters.color) {
-          filteredData = filteredData.filter(product => 
-            product.color && product.color.toLowerCase() === filters.color
-          );
-        }
-
-        // Ordenar por precio
-        if (filters.sortBy === 'priceAsc') {
-          filteredData.sort((a, b) => a.precio - b.precio);
-        } else if (filters.sortBy === 'priceDesc') {
-          filteredData.sort((a, b) => b.precio - a.precio);
-        }
-
-        setProducts(filteredData);
+        setProducts(data);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -147,12 +70,11 @@ const ChaquetasHombre = () => {
       }
     };
     fetchProducts();
-  }, [filters]);
+  }, []);
 
   useEffect(() => {
     const fetchFavoritos = async () => {
       if (!isLoggedIn || !user?.token) return;
-
       try {
         const response = await axios.get('http://localhost:8000/api/favoritos', {
           headers: {
@@ -165,7 +87,6 @@ const ChaquetasHombre = () => {
         console.error('Error al cargar favoritos:', error);
       }
     };
-
     fetchFavoritos();
   }, [isLoggedIn, user]);
 
@@ -188,27 +109,36 @@ const ChaquetasHombre = () => {
     setShowFilters(false);
   };
 
+  const filteredProducts = products.filter(product => {
+    const matchesPrice = product.precio >= filters.priceRange[0] && product.precio <= filters.priceRange[1];
+    const matchesSize = filters.sizes.length === 0 || filters.sizes.some(size => product.tallas.includes(size));
+    const matchesColor = filters.colors.length === 0 || filters.colors.includes(product.color);
+    return matchesPrice && matchesSize && matchesColor;
+  });
+
   const renderContent = () => {
     if (loading) return <LoadingState />;
     if (error) return <ErrorState message={error} />;
-    return <ProductGrid products={products} favoritos={favoritos} onFavoriteToggle={handleFavoriteToggle} />;
+    return <ProductGrid products={filteredProducts} favoritos={favoritos} onFavoriteToggle={handleFavoriteToggle} />;
   };
 
   return (
-    <div className="chaquetas-hombre-container">
-      <HeroSection />
-      <div className="products-container">
+    <div className="todos-productos-mujer">
+      <div className="filter-section">
         <div className="category-menu-container">
           <CategoryMenu />
         </div>
         <div className="filter-button-container">
           <FilterButton onClick={() => setShowFilters(!showFilters)} />
         </div>
+      </div>
+      <div className="products-container">
         {showFilters && (
           <div className="filter-sidebar">
             <FilterPanel 
               onFilterChange={handleFilterChange}
               onClose={handleCloseFilters}
+              filters={filters}
             />
           </div>
         )}
@@ -218,4 +148,4 @@ const ChaquetasHombre = () => {
   );
 };
 
-export default ChaquetasHombre; 
+export default TodosProductosMujer; 

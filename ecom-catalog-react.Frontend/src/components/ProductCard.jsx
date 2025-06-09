@@ -6,21 +6,21 @@
  * 
  * @component
  */
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useRef } from 'react';
 import { useAuth } from '../contexts/AuthContext';
+import { useFavorites } from '../contexts/FavoritesContext';
 import { useNavigate } from 'react-router-dom';
 import './ProductCard.css';
 
 const ProductCard = ({ 
   product, 
-  onFavoriteToggle, 
-  isFavorite = false,
   showFavoriteButton = true 
 }) => {
   const { user, isLoggedIn } = useAuth();
+  const { favorites, toggleFavorite } = useFavorites();
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const favoriteButtonRef = useRef(null);
 
   const handleFavoriteClick = async (e) => {
     e.preventDefault();
@@ -30,26 +30,15 @@ const ProductCard = ({
     }
     setIsLoading(true);
     try {
-      const headers = {
-        'Authorization': `Bearer ${user.token}`,
-        'Content-Type': 'application/json'
-      };
-
-      if (isFavorite) {
-        await axios.delete(`http://localhost:8000/api/favoritos/${product.id}`, { headers });
-      } else {
-        await axios.post(`http://localhost:8000/api/favoritos/${product.id}`, {}, { headers });
-      }
-      
-      if (onFavoriteToggle) {
-        onFavoriteToggle(product.id);
-      }
+      await toggleFavorite(product.id, favoriteButtonRef.current);
     } catch (error) {
-      console.error('Error al actualizar favoritos:', error.response?.data || error.message);
+      console.error('Error al actualizar favoritos:', error);
     } finally {
       setIsLoading(false);
     }
   };
+
+  const isFavorite = favorites.includes(product.id);
 
   return (
     <div className="card product-card">
@@ -61,6 +50,7 @@ const ProductCard = ({
         />
         {showFavoriteButton && (
           <button 
+            ref={favoriteButtonRef}
             className={`favorite-btn ${isFavorite ? 'active' : ''}`}
             onClick={handleFavoriteClick}
             disabled={isLoading}

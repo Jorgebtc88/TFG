@@ -1,35 +1,72 @@
 import React, { useState, useEffect } from 'react';
+import ProductCard from './components/ProductCard';
+import { useAuth } from './contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './Mujeres.css';
 
 const Mujeres = () => {
-  // Estados para manejar los productos, carga y errores
-  const [products, setProducts] = useState([]); // Array que almacena los productos
-  const [loading, setLoading] = useState(true); // Indica si los datos están cargando
-  const [error, setError] = useState(null); // Almacena cualquier error que ocurra
-  const [showAll, setShowAll] = useState(false); // Controla si se muestran todos los productos
+  const { user, isLoggedIn } = useAuth();
+  const navigate = useNavigate();
+  const [products, setProducts] = useState([]);
+  const [favoritos, setFavoritos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [showAll, setShowAll] = useState(false);
 
-  // Efecto para cargar los productos cuando el componente se monta
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        // Realiza la petición a la API para obtener los productos de la categoría mujeres
         const response = await fetch('http://localhost:8000/api/productos/genero/nombre/Mujeres');
         if (!response.ok) {
           throw new Error('Error al cargar los productos');
         }
         const data = await response.json();
-        setProducts(data); // Actualiza el estado con los productos obtenidos
+        setProducts(data);
       } catch (err) {
-        setError(err.message); // Maneja cualquier error que ocurra
+        setError(err.message);
       } finally {
-        setLoading(false); // Indica que la carga ha terminado
+        setLoading(false);
       }
     };
 
     fetchProducts();
-  }, []); // El array vacío significa que el efecto solo se ejecuta al montar el componente
+  }, []);
 
-  // Determina los productos a mostrar
+  useEffect(() => {
+    const fetchFavoritos = async () => {
+      if (!isLoggedIn || !user?.token) return;
+
+      try {
+        const response = await axios.get('http://localhost:8000/api/favoritos', {
+          headers: {
+            'Authorization': `Bearer ${user.token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+        setFavoritos(response.data.map(fav => fav.producto.id));
+      } catch (error) {
+        console.error('Error al cargar favoritos:', error);
+      }
+    };
+
+    fetchFavoritos();
+  }, [isLoggedIn, user]);
+
+  const handleFavoriteToggle = (productId) => {
+    setFavoritos(prevFavoritos => {
+      if (prevFavoritos.includes(productId)) {
+        return prevFavoritos.filter(id => id !== productId);
+      } else {
+        return [...prevFavoritos, productId];
+      }
+    });
+  };
+
+  const handleVerTodo = () => {
+    navigate('/todos-productos-mujer');
+  };
+
   const productsToShow = showAll ? products : products.slice(0, 4);
 
   return (
@@ -48,33 +85,24 @@ const Mujeres = () => {
           <div className="error">{error}</div>
         ) : (
           <>
-            <div className="mujeres-grid">
-              {productsToShow.map((product) => (
-                <div className="card product-card" key={product.id}>
-                  <div className="image-container">
-                    <img src={product.imagenUrl} alt={product.nombre} className="card-img-top product-image" />
-                  </div>
-                  <div className="card-body product-info">
-                    <h6 className="card-title product-title">{product.nombre}</h6>
-                    <p className="card-text">{product.descripcion}</p>
-                    <strong>{product.precio} €</strong>
-                    <div className="tallas-lista">
-                      {product.tallas && product.tallas.length > 0
-                        ? product.tallas.map(t => t.nombre).join(' · ')
-                        : 'Sin tallas'}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-            
-            <div className="ver-todo-container">
+            <div className="products-header">
               <button 
                 className="ver-todo-btn" 
-                onClick={() => setShowAll(true)}
+                onClick={handleVerTodo}
               >
                 Ver todo
               </button>
+            </div>
+            <div className="mujeres-grid">
+              {productsToShow.map((product) => (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  isFavorite={favoritos.includes(product.id)}
+                  onFavoriteToggle={handleFavoriteToggle}
+                  showFavoriteButton={true}
+                />
+              ))}
             </div>
           </>
         )}

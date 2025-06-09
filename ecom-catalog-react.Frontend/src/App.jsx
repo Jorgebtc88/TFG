@@ -10,6 +10,7 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import './App.css'
 import { AuthProvider } from './contexts/AuthContext';
+import { FavoritesProvider } from './contexts/FavoritesContext';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import AdminPanel from './components/admin/AdminPanel';
 import AdminNav from './components/admin/AdminNav';
@@ -24,7 +25,6 @@ import Newsletter from './Newsletter';
 import Hombres from './Hombres';
 import Mujeres from './Mujeres';
 import Colecciones from './pages/Colecciones';
-import TodosProductos from './pages/TodosProductos';
 import Favoritos from './components/Favoritos';
 
 // Componentes de Categorías de Hombres
@@ -55,6 +55,8 @@ import FaqAccordion from './FaqAccordion';
 import FaqCategoria from './FaqCategoria';
 import Envios from './Envios';
 import SearchResult from './components/SearchResult';
+import TodosProductosMujer from './pages/TodosProductosMujer';
+import TodosProductosHombre from './pages/TodosProductosHombre';
 
 function App() {
   // Estado para controlar la visibilidad del carrito
@@ -86,80 +88,84 @@ function App() {
 
   return (
     <AuthProvider>
-      <CartProvider>
-        <Router>
-          <div className="min-h-screen bg-gray-100">
-            <div className="App">
-              {/* Header condicional */}
-              <HeaderWrapper />
-              
-              <main className="main-content">
-                <Routes>
-                  {/* Ruta principal con Hero y Newsletter */}
-                  <Route path="/" element={
-                    <>
-                      <Hero />
-                      <Newsletter />
-                    </>
-                  } />
-                  
-                  {/* Rutas de categorías de Hombres */}
-                  <Route path="/hombres" element={<Hombres />} />
-                  <Route path="/hombres/camisetas" element={<CamisetasHombre />} />
-                  <Route path="/hombres/pantalones" element={<PantalonesHombre />} />
-                  <Route path="/hombres/zapatos" element={<ZapatosHombre />} />
-                  <Route path="/hombres/chaquetas" element={<ChaquetasHombre />} />
+      <FavoritesProvider>
+        <CartProvider>
+          <Router>
+            <div className="min-h-screen bg-gray-100">
+              <div className="App">
+                {/* Header condicional */}
+                <HeaderWrapper />
+                
+                <main className="main-content">
+                  <Routes>
+                    {/* Ruta principal con Hero y Newsletter */}
+                    <Route path="/" element={
+                      <>
+                        <Hero />
+                        <Newsletter />
+                      </>
+                    } />
+                    
+                    {/* Rutas de categorías de Hombres */}
+                    <Route path="/hombres" element={<Hombres />} />
+                    <Route path="/hombres/camisetas" element={<CamisetasHombre />} />
+                    <Route path="/hombres/pantalones" element={<PantalonesHombre />} />
+                    <Route path="/hombres/zapatos" element={<ZapatosHombre />} />
+                    <Route path="/hombres/chaquetas" element={<ChaquetasHombre />} />
 
-                  {/* Rutas de categorías de Mujeres */}
-                  <Route path="/mujeres" element={<Mujeres />} />
-                  <Route path="/mujeres/camisetas" element={<Camisetas />} />
-                  <Route path="/mujeres/pantalones" element={<Pantalones />} />
-                  <Route path="/mujeres/vestidos" element={<Vestidos />} />
-                  <Route path="/mujeres/zapatos" element={<Zapatos />} />
-                  <Route path="/mujeres/todos" element={<TodosProductos />} />
+                    {/* Rutas de categorías de Mujeres */}
+                    <Route path="/mujeres" element={<Mujeres />} />
+                    <Route path="/mujeres/camisetas" element={<Camisetas />} />
+                    <Route path="/mujeres/pantalones" element={<Pantalones />} />
+                    <Route path="/mujeres/vestidos" element={<Vestidos />} />
+                    <Route path="/mujeres/zapatos" element={<Zapatos />} />
+                    <Route path="/todos-productos-mujer" element={<TodosProductosMujer />} />
+                    <Route path="/todos-productos-hombre" element={<TodosProductosHombre />} />
+                    
 
-                  {/* Ruta de favoritos */}
-                  <Route path="/favoritos" element={<Favoritos />} />
+                    {/* Ruta de favoritos */}
+                    <Route path="/favoritos" element={<Favoritos />} />
 
-                  {/* Ruta de colecciones */}
-                  <Route path="/colecciones" element={<Colecciones />} />
-                  
-                  {/* Rutas de autenticación */}
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/registro" element={<Register />} />
-                  <Route path="/recuperar-contrasena" element={<RecuperarContrasena />} />
-                  
-                  {/* Ruta del carrito */}
-                  <Route path="/carrito" element={<Cart />} />
+                    {/* Ruta de colecciones */}
+                    <Route path="/colecciones" element={<Colecciones />} />
+                    
+                    {/* Rutas de autenticación */}
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/registro" element={<Register />} />
+                    <Route path="/recuperar-contrasena" element={<RecuperarContrasena />} />
+                    
+                    {/* Ruta del carrito */}
+                    <Route path="/carrito" element={<Cart />} />
 
-                  {/* Rutas de información */}
-                  <Route path="/devoluciones" element={<Devoluciones />} />
-                  <Route path="/contacto" element={<Contacto />} />
-                  <Route path="/faq" element={<FaqAccordion />} />
-                  <Route path="/faq/:slug" element={<FaqCategoria />} />
-                  <Route path="/envios" element={<Envios />} />
-                  
-                  {/* Ruta de resultados de búsqueda */}
-                  <Route path="/buscar" element={<SearchResult />} />
+                    {/* Rutas de información */}
+                    <Route path="/devoluciones" element={<Devoluciones />} />
+                    <Route path="/contacto" element={<Contacto />} />
+                    <Route path="/faq" element={<FaqAccordion />} />
+                    <Route path="/faq/:slug" element={<FaqCategoria />} />
+                    <Route path="/envios" element={<Envios />} />
+                    
+                    {/* Ruta de resultados de búsqueda */}
+                    <Route path="/buscar" element={<SearchResult />} />
 
-                  {/* Ruta del panel de administración */}
-                  <Route
-                    path="/admin"
-                    element={
-                      <ProtectedRoute requireAdmin={true}>
-                        <AdminPanel />
-                      </ProtectedRoute>
-                    }
-                  />
-                </Routes>
-              </main>
+                    {/* Ruta del panel de administración */}
+                    <Route
+                      path="/admin"
+                      element={
+                        <ProtectedRoute requireAdmin={true}>
+                          <AdminPanel />
+                        </ProtectedRoute>
+                      }
+                    />
+                  </Routes>
+                </main>
 
-              {/* Footer condicional */}
-              <FooterWrapper />
+                {/* Footer condicional */}
+                <FooterWrapper />
+              </div>
             </div>
-          </div>
-        </Router>
-      </CartProvider>
+          </Router>
+        </CartProvider>
+      </FavoritesProvider>
     </AuthProvider>
   )
 }

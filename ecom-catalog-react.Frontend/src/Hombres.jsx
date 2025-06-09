@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import ProductCard from './components/ProductCard';
+import { useAuth } from './contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './Hombres.css';
 
 const Hombres = () => {
-  // Estados para manejar los productos, carga y errores
+  const { user, isLoggedIn } = useAuth();
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
+  const [favoritos, setFavoritos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showAll, setShowAll] = useState(false);
@@ -27,6 +33,40 @@ const Hombres = () => {
     fetchProducts();
   }, []);
 
+  useEffect(() => {
+    const fetchFavoritos = async () => {
+      if (!isLoggedIn || !user?.token) return;
+
+      try {
+        const response = await axios.get('http://localhost:8000/api/favoritos', {
+          headers: {
+            'Authorization': `Bearer ${user.token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+        setFavoritos(response.data.map(fav => fav.producto.id));
+      } catch (error) {
+        console.error('Error al cargar favoritos:', error);
+      }
+    };
+
+    fetchFavoritos();
+  }, [isLoggedIn, user]);
+
+  const handleFavoriteToggle = (productId) => {
+    setFavoritos(prevFavoritos => {
+      if (prevFavoritos.includes(productId)) {
+        return prevFavoritos.filter(id => id !== productId);
+      } else {
+        return [...prevFavoritos, productId];
+      }
+    });
+  };
+
+  const handleVerTodo = () => {
+    navigate('/todos-productos-hombre');
+  };
+
   const productsToShow = showAll ? products : products.slice(0, 4);
 
   return (
@@ -45,33 +85,24 @@ const Hombres = () => {
           <div className="error">{error}</div>
         ) : (
           <>
-            <div className="hombres-grid">
-              {productsToShow.map((product) => (
-                <div className="card product-card" key={product.id}>
-                  <div className="image-container">
-                    <img src={product.imagenUrl} alt={product.nombre} className="card-img-top product-image" />
-                  </div>
-                  <div className="card-body product-info">
-                    <h6 className="card-title product-title">{product.nombre}</h6>
-                    <p className="card-text">{product.descripcion}</p>
-                    <strong>{product.precio} €</strong>
-                    <div className="tallas-lista">
-                      {product.tallas && product.tallas.length > 0
-                        ? product.tallas.map(t => t.nombre).join(' · ')
-                        : 'Sin tallas'}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-            
-            <div className="ver-todo-container">
+            <div className="products-header">
               <button 
                 className="ver-todo-btn" 
-                onClick={() => setShowAll(true)}
+                onClick={handleVerTodo}
               >
                 Ver todo
               </button>
+            </div>
+            <div className="hombres-grid">
+              {productsToShow.map((product) => (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  isFavorite={favoritos.includes(product.id)}
+                  onFavoriteToggle={handleFavoriteToggle}
+                  showFavoriteButton={true}
+                />
+              ))}
             </div>
           </>
         )}
