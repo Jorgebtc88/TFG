@@ -9,10 +9,6 @@
 .chaquetas-hombre-container {
   width: 100%;
   min-height: 100%;
-  overflow-x: hidden;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
 }
 
 /* Sección Hero */
@@ -46,7 +42,7 @@
   position: relative;
   z-index: 1;
   text-align: center;
-  padding: rem;
+  padding: 0rem;
 }
 
 /* Estilos del título */
@@ -70,7 +66,6 @@
 .products-container {
   width: 100%;
   max-width: 100%;
-  margin: 0;
   padding: 2rem;
   box-sizing: border-box;
 }
@@ -78,8 +73,10 @@
 .chaquetas-hombre-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-  gap: 10px;
+  gap: 5px;
   margin-top: 1rem;
+  padding: 0 1rem;
+  margin-bottom: 2rem;
 }
 
 /* Estados de carga y error */
@@ -92,6 +89,73 @@
 
 .error {
   color: #e74c3c;
+}
+
+.product-card {
+  position: relative;
+  overflow: hidden;
+  border: none;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  border-radius: 8px;
+  transition: box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.product-image {
+  width: 100%;
+  display: block;
+  border-radius: 8px 8px 0 0;
+  height: 300px;
+}
+
+.product-info {
+  background: #fff;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  padding: 1rem;
+  position: relative;
+  top: 0;
+  transition: transform 0.3s, box-shadow 0.3s;
+  z-index: 2;
+}
+
+.tallas-lista {
+  font-size: 0.95rem;
+  color: #555;
+  margin-top: 0.5rem;
+  font-weight: 500;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.3s, opacity 0.3s;
+}
+
+.product-card:hover .product-info {
+  transform: translateY(-20px) scale(1.03);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+.product-card:hover .tallas-lista {
+  max-height: 40px;
+  opacity: 1;
+}
+
+.product-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
 }
 
 /* Media Queries para diseño responsive */
@@ -113,6 +177,13 @@
   .chaquetas-hombre-grid {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 5px;
+    margin-top: 0rem;
+  }
 }
 
 /* Móviles y dispositivos pequeños */
@@ -129,7 +200,7 @@
     font-size: 1rem;
   }
 
-  .chaquetas-hombre-grid {
+  .products-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
   }
@@ -149,14 +220,17 @@
 }
 
 .filter-button-container {
-  position: fixed;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
 }
 
 /* Contenedor del menú de categorías */
 .category-menu-container {
-  max-width: 600px;
-  margin: 0 auto;
-  background-color: none;
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
 }
 
 /* Ajustes para el menú de categorías */
@@ -164,8 +238,7 @@
   background-color: transparent;
   padding: 0;
   box-shadow: none;
-  margin-bottom: 0;
-  margin-top: 0;
+  margin: 0;
 }
 
 .category-menu ul {
@@ -201,18 +274,6 @@
 .category-menu li.active a {
   color: #e26d4a;
   font-weight: 600;
-}
-
-/* Botón de filtro */
-.filter-button-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0.5rem;
-  display: flex;
-  justify-content: flex-end;
-  position: relative;
-  height: 40px;
-  align-items: center;
 }
 
 /* Responsive Design */

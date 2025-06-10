@@ -38,12 +38,12 @@
   position: relative;
   z-index: 1;
   text-align: center;
-  padding: 2rem;
+  padding: 0rem;
 }
 
 .zapatos-content h1 {
   font-size: 3.5rem;
-  font-weight: 700;
+  font-weight: 500;
   margin-bottom: 1rem;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -56,20 +56,21 @@
   margin: 0 auto;
 }
 
-/* Grid de productos */
-.zapatos-grid {
-  padding: 0rem;
-  max-width: 1200px;
-  margin: 0 auto;  
+.products-container {
+  width: 100%;
+  max-width: 100%;
+  padding: 2rem;
+  box-sizing: border-box;
 }
 
 .zapatos-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
   gap: 5px;
-  margin-top: 2rem;
+  margin-top: 1rem;
+  padding: 0 1rem;
+  margin-bottom: 2rem;
 }
-
 
 /* Estados de carga y error */
 .loading, .error {
@@ -81,50 +82,6 @@
 
 .error {
   color: #e74c3c;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .zapatos-hero {
-    height: 50vh;
-  }
-
-  .zapatos-content h1 {
-    font-size: 2.5rem;
-  }
-
-  .zapatos-content p {
-    font-size: 1rem;
-    .zapatos-grid {
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    }
-  }
-
-  .products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 5px;
-    margin-top: 0rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .zapatos-hero {
-    height: 40vh;
-  }
-
-  .zapatos-content h1 {
-    font-size: 2rem;
-  }
-
-  .zapatos-content p {
-    font-size: 1rem;
-  }
-
-  .products-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
 }
 
 .product-card {
@@ -198,26 +155,27 @@
 .filter-section {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 0.5rem 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
   margin-bottom: 0.5rem;
 }
 
 .filter-button-container {
   display: flex;
   align-items: center;
+  margin: 0;
+  padding: 0;
 }
 
 /* Contenedor del menú de categorías */
 .category-menu-container {
-  max-width: 600px;
-  margin: 0 auto;
-  background-color: none;
- 
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
 }
 
 /* Ajustes para el menú de categorías */
@@ -225,8 +183,7 @@
   background-color: transparent;
   padding: 0;
   box-shadow: none;
-  margin-bottom: 0;
-  margin-top: 0;
+  margin: 0;
 }
 
 .category-menu ul {
@@ -264,18 +221,6 @@
   font-weight: 600;
 }
 
-/* Botón de filtro */
-.filter-button-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0.5rem;
-  display: flex;
-  justify-content: flex-end;
-  position: relative;
-  height:40px;
-  align-items: center;
-}
-
 /* Responsive Design */
 @media (max-width: 768px) {
   .filter-section {
@@ -305,7 +250,52 @@
   .filter-button-container {
     padding: 0.5rem;
   }
-} 
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .zapatos-hero {
+    height: 50vh;
+  }
+
+  .zapatos-content h1 {
+    font-size: 2.5rem;
+  }
+
+  .zapatos-content p {
+    font-size: 1rem;
+  }
+
+  .zapatos-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 5px;
+    margin-top: 0rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .zapatos-hero {
+    height: 40vh;
+  }
+
+  .zapatos-content h1 {
+    font-size: 2rem;
+  }
+
+  .zapatos-content p {
+    font-size: 1rem;
+  }
+
+  .products-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
 
 
 

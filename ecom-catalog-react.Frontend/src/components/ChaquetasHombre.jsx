@@ -198,11 +198,13 @@ const ChaquetasHombre = () => {
     <div className="chaquetas-hombre-container">
       <HeroSection />
       <div className="products-container">
-        <div className="category-menu-container">
-          <CategoryMenu />
-        </div>
-        <div className="filter-button-container">
-          <FilterButton onClick={() => setShowFilters(!showFilters)} />
+        <div className="filter-section">
+          <div className="category-menu-container">
+            <CategoryMenu />
+          </div>
+          <div className="filter-button-container">
+            <FilterButton onClick={() => setShowFilters(!showFilters)} />
+          </div>
         </div>
         {showFilters && (
           <div className="filter-sidebar">
@@ -218,4 +220,4 @@ const ChaquetasHombre = () => {
   );
 };
 
-export default ChaquetasHombre; 
+export default ChaquetasHombre;

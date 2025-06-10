@@ -660,7 +660,7 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   display: none;
   z-index: 1000;
-  min-width: 100px;
+  min-width: 120px;
   transition: all 0.3s ease;
 }
 

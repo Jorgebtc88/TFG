@@ -57,8 +57,8 @@
 }
 
 .products-container {
-  width: 100vw;
-  max-width: 100vw;
+  width: 100%;
+  max-width: 100%;
   padding: 2rem;
   box-sizing: border-box;
 }
@@ -67,9 +67,10 @@
 .camisetas-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-  gap: 10px;
+  gap: 5px;
   margin-top: 1rem;
-  
+  padding: 0 1rem;
+  margin-bottom: 2rem;
 }
 
 
@@ -83,50 +84,6 @@
 
 .error {
   color: #e74c3c;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .camisetas-hero {
-    height: 50vh;
-  }
-
-  .camisetas-content h1 {
-    font-size: 2.5rem;
-  }
-
-  .camisetas-content p {
-    font-size: 1rem;
-    .camisetas-grid {
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    }
-  }
-
-  .products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 5px;
-    margin-top: 0rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .camisetas-hero {
-    height: 40vh;
-  }
-
-  .camisetas-content h1 {
-    font-size: 2rem;
-  }
-
-  .camisetas-content p {
-    font-size: 1rem;
-  }
-
-  .products-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
 }
 
 .product-card {
@@ -210,15 +167,17 @@
 }
 
 .filter-button-container {
-  position:fixed;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
 }
 
 /* Contenedor del menú de categorías */
 .category-menu-container {
-  max-width: 600px;
-  margin: 0 auto;
-  background-color: none;
- 
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
 }
 
 /* Ajustes para el menú de categorías */
@@ -226,8 +185,7 @@
   background-color: transparent;
   padding: 0;
   box-shadow: none;
-  margin-bottom: 0;
-  margin-top: 0;
+  margin: 0;
 }
 
 .category-menu ul {
@@ -265,18 +223,6 @@
   font-weight: 600;
 }
 
-/* Botón de filtro */
-.filter-button-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0.5rem;
-  display: flex;
-  justify-content: flex-end;
-  position: relative;
-  height:40px;
-  align-items: center;
-}
-
 /* Responsive Design */
 @media (max-width: 768px) {
   .filter-section {
@@ -308,6 +254,50 @@
   }
 } 
 
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .camisetas-hero {
+    height: 50vh;
+  }
+
+  .camisetas-content h1 {
+    font-size: 2.5rem;
+  }
+
+  .camisetas-content p {
+    font-size: 1rem;
+    .camisetas-grid {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 5px;
+    margin-top: 0rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .camisetas-hero {
+    height: 40vh;
+  }
+
+  .camisetas-content h1 {
+    font-size: 2rem;
+  }
+
+  .camisetas-content p {
+    font-size: 1rem;
+  }
+
+  .products-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
 
 
 
