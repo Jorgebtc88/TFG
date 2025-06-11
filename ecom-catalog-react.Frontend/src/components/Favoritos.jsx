@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../contexts/AuthContext';
+import { useFavorites } from '../contexts/FavoritesContext';
 import ProductCard from './ProductCard';
 import './Favoritos.css';
 
 const Favoritos = () => {
   const { user, isLoggedIn } = useAuth();
+  const { favorites, toggleFavorite } = useFavorites();
   const [favoritos, setFavoritos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -35,10 +37,13 @@ const Favoritos = () => {
     };
 
     fetchFavoritos();
-  }, [isLoggedIn, user]);
+  }, [isLoggedIn, user, favorites]);
 
-  const handleFavoriteToggle = (productId) => {
-    setFavoritos(favoritos.filter(fav => fav.producto.id !== productId));
+  const handleFavoriteToggle = async (productId, productElement) => {
+    const success = await toggleFavorite(productId, productElement);
+    if (success) {
+      setFavoritos(prevFavoritos => prevFavoritos.filter(fav => fav.producto.id !== productId));
+    }
   };
 
   if (loading) {

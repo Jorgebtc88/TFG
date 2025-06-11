@@ -29,12 +29,12 @@ const API_URL = 'http://localhost:8000/api/productos/categoria/14';
  * @returns {JSX.Element} Sección hero con título y descripción
  */
 const HeroSection = () => (
-  <div className="pantalones-hombre-hero">
-    <div className="pantalones-hombre-content">
-      <h1>Pantalones</h1>
-      <p>Descubre nuestra colección de pantalones para hombre</p>
-    </div>
-  </div>
+      <div className="pantalones-hombre-hero">
+        <div className="pantalones-hombre-content">
+          <h1>Pantalones</h1>
+          <p>Descubre nuestra colección de pantalones para hombre</p>
+        </div>
+      </div>
 );
 
 /**
@@ -58,7 +58,7 @@ const ErrorState = ({ message }) => (
 );
 
 const ProductGrid = ({ products, favoritos, onFavoriteToggle }) => (
-  <div className="pantalones-hombre-grid">
+      <div className="pantalones-hombre-grid">
     {products.map((product) => (
       <ProductCard
         key={product.id}
@@ -220,4 +220,4 @@ const PantalonesHombre = () => {
   );
 };
 
-export default PantalonesHombre;
+export default PantalonesHombre; 

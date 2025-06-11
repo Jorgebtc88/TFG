@@ -8,24 +8,24 @@
  */
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useCart } from './context/CartContext';
+import { useCart } from './contexts/CartContext';
 import './Header.css';
 import SearchPreviewPortal from './components/SearchPreviewPortal';
 import config from './config';
 import { useAuth } from './contexts/AuthContext';
 import { useFavorites } from './contexts/FavoritesContext';
 
-const CartPreview = ({ cartItems, onViewCart }) => {
-  const total = cartItems.reduce((sum, item) => sum + item.precio * item.quantity, 0);
+const CartPreview = ({ cart = [], onViewCart }) => {
+  const total = cart.reduce((sum, item) => sum + item.precio * item.quantity, 0);
   return (
     <div className="cart-preview">
       <h4>Carrito</h4>
-      {cartItems.length === 0 ? (
+      {cart.length === 0 ? (
         <div className="cart-preview-empty">Tu carrito está vacío</div>
       ) : (
         <>
           <ul className="cart-preview-list">
-            {cartItems.slice(0, 2).map(item => (
+            {cart.slice(0, 2).map(item => (
               <li key={item.id} className="cart-preview-item">
                 <img src={item.imagenUrl} alt={item.nombre} className="cart-preview-img" />
                 <div className="cart-preview-info">
@@ -48,7 +48,7 @@ const CartPreview = ({ cartItems, onViewCart }) => {
 };
 
 const Header = ({ onCartClick }) => {
-  const { cartItems, totalItems } = useCart();
+  const { cart = [], cartItemsCount = 0 } = useCart();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isHombresMenuOpen, setIsHombresMenuOpen] = useState(false);
@@ -321,18 +321,17 @@ const Header = ({ onCartClick }) => {
             aria-label="Carrito"
             onClick={() => navigate('/carrito')}
           >
-            {/* Icono de carrito moderno */}
             <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
               <circle cx="9" cy="21" r="1" />
               <circle cx="20" cy="21" r="1" />
               <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
             </svg>
-            {totalItems > 0 && (
-              <span className="cart-count">{totalItems}</span>
+            {cartItemsCount > 0 && (
+              <span className="cart-count">{cartItemsCount}</span>
             )}
           </button>
           {showCartPreview && (
-            <CartPreview cartItems={cartItems} onViewCart={() => { setShowCartPreview(false); navigate('/carrito'); }} />
+            <CartPreview cart={cart} onViewCart={() => { setShowCartPreview(false); navigate('/carrito'); }} />
           )}
         </div>
 

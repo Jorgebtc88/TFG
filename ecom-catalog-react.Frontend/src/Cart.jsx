@@ -1,18 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useCart } from './context/CartContext';
+import { useCart } from './contexts/CartContext';
 import './Cart.css';
 
 const Cart = () => {
-  const { cartItems, totalItems, updateQuantity, removeFromCart, clearCart } = useCart();
+  const { cart = [], updateQuantity, removeFromCart, clearCart } = useCart();
 
   // Calcular el total
-  const total = cartItems.reduce((sum, item) => sum + (item.precio * item.quantity), 0);
+  const total = cart.reduce((sum, item) => sum + (item.precio * item.quantity), 0);
 
   return (
     <div className="cart-container">
       <h2>Carrito de Compras</h2>
-      {cartItems.length === 0 ? (
+      {cart.length === 0 ? (
         <div className="empty-cart">
           <div className="empty-cart-icon" style={{ marginBottom: '1.5rem' }}>
             <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#e26d4a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -29,7 +29,7 @@ const Cart = () => {
       ) : (
         <>
           <div className="cart-items">
-            {cartItems.map(item => (
+            {cart.map(item => (
               <div key={item.id} className="cart-item">
                 <img src={item.imagenUrl} alt={item.nombre} className="item-image" />
                 <div className="item-details">

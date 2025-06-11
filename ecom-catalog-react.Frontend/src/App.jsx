@@ -11,6 +11,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import './App.css'
 import { AuthProvider } from './contexts/AuthContext';
 import { FavoritesProvider } from './contexts/FavoritesContext';
+import { CartProvider } from './contexts/CartContext';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import AdminPanel from './components/admin/AdminPanel';
 import AdminNav from './components/admin/AdminNav';
@@ -46,7 +47,6 @@ import RecuperarContrasena from './RecuperarContrasena';
 
 // Componentes de Carrito
 import Cart from './Cart';
-import { CartProvider } from './context/CartContext';
 
 // Componentes de Información
 import Devoluciones from './Devoluciones';
@@ -122,7 +122,6 @@ function App() {
                     <Route path="/todos-productos-mujer" element={<TodosProductosMujer />} />
                     <Route path="/todos-productos-hombre" element={<TodosProductosHombre />} />
                     
-
                     {/* Ruta de favoritos */}
                     <Route path="/favoritos" element={<Favoritos />} />
 
@@ -167,7 +166,7 @@ function App() {
         </CartProvider>
       </FavoritesProvider>
     </AuthProvider>
-  )
+  );
 }
 
-export default App
+export default App;

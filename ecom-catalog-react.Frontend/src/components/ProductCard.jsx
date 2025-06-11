@@ -9,7 +9,8 @@
 import React, { useState, useRef } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useFavorites } from '../contexts/FavoritesContext';
-import { useNavigate } from 'react-router-dom';
+import { useCart } from '../contexts/CartContext';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './ProductCard.css';
 
 const ProductCard = ({ 
@@ -18,9 +19,15 @@ const ProductCard = ({
 }) => {
   const { user, isLoggedIn } = useAuth();
   const { favorites, toggleFavorite } = useFavorites();
+  const { addToCart } = useCart();
   const [isLoading, setIsLoading] = useState(false);
+  const [isAddingToCart, setIsAddingToCart] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
   const favoriteButtonRef = useRef(null);
+
+  const isFavoritesPage = location.pathname === '/favoritos';
 
   const handleFavoriteClick = async (e) => {
     e.preventDefault();
@@ -35,6 +42,36 @@ const ProductCard = ({
       console.error('Error al actualizar favoritos:', error);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleAddToCart = async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    console.log('Intentando añadir al carrito:', product);
+    
+    if (!isLoggedIn || !user?.token) {
+      console.log('Usuario no logueado, redirigiendo a login');
+      navigate('/login');
+      return;
+    }
+
+    try {
+      setIsAddingToCart(true);
+      console.log('Llamando a addToCart con:', product);
+      addToCart(product);
+      console.log('Producto añadido al carrito');
+      
+      // Mostrar notificación
+      setShowNotification(true);
+      setTimeout(() => {
+        setShowNotification(false);
+      }, 2000);
+    } catch (error) {
+      console.error('Error al añadir al carrito:', error);
+    } finally {
+      setIsAddingToCart(false);
     }
   };
 
@@ -69,6 +106,33 @@ const ProductCard = ({
               />
             </svg>
           </button>
+        )}
+        {isFavoritesPage && (
+          <button 
+            className="cart-btn"
+            onClick={handleAddToCart}
+            disabled={isAddingToCart}
+            title="Agregar al carrito"
+          >
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" 
+              />
+            </svg>
+          </button>
+        )}
+        {showNotification && (
+          <div className="cart-notification">
+            Producto añadido al carrito
+          </div>
         )}
       </div>
       <div className="card-body product-info">
