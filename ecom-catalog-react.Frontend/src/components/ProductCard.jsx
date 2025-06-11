@@ -23,6 +23,7 @@ const ProductCard = ({
   const [isLoading, setIsLoading] = useState(false);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
   const favoriteButtonRef = useRef(null);
@@ -45,31 +46,31 @@ const ProductCard = ({
     }
   };
 
-  const handleAddToCart = async (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    
-    console.log('Intentando añadir al carrito:', product);
-    
-    if (!isLoggedIn || !user?.token) {
-      console.log('Usuario no logueado, redirigiendo a login');
-      navigate('/login');
+  const handleAddToCart = async () => {
+    if (!isLoggedIn) {
+      setShowNotification(true);
+      setNotificationMessage('Debes iniciar sesión para añadir productos al carrito');
+      setTimeout(() => {
+        setShowNotification(false);
+      }, 2000);
       return;
     }
 
     try {
       setIsAddingToCart(true);
-      console.log('Llamando a addToCart con:', product);
-      addToCart(product);
-      console.log('Producto añadido al carrito');
-      
-      // Mostrar notificación
+      await addToCart(product);
       setShowNotification(true);
+      setNotificationMessage('Producto añadido al carrito');
       setTimeout(() => {
         setShowNotification(false);
       }, 2000);
     } catch (error) {
       console.error('Error al añadir al carrito:', error);
+      setShowNotification(true);
+      setNotificationMessage('Error al añadir al carrito');
+      setTimeout(() => {
+        setShowNotification(false);
+      }, 2000);
     } finally {
       setIsAddingToCart(false);
     }
@@ -131,7 +132,7 @@ const ProductCard = ({
         )}
         {showNotification && (
           <div className="cart-notification">
-            Producto añadido al carrito
+            {notificationMessage}
           </div>
         )}
       </div>

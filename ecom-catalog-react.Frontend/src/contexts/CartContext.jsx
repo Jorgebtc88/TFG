@@ -12,43 +12,54 @@ export const useCart = () => {
 };
 
 export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState(() => {
-    try {
-      const savedCart = localStorage.getItem('cart');
-      const parsedCart = savedCart ? JSON.parse(savedCart) : [];
-      return Array.isArray(parsedCart) ? parsedCart : [];
-    } catch (error) {
-      console.error('Error al cargar el carrito inicial:', error);
-      return [];
-    }
-  });
-
   const { user, isLoggedIn } = useAuth();
+  const [cart, setCart] = useState([]);
 
-  // Actualizar el carrito en localStorage cuando cambie
+  // Cargar el carrito del usuario cuando inicia sesión
   useEffect(() => {
-    try {
-      localStorage.setItem('cart', JSON.stringify(cart));
-    } catch (error) {
-      console.error('Error al guardar el carrito:', error);
+    if (isLoggedIn && user) {
+      try {
+        const savedCart = localStorage.getItem(`cart_${user.id}`);
+        const parsedCart = savedCart ? JSON.parse(savedCart) : [];
+        setCart(Array.isArray(parsedCart) ? parsedCart : []);
+      } catch (error) {
+        console.error('Error al cargar el carrito del usuario:', error);
+        setCart([]);
+      }
+    } else {
+      // Limpiar el carrito cuando el usuario cierra sesión
+      setCart([]);
     }
-  }, [cart]);
+  }, [isLoggedIn, user]);
+
+  // Guardar el carrito en localStorage cuando cambia
+  useEffect(() => {
+    if (isLoggedIn && user) {
+      try {
+        localStorage.setItem(`cart_${user.id}`, JSON.stringify(cart));
+      } catch (error) {
+        console.error('Error al guardar el carrito:', error);
+      }
+    }
+  }, [cart, isLoggedIn, user]);
 
   const addToCart = (product) => {
+    if (!isLoggedIn) {
+      console.log('Debes iniciar sesión para añadir productos al carrito');
+      return;
+    }
+
     console.log('Añadiendo al carrito:', product);
     setCart(prevCart => {
-      // Verificar si el producto ya está en el carrito
       const existingProduct = prevCart.find(item => item.id === product.id);
       
       if (existingProduct) {
-        // Si ya existe, incrementar la cantidad
         return prevCart.map(item =>
           item.id === product.id
             ? { ...item, quantity: item.quantity + 1 }
             : item
         );
       } else {
-        // Si no existe, añadir nuevo producto
         return [...prevCart, { ...product, quantity: 1 }];
       }
     });
@@ -72,7 +83,9 @@ export const CartProvider = ({ children }) => {
 
   const clearCart = () => {
     setCart([]);
-    localStorage.removeItem('cart');
+    if (user) {
+      localStorage.removeItem(`cart_${user.id}`);
+    }
   };
 
   const getCartTotal = () => {
@@ -91,7 +104,8 @@ export const CartProvider = ({ children }) => {
     clearCart,
     getCartTotal,
     getCartItemsCount,
-    cartItemsCount: getCartItemsCount()
+    cartItemsCount: getCartItemsCount(),
+    isLoggedIn
   };
 
   return (
