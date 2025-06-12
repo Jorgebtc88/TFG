@@ -1,104 +1,140 @@
-# 🛒 E-commerce Catálogo - Resumen de Cambios y Mejoras
+# Tienda de Comercio Electrónico 
 
-## 1. 🛠️ Búsqueda Avanzada y Vista Previa Flotante
+## Descripción
+Aplicación web moderna para la gestión y visualización de productos de moda, desarrollada con tecnologías actuales y siguiendo las mejores prácticas de desarrollo. El sistema permite a los usuarios explorar productos, gestionar favoritos, realizar compras y administrar su perfil, mientras que los administradores tienen acceso a un panel completo para la gestión de productos, pedidos y usuarios.
 
-- Implementación de un panel de búsqueda flotante que aparece justo debajo del header, ocupando todo el ancho de la pantalla.
-- El panel muestra:
-  - Un campo de búsqueda con icono y botón de cerrar integrado.
-  - Resultados en tiempo real mientras el usuario escribe.
-  - Un contador de resultados (ej: `10 resultados`) y un botón/enlace **"Ver todo"** para acceder a la página completa de resultados.
-  - Solo los **4 primeros productos** en la vista previa, con scroll vertical propio y fondo blanco en la barra lateral.
-- Bloqueo del scroll de la página de fondo mientras el panel está abierto, para una experiencia de usuario más profesional.
-- Uso de React Portal para renderizar el panel flotante fuera del flujo del header, asegurando stacking y scroll correctos.
+## Características Principales
 
----
+### Frontend
+- Interfaz de usuario moderna y responsiva desarrollada con React
+- Navegación intuitiva con React Router
+- Gestión de estado global con Context API
+- Diseño adaptable a diferentes dispositivos
+- Sistema de filtrado avanzado de productos
+- Carrito de compras en tiempo real
+- Gestión de favoritos
+- Panel de administración completo
+- Autenticación y autorización de usuarios
+- Búsqueda en tiempo real
+- Notificaciones interactivas
 
-## 2. 📄 Página de Resultados de Búsqueda
+### Backend
+- API RESTful desarrollada con Spring Boot
+- Seguridad implementada con Spring Security y JWT
+- Persistencia de datos con JPA y MySQL
+- Gestión de usuarios y roles
+- Sistema de autenticación robusto
+- Manejo de productos y categorías
+- Gestión de pedidos
+- Validación de datos
+- Documentación de API
 
-- Página dedicada que muestra **todos los productos** que coinciden con la búsqueda, sin recorte.
-- Visualización consistente con el resto de la tienda: grid de productos, contador de resultados y navegación clara.
-- Botón "Volver" para regresar fácilmente a la página anterior.
+## Tecnologías Utilizadas
 
----
+### Frontend
+- React 19
+- React Router DOM
+- Axios
+- Bootstrap 5
+- TailwindCSS
+- Vite
+- ESLint
+- PostCSS
 
-## 3. 🗂️ Páginas de Categoría Mejoradas
+### Backend
+- Java 17
+- Spring Boot 3.2.3
+- Spring Security
+- Spring Data JPA
+- MySQL
+- JWT
+- Lombok
+- Maven
 
-- Todas las páginas de categoría (Hombres, Mujeres, Pantalones, etc.) muestran solo los **4 primeros productos** por defecto.
-- Se añade un botón **"Ver todo"** debajo del grid, que al hacer clic muestra todos los productos de la categoría.
-- Grid de productos responsivo y visualmente atractivo, con tarjetas de producto uniformes.
+## Requisitos del Sistema
 
----
+### Frontend
+- Node.js (versión 18 o superior)
+- npm o yarn
+- Navegador web moderno
 
-## 4. 🎨 Consistencia Visual y Experiencia de Usuario
+### Backend
+- Java 17 o superior
+- Maven
+- MySQL 8.0 o superior
 
-- Scroll vertical personalizado en la vista previa de búsqueda, con fondo blanco y sin scroll horizontal.
-- Eliminación de márgenes y paddings innecesarios para un diseño limpio y moderno.
-- Colores, tipografías y botones coherentes en toda la aplicación.
-- Mensajes claros de carga y error en todas las páginas de productos.
+## Instalación
 
----
-
-## 5. ⚙️ Backend y Lógica de Búsqueda
-
-- El backend permite búsquedas por nombre de categoría, devolviendo todos los productos que coincidan (sin importar el género).
-- Si existen categorías duplicadas (ej: "Pantalones" para hombres y mujeres), la búsqueda global suma los productos de ambas.
-- Se documentó la posibilidad de filtrar por género si se requiere en el futuro.
-
----
-
-## 6. 📚 Documentación y Buenas Prácticas
-
-- Código comentado y estructurado para facilitar el mantenimiento y futuras ampliaciones.
-- Uso de hooks de React (`useState`, `useEffect`) para la gestión de estado y efectos secundarios.
-- Separación clara entre lógica de negocio, presentación y estilos.
-
----
-
-## 7. 💡 UX/UI Detalles Destacados
-
-- Panel de búsqueda flotante con efecto de elevación y scroll propio.
-- Botón de cerrar siempre visible y accesible.
-- Grid de productos sin desbordes ni barras de scroll innecesarias.
-- Visualización clara del número de resultados y acceso rápido a la vista completa.
-
----
-
-## 🖼️ Ejemplo de Vista Previa de Búsqueda
-
-> _Aquí puedes añadir una captura de pantalla de la vista previa flotante de búsqueda mostrando productos y scroll lateral blanco._
-
-```
-![Vista previa flotante de búsqueda mostrando productos y scroll lateral blanco](ruta/a/tu/captura.png)
-```
-
----
-
-## 🔄 Diagrama de Flujo de la Búsqueda
-
-```mermaid
-flowchart TD
-    A[Usuario escribe en la barra de búsqueda] --> B[Petición al backend]
-    B --> C[Backend responde con productos]
-    C --> D[Vista previa muestra 4 productos + contador + botón Ver todo]
-    D -->|Click en Ver todo| E[Página de resultados completa]
+### Frontend
+```bash
+cd ecom-catalog-react.Frontend
+npm install
+npm run dev
 ```
 
----
+### Backend
+```bash
+cd productocatalogo.backend
+mvn clean install
+mvn spring-boot:run
+```
 
-## 👨‍💻 Créditos
+## Configuración
 
-- Desarrollo Frontend: [Tu Nombre]
-- Backend/API: [Tu Nombre o Equipo]
-- Diseño UX/UI: [Tu Nombre o Equipo]
+### Base de Datos
+1. Crear una base de datos MySQL
+2. Configurar las credenciales en `application.properties`
+3. Ejecutar el script SQL inicial
 
----
+### Variables de Entorno
+Configurar las siguientes variables en el backend:
+- `JWT_SECRET`
+- `DB_URL`
+- `DB_USERNAME`
+- `DB_PASSWORD`
 
-## 🚀 Futuras Mejoras
+## Estructura del Proyecto
+```
+├── ecom-catalog-react.Frontend/
+│   ├── src/
+│   │   ├── assets/           # Imágenes, íconos, etc.
+│   │   ├── components/       # Componentes reutilizables (botones, tarjetas, etc.)
+│   │   ├── context/          # Contextos de React
+│   │   ├── contexts/         # (Posible duplicado, revisar)
+│   │   ├── pages/            # Páginas del sitio
+│   │   │   └── admin/        # Panel de administración
+│   │   ├── services/         # Llamadas a la API
+│   │   ├── App.jsx           # Componente raíz
+│   │   ├── Header.jsx        # Encabezado de navegación
+│   │   ├── Cart.jsx          # Vista del carrito
+│   │   ├── config.js         # Configuración global (URL API, etc.)
+│   │   └── main.jsx          # Punto de entrada
+│   └── public/               # Archivos estáticos públicos (favicon, index.html, etc.)
+│
+└── productocatalogo.backend/
+    ├── src/
+    │   └── main/
+    │       ├── java/com/producto/productocatalogo/
+    │       │   ├── config/         # Configuraciones de CORS, Swagger, etc.
+    │       │   ├── controller/     # Endpoints REST
+    │       │   ├── exception/      # Clases para manejar errores personalizados
+    │       │   ├── model/          # Entidades JPA (Producto, Categoría, Usuario, etc.)
+    │       │   ├── repository/     # Interfaces JpaRepository
+    │       │   ├── security/       # Filtros JWT, configuración de seguridad
+    │       │   └── service/        # Servicios con lógica de negocio
+    │       └── resources/
+    │           └── application.properties
+    └── pom.xml
+```
 
-- Filtro por género en la búsqueda avanzada.
-- Paginación en la página de resultados.
-- Mejoras de accesibilidad (a11y).
-- Animaciones adicionales y feedback visual.
+## Características de Seguridad
+- Autenticación basada en JWT
+- Protección contra CSRF
+- Validación de datos
+- Sanitización de entradas
+- Control de acceso basado en roles
+- Encriptación de contraseñas
+- Headers de seguridad
 
----
+
 
